@@ -11,7 +11,6 @@ public class MainMenu {
     final private static String MESS_ALTRA_OPZIONE = "Selezionare un'altra opzione.";
     private MenuManutentore menuManutentore = new MenuManutentore();
 
-
     public void esegui(){
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
       boolean fineProgramma = false;
@@ -21,7 +20,6 @@ public class MainMenu {
 	    }while (!fineProgramma);
     }
     
-
     public boolean eseguiFunzioneScelta(int numFunzione) 
     {
    
@@ -33,8 +31,7 @@ public class MainMenu {
         case 1: // Apri menu utente
           break;
     
-        case 2: // Apri menu manutentore
-          
+        case 2: // Apri menu manutentore 
           menuManutentore.esegui();
           break;
         
