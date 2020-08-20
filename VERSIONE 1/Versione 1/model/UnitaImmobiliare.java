@@ -13,19 +13,13 @@ public class UnitaImmobiliare {
         artefatti = new ArrayList<>();
     }
 
-    //imposto che l'unita' immobiliare e' stata creata
-    public void setCreatedUnit(){
-        created = true;
-    }
-
-    //chiedo se l'unita' immoboliare esiste
-    public boolean createdUnit(){
-        if(created) return true;
-        return false;
-    }
-
     public boolean aggiungiStanza(String nomeStanza){
         stanze.add(nomeStanza);
+        return true;
+    }
+
+    public boolean aggiungiArtefatto(String nomeArtefatto){
+        artefatti.add(nomeArtefatto);
         return true;
     }
 

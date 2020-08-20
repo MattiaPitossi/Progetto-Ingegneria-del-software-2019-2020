@@ -94,6 +94,8 @@ public class MenuManutentore {
               else if(unitaImmobiliare.aggiungiStanza(nomeStanzeSuccessive)) 
                 System.out.println("Stanza aggiunta correttamente");
             } while(!finito);
+            if(unitaImmobiliare.aggiungiArtefatto(InputDati.leggiStringa("Inserisci il nome del primo artefatto: "))) 
+            System.out.println("Artefatto aggiunto correttamente");
             alreadyCreatedUnit = 1;
           }
           
