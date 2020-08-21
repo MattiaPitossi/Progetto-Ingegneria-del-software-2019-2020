@@ -1,10 +1,7 @@
 package view;
 
 import java.util.regex.Pattern;
-
-import model.CategoriaAttuatori;
 import model.CategoriaSensori;
-import model.ListaCategoriaAttuatori;
 import model.ListaCategoriaSensori;
 import model.UnitaImmobiliare;
 import utility.InputDati;
@@ -13,10 +10,11 @@ import utility.MyMenu;
 public class MenuManutentore {
     final private static String TITOLO = "Sistema domotico";
     final private static String [] VOCIMENU = {"Crea categoria sensore", "Crea nuova categoria attuatore", "Crea nuovo sensore (richiede la presenza di almeno una categoria)", "Crea nuovo attuatore (richiede la presenza di almeno una categoria)","Crea nuova unita' immobiliare","Descrivi unita' immobiliare" };
-    final private static String MESS_USCITA = "Vuoi veramente uscire ?";
+    final private static String MESS_USCITA = "Vuoi tornare al menu precedente ?";
     final private static String ERRORE_FUNZIONE = "La funzione non rientra tra quelle disponibili !";
     final private static String MESS_ALTRA_OPZIONE = "Selezionare un'altra opzione.";
     private int alreadyCreatedUnit = 0;
+    private UnitaImmobiliare unitaImmobiliare;
     
 
 
@@ -84,7 +82,7 @@ public class MenuManutentore {
           if(alreadyCreatedUnit == 1){
             System.out.println("Unita' immobiliare gia' creata!");
           } else {
-            UnitaImmobiliare unitaImmobiliare = new UnitaImmobiliare();
+            unitaImmobiliare = new UnitaImmobiliare();
             String nomeUnita = InputDati.leggiStringa("Inserisci nome unita' immobiliare: ");
             unitaImmobiliare.setNomeUnita(nomeUnita);
             if(unitaImmobiliare.aggiungiStanza(InputDati.leggiStringa("Inserisci il nome della prima stanza: "))) 
@@ -98,7 +96,7 @@ public class MenuManutentore {
             if(unitaImmobiliare.aggiungiArtefatto(InputDati.leggiStringa("Inserisci il nome del primo artefatto: "))) 
             System.out.println("Artefatto aggiunto correttamente");
             do{
-              String nomeArtefattiSuccessivi = InputDati.leggiStringa("Inserisci il nome della stanza(fine per uscire): ");
+              String nomeArtefattiSuccessivi = InputDati.leggiStringa("Inserisci il nome dell'artefatto(fine per uscire): ");
               if(nomeArtefattiSuccessivi.equals("fine")) finitoArtefatti = true;
               else if(unitaImmobiliare.aggiungiArtefatto(nomeArtefattiSuccessivi)) 
                 System.out.println("Artefatto aggiunto correttamente");
@@ -109,7 +107,15 @@ public class MenuManutentore {
           
           break;
 
-        case 6: // Descrivi unità immobiliare (verificare che sia stata creata)
+        case 6: // Descrivi unità immobiliare (verificare che sia stata creata e che ci sia almeno un sensore/attuatore) 
+          if(alreadyCreatedUnit == 1){
+            //seleziona stanze
+            unitaImmobiliare.toStringListaStanze();
+            int choice = InputDati.leggiIntero("Seleziona numero della stanza da associare ad un sensore: ", 1, unitaImmobiliare.arrayStanzeSize()+1);
+            System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaStanze(choice-1));
+          } else {
+            System.out.println("Prima devi creare un'unita' immobiliare!");;
+          }
           break;
     
         default: // Se i controlli nella classe Menu sono corretti, questo non viene mai eseguito !

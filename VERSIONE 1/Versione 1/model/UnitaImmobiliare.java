@@ -6,7 +6,6 @@ public class UnitaImmobiliare {
     private String nomeUnita;
     private ArrayList<String> stanze;
     private ArrayList<String> artefatti;
-    private boolean created = false;
 
     public UnitaImmobiliare(){
         stanze = new ArrayList<>();
@@ -30,5 +29,21 @@ public class UnitaImmobiliare {
     public void setNomeUnita(String nomeUnita) {
         this.nomeUnita = nomeUnita;
     }
+
+    public void toStringListaStanze() {
+        for(int i=0; i<stanze.size(); i++){
+            System.out.println(i+1 +": "+ stanze.get(i));
+        }
+    }
+
+    public int arrayStanzeSize(){
+        return stanze.size();
+    }
+
+    public String getElementInListaStanze(int index){
+        return stanze.get(index);
+    }
+
+    
     
 }
