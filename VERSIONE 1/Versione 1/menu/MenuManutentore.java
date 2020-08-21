@@ -15,7 +15,7 @@ import utility.InputDati;
 import utility.MyMenu;
 
 public class MenuManutentore {
-    final private static String TITOLO = "Sistema domotico";
+    final private static String TITOLO = "Menu manutentore";
     final private static String [] VOCIMENU = {"Crea categoria sensore", "Crea nuova categoria attuatore", "Crea nuovo sensore (richiede la presenza di almeno una categoria)", "Crea nuovo attuatore (richiede la presenza di almeno una categoria)","Crea nuova unita' immobiliare","Descrivi unita' immobiliare" };
     final private static String MESS_USCITA = "Vuoi tornare al menu precedente ?";
     final private static String ERRORE_FUNZIONE = "La funzione non rientra tra quelle disponibili !";
@@ -26,9 +26,7 @@ public class MenuManutentore {
     private boolean atLeastOneActuator = false;
     private UnitaImmobiliare unitaImmobiliare;
 
-    
-
-
+   
     public void esegui(){
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
       boolean fineProgramma = false;
@@ -118,7 +116,7 @@ public class MenuManutentore {
                 choiceSensorCategory = InputDati.leggiStringaNonVuota("Inserisci il nome della categoria: ");
               } while(!ListaCategoriaSensori.getInstance().alreadyExist(choiceSensorCategory));
               
-              Sensore sensore = new Sensore(nomeSensore, null,ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory));
+              Sensore sensore = new Sensore(nomeSensore, "",ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory));
               ListaSensori.getInstance().addSensoreToList(sensore);
               System.out.println("Sensore aggiunto correttamente!");
               atLeastOneSensor = true;
@@ -179,7 +177,7 @@ public class MenuManutentore {
             System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaStanze(choice-1));
             ListaSensori.getInstance().printList();
             int choiceSensore = InputDati.leggiIntero("Seleziona il numero del sensore da associare alla stanza scelta: ", 1, ListaSensori.getInstance().getListSize());
-            if(!ListaSensori.getInstance().verificaStanzeCategoria(ListaSensori.getInstance().getSensorFromList(choiceSensore-1))){
+            if(!ListaSensori.getInstance().esisteUnaStanzaConCategoriaUguale(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1))){
               ListaSensori.getInstance().addRoomToSensor(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1));
             } else {
               System.out.println("Puoi associare solo un sensore per categoria in ogni stanza");

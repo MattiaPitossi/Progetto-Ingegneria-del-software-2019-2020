@@ -21,10 +21,15 @@ public class ListaSensori implements Liste {
     }
 
     //verifica stanze
-    public boolean verificaStanzeCategoria(Sensore sensore){
+    public boolean esisteUnaStanzaConCategoriaUguale(Sensore sensore, String stanzaDaVerificare){
 
         for(Sensore lista: listaSensori){
-            if(sensore.getStanzaAssociata().equals(lista.getCategoriaAssociata())) return true;
+
+            if(stanzaDaVerificare.equals(lista.getStanzaAssociata())){
+                if(sensore.getCategoriaAssociata().equals(lista.getCategoriaAssociata())){
+                    return true;
+                }
+            }
         }
         return false;
         
@@ -49,6 +54,7 @@ public class ListaSensori implements Liste {
         int i = 1;
         for(Sensore lista : listaSensori) {
             System.out.println(i +". "+lista.getNomeSensore());
+            i=i+1;
         }
 
     }
@@ -56,7 +62,13 @@ public class ListaSensori implements Liste {
     public void printListValues() {
         int i = 1;
         for(Sensore lista : listaSensori) {
-            System.out.println(i +". "+lista.getNomeSensore()+ " allocato in "+ lista.getStanzaAssociata()+" ,Valori rilevati(confronta la descrizione): "+ random.nextInt(30));
+            if(lista.getStanzaAssociata().equals(""){
+                System.out.println(i +". "+lista.getNomeSensore()+ " non allocato ");
+            } else {
+                System.out.println(i +". "+lista.getNomeSensore()+ " allocato in "+ lista.getStanzaAssociata()+" ,Valori rilevati(confronta la descrizione): "+ random.nextInt(30));
+            }
+          
+            i+=1;
         }
 
     }
