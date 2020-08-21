@@ -53,4 +53,10 @@ public class ListaCategoriaSensori implements Liste{
     public CategoriaSensori getListElement(String key) {
         return listaCategoriaSensori.get(key);
     }
+
+    @Override
+    public boolean isEmptyList() {
+        if(listaCategoriaSensori.isEmpty()) return true;
+        return false;
+    }
 }

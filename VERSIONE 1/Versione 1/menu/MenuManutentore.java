@@ -156,7 +156,7 @@ public class MenuManutentore {
             System.out.println("Artefatto aggiunto correttamente");
             do{
               String nomeArtefattiSuccessivi = InputDati.leggiStringa("Inserisci il nome dell'artefatto(fine per uscire): ");
-              if(unitaImmobiliare.alreadyExistArtefact(nomeArtefattiSuccessivi)){
+              if(!unitaImmobiliare.alreadyExistArtefact(nomeArtefattiSuccessivi)){
                 if(nomeArtefattiSuccessivi.equals("fine")) finitoArtefatti = true;
                 else if(unitaImmobiliare.aggiungiArtefatto(nomeArtefattiSuccessivi)) 
                 System.out.println("Artefatto aggiunto correttamente");
@@ -179,7 +179,13 @@ public class MenuManutentore {
             System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaStanze(choice-1));
             ListaSensori.getInstance().printList();
             int choiceSensore = InputDati.leggiIntero("Seleziona il numero del sensore da associare alla stanza scelta: ", 1, ListaSensori.getInstance().getListSize());
-            ListaSensori.getInstance().addRoomToSensor(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1));
+            if(!ListaSensori.getInstance().verificaStanzeCategoria(ListaSensori.getInstance().getSensorFromList(choiceSensore-1))){
+              ListaSensori.getInstance().addRoomToSensor(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1));
+            } else {
+              System.out.println("Puoi associare solo un sensore per categoria in ogni stanza");
+            }
+           
+
           } else {
             System.out.println("Prima devi creare un'unita' immobiliare!");;
           }

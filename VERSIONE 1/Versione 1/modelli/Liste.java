@@ -11,5 +11,8 @@ public interface Liste {
     //ritorna la dimensione della lista
     int getListSize();
 
+    //verifica se le liste sono vuote
+    boolean isEmptyList();
+
     
 }

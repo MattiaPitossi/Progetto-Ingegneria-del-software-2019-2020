@@ -10,6 +10,7 @@ public class MainMenu {
     final private static String ERRORE_FUNZIONE = "La funzione non rientra tra quelle disponibili !";
     final private static String MESS_ALTRA_OPZIONE = "Selezionare un'altra opzione.";
     private MenuManutentore menuManutentore = new MenuManutentore();
+    private MenuFruitore menuFruitore = new MenuFruitore();
 
     public void esegui(){
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
@@ -29,6 +30,7 @@ public class MainMenu {
           //break; // ! Superfluo e non solo ... (non compila)
     
         case 1: // Apri menu utente
+          menuFruitore.esegui();
           break;
     
         case 2: // Apri menu manutentore 

@@ -25,7 +25,7 @@ public class UnitaImmobiliare {
     }
     
     public boolean alreadyExistArtefact(String artefactToCheck){
-        for(int i=0; i<stanze.size(); i++){
+        for(int i=0; i<artefatti.size(); i++){
             if(artefatti.get(i).equals(artefactToCheck)) return true;
         }
         return false;

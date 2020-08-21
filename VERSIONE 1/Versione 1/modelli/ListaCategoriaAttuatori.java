@@ -41,4 +41,10 @@ public class ListaCategoriaAttuatori implements Liste{
         // TODO Auto-generated method stub
         return 0;
     }
+
+    @Override
+    public boolean isEmptyList() {
+        if(listaCategoriaAttuatori.isEmpty()) return true;
+        return false;
+    }
 }

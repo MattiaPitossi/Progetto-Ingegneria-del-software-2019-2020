@@ -37,8 +37,8 @@ public class Sensore {
         this.stanzaAssociata = stanzaAssociata;
     }
 
-    public CategoriaSensori getCategoriaAssociata() {
-        return categoriaAssociata;
+    public String getCategoriaAssociata() {
+        return categoriaAssociata.getNome();
     }
 
     public void setCategoriaAssociata(CategoriaSensori categoriaAssociata) {
