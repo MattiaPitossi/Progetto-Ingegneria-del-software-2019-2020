@@ -1,11 +1,11 @@
-package view;
+package menu;
 
 import java.util.regex.Pattern;
 
-import model.CategoriaAttuatori;
-import model.CategoriaSensori;
-import model.ListaCategoriaAttuatori;
-import model.ListaCategoriaSensori;
+import modelli.CategoriaAttuatori;
+import modelli.CategoriaSensori;
+import modelli.ListaCategoriaAttuatori;
+import modelli.ListaCategoriaSensori;
 import utility.InputDati;
 import utility.MyMenu;
 

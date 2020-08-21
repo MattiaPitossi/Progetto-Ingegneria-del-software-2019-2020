@@ -1,9 +1,9 @@
-package model;
+package modelli;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ListaCategoriaAttuatori {
+public class ListaCategoriaAttuatori implements Liste{
     private Map<String, CategoriaAttuatori> listaCategoriaAttuatori;
     private static ListaCategoriaAttuatori listaCategoriaAttuatoriInstance;
 
@@ -24,9 +24,21 @@ public class ListaCategoriaAttuatori {
         return listaCategoriaAttuatoriInstance;
     }
 
-    //Verifica che non esista gia' una categoria con il nome richiesto
-    public boolean alreadyExists(String nameToVerify){
+    @Override
+    public boolean alreadyExist(String nameToVerify) {
         if(!listaCategoriaAttuatori.containsKey(nameToVerify)) return false;
         return true;
+    }
+
+    @Override
+    public void printList() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public int getListSize() {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }

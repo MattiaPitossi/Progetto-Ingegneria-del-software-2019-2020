@@ -1,4 +1,4 @@
-package view;
+package menu;
 
 import utility.InputDati;
 import utility.MyMenu;

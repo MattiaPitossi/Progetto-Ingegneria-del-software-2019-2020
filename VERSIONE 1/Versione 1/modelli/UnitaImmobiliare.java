@@ -1,4 +1,4 @@
-package model;
+package modelli;
 
 import java.util.ArrayList;
 
@@ -15,6 +15,20 @@ public class UnitaImmobiliare {
     public boolean aggiungiStanza(String nomeStanza){
         stanze.add(nomeStanza);
         return true;
+    }
+
+    public boolean alreadyExistRoom(String roomToCheck){
+        for(int i=0; i<stanze.size(); i++){
+            if(stanze.get(i).equals(roomToCheck)) return true;
+        }
+        return false;
+    }
+    
+    public boolean alreadyExistArtefact(String artefactToCheck){
+        for(int i=0; i<stanze.size(); i++){
+            if(artefatti.get(i).equals(artefactToCheck)) return true;
+        }
+        return false;
     }
 
     public boolean aggiungiArtefatto(String nomeArtefatto){
@@ -43,7 +57,5 @@ public class UnitaImmobiliare {
     public String getElementInListaStanze(int index){
         return stanze.get(index);
     }
-
-    
-    
+ 
 }
