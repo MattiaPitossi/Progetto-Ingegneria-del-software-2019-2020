@@ -49,6 +49,12 @@ public class UnitaImmobiliare {
             System.out.println(i+1 +": "+ stanze.get(i));
         }
     }
+    
+    public void toStringListaArtefatti() {
+        for(int i=0; i<artefatti.size(); i++){
+            System.out.println(i+1 +": "+ artefatti.get(i));
+        }
+    }
 
     public int arrayStanzeSize(){
         return stanze.size();

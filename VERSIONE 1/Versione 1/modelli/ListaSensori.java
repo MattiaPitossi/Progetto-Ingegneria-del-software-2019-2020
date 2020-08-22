@@ -62,7 +62,7 @@ public class ListaSensori implements Liste {
     public void printListValues() {
         int i = 1;
         for(Sensore lista : listaSensori) {
-            if(lista.getStanzaAssociata().equals(""){
+            if(lista.getStanzaAssociata().equals("")){
                 System.out.println(i +". "+lista.getNomeSensore()+ " non allocato ");
             } else {
                 System.out.println(i +". "+lista.getNomeSensore()+ " allocato in "+ lista.getStanzaAssociata()+" ,Valori rilevati(confronta la descrizione): "+ random.nextInt(30));

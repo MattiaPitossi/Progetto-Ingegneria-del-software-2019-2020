@@ -43,7 +43,7 @@ public class MenuManutentore {
       switch (numFunzione) {
         case 0: // Esci
           return InputDati.yesOrNo(MESS_USCITA);
-          //break; // ! Superfluo e non solo ... (non compila)
+       
     
         case 1: // Crea nuova categoria sensore
             String nomeCategoriaSensori;
@@ -171,17 +171,25 @@ public class MenuManutentore {
 
         case 6: // Descrivi unità immobiliare (verificare che sia stata creata e che ci sia almeno un sensore/attuatore) 
           if(alreadyCreatedUnit == true && (atLeastOneActuator || atLeastOneSensor)){
-            //seleziona stanze
-            unitaImmobiliare.toStringListaStanze();
-            int choice = InputDati.leggiIntero("Seleziona numero della stanza da associare ad un sensore: ", 1, unitaImmobiliare.arrayStanzeSize()+1);
-            System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaStanze(choice-1));
-            ListaSensori.getInstance().printList();
-            int choiceSensore = InputDati.leggiIntero("Seleziona il numero del sensore da associare alla stanza scelta: ", 1, ListaSensori.getInstance().getListSize());
-            if(!ListaSensori.getInstance().esisteUnaStanzaConCategoriaUguale(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1))){
-              ListaSensori.getInstance().addRoomToSensor(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1));
-            } else {
-              System.out.println("Puoi associare solo un sensore per categoria in ogni stanza");
-            }
+        	  if(atLeastOneSensor) {
+        		  //seleziona stanze
+                  unitaImmobiliare.toStringListaStanze();
+                  int choice = InputDati.leggiIntero("Seleziona numero della stanza da associare ad un sensore: ", 1, unitaImmobiliare.arrayStanzeSize()+1);
+                  System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaStanze(choice-1));
+                  ListaSensori.getInstance().printList();
+                  int choiceSensore = InputDati.leggiIntero("Seleziona il numero del sensore da associare alla stanza scelta: ", 1, ListaSensori.getInstance().getListSize());
+                  if(!ListaSensori.getInstance().esisteUnaStanzaConCategoriaUguale(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1))){
+                    ListaSensori.getInstance().addRoomToSensor(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1));
+                  } else {
+                    System.out.println("Puoi associare solo un sensore per categoria in ogni stanza");
+                  }
+        		  
+        	  }
+        	  if(atLeastOneActuator){
+        		  //seleziona artefatti
+        		  unitaImmobiliare.toStringListaArtefatti();
+        	  }
+           
            
 
           } else {
