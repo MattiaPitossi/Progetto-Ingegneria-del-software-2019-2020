@@ -4,13 +4,14 @@ public class Sensore {
     
     private String nomeSensore;
     //per la prima versione e' sempre attivo
-    private boolean stato = true;
+    private boolean statoAttivo;
     private String stanzaAssociata;
     private CategoriaSensori categoriaAssociata;
-    public Sensore (String nomeSensore, String stanzaAssociata, CategoriaSensori categoriaAssociata){
+    public Sensore (String nomeSensore, String stanzaAssociata, CategoriaSensori categoriaAssociata, boolean statoAttivo){
         this.nomeSensore = nomeSensore;
         this.stanzaAssociata = stanzaAssociata;
         this.categoriaAssociata = categoriaAssociata;
+        this.statoAttivo = statoAttivo;
     }
 
     public String getNomeSensore() {
@@ -22,11 +23,11 @@ public class Sensore {
     }
 
     public boolean isStato() {
-        return stato;
+        return statoAttivo;
     }
 
     public void setStato(boolean stato) {
-        this.stato = stato;
+        this.statoAttivo = stato;
     }
 
     public String getStanzaAssociata() {

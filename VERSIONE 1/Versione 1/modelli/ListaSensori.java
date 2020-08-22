@@ -32,7 +32,6 @@ public class ListaSensori implements Liste {
             }
         }
         return false;
-        
     }
 
     public Sensore getSensorFromList(int i){
@@ -65,7 +64,7 @@ public class ListaSensori implements Liste {
             if(lista.getStanzaAssociata().equals("")){
                 System.out.println(i +". "+lista.getNomeSensore()+ " non allocato ");
             } else {
-                System.out.println(i +". "+lista.getNomeSensore()+ " allocato in "+ lista.getStanzaAssociata()+" ,Valori rilevati(confronta la descrizione): "+ random.nextInt(30));
+                System.out.println(i +". "+lista.getNomeSensore()+ " allocato in "+ lista.getStanzaAssociata()+" ,Valori rilevati(cfr. descrizione): "+ random.nextInt(30));
             }
           
             i+=1;

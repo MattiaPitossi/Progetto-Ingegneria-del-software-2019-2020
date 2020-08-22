@@ -116,7 +116,7 @@ public class MenuManutentore {
                 choiceSensorCategory = InputDati.leggiStringaNonVuota("Inserisci il nome della categoria: ");
               } while(!ListaCategoriaSensori.getInstance().alreadyExist(choiceSensorCategory));
               
-              Sensore sensore = new Sensore(nomeSensore, "",ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory));
+              Sensore sensore = new Sensore(nomeSensore, "",ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true);
               ListaSensori.getInstance().addSensoreToList(sensore);
               System.out.println("Sensore aggiunto correttamente!");
               atLeastOneSensor = true;
@@ -189,10 +189,9 @@ public class MenuManutentore {
         		  //seleziona artefatti
               unitaImmobiliare.toStringListaArtefatti();
               int choice = InputDati.leggiIntero("Seleziona numero dell'artefatto da associare ad un attuatore: ", 1, unitaImmobiliare.arrayArtefattiSize()+1);
+
         	  }
            
-           
-
           } else {
             System.out.println("Prima devi creare un'unita' immobiliare!");;
           }
