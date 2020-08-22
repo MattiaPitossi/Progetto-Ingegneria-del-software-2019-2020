@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.function.IntPredicate;
 import java.util.regex.Pattern;
 
+import modelli.Attuatore;
 import modelli.CategoriaAttuatori;
 import modelli.CategoriaSensori;
+import modelli.ListaAttuatori;
 import modelli.ListaCategoriaAttuatori;
 import modelli.ListaCategoriaSensori;
 import modelli.ListaSensori;
@@ -22,6 +24,7 @@ public class MenuManutentore {
     final private static String MESS_ALTRA_OPZIONE = "Selezionare un'altra opzione.";
     private boolean alreadyCreatedUnit = false;
     private boolean atLeastOneSensorCategoryCreated = false;
+    private boolean atLeastOneActuatorCategoryCreated = false;
     private boolean atLeastOneSensor = false;
     private boolean atLeastOneActuator = false;
     private UnitaImmobiliare unitaImmobiliare;
@@ -36,6 +39,14 @@ public class MenuManutentore {
 	    } while (!fineProgramma);
     }
     
+    public boolean isUnitCreated(){
+      if(alreadyCreatedUnit) return true;
+      return false;
+    }
+
+    public void printUnitDescription(){
+      unitaImmobiliare.printUnitDescription();
+    }
 
     public boolean eseguiFunzioneScelta(int numFunzione) 
     {
@@ -90,6 +101,7 @@ public class MenuManutentore {
               } while(!finito);
               CategoriaAttuatori categoriaAttuatoriCreata = new CategoriaAttuatori(nomeCategoriaAttuatori, descrizioneCategoriaAttuatori, listaFunzioni);
               ListaCategoriaAttuatori.getInstance().addToList(nomeCategoriaAttuatori, categoriaAttuatoriCreata);
+              atLeastOneActuatorCategoryCreated = true;
 
               break;
 
@@ -127,6 +139,31 @@ public class MenuManutentore {
             break;
 
         case 4: // Crea nuovo attuatore (solo se esiste almeno una categoria di attuatore)
+            if(atLeastOneActuatorCategoryCreated){
+              final Pattern pattern = Pattern.compile("[A-Za-z]+_[A-Za-z]+");
+              String nomeAttuatore;
+              do{
+                nomeAttuatore = InputDati.leggiStringaNonVuota("Inserisci nome sensore (formato: nome_categoriaAttuatore): ");
+                if (!pattern.matcher(nomeAttuatore).matches()) {
+                    System.out.println("Il nome dell'attuatroe non è nel formato corretto!");
+                }
+              } while(!pattern.matcher(nomeAttuatore).matches());
+              //stampa categorie attuatori disponibili
+              ListaCategoriaAttuatori.getInstance().printList();
+              //salva selezione
+              String choiceActuatorCategory;
+              do{
+                choiceActuatorCategory = InputDati.leggiStringaNonVuota("Inserisci il nome della categoria: ");
+              } while(!ListaCategoriaAttuatori.getInstance().alreadyExist(choiceActuatorCategory));
+              
+              Attuatore attuatore = new Attuatore(nomeAttuatore, "",ListaCategoriaAttuatori.getInstance().getCategoriaAttuatori(choiceActuatorCategory),true);
+              ListaAttuatori.getInstance().addAttuatoreToList(attuatore);
+              System.out.println("Sensore aggiunto correttamente!");
+              atLeastOneSensor = true;
+            } else {
+              System.out.println("Devi creare almeno una categoria di attuatori");
+            }
+
           break;
 
         case 5: // Crea nuova unita' immobiliare (unica per questa versione, verificare che non sia già presente)
@@ -173,22 +210,29 @@ public class MenuManutentore {
           if(alreadyCreatedUnit == true && (atLeastOneActuator || atLeastOneSensor)){
         	  if(atLeastOneSensor) {
         		  //seleziona stanze
-                  unitaImmobiliare.toStringListaStanze();
-                  int choice = InputDati.leggiIntero("Seleziona numero della stanza da associare ad un sensore: ", 1, unitaImmobiliare.arrayStanzeSize()+1);
-                  System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaStanze(choice-1));
-                  ListaSensori.getInstance().printList();
-                  int choiceSensore = InputDati.leggiIntero("Seleziona il numero del sensore da associare alla stanza scelta: ", 1, ListaSensori.getInstance().getListSize());
-                  if(!ListaSensori.getInstance().esisteUnaStanzaConCategoriaUguale(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1))){
-                    ListaSensori.getInstance().addRoomToSensor(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1));
-                  } else {
-                    System.out.println("Puoi associare solo un sensore per categoria in ogni stanza");
-                  }
+              unitaImmobiliare.toStringListaStanze();
+              int choice = InputDati.leggiIntero("Seleziona numero della stanza da associare ad un sensore: ", 1, unitaImmobiliare.arrayStanzeSize()+1);
+              System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaStanze(choice-1));
+              ListaSensori.getInstance().printList();
+              int choiceSensore = InputDati.leggiIntero("Seleziona il numero del sensore da associare alla stanza scelta: ", 1, ListaSensori.getInstance().getListSize());
+              if(!ListaSensori.getInstance().esisteUnaStanzaConCategoriaUguale(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1))){
+                ListaSensori.getInstance().addRoomToSensor(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1));
+              } else {
+                System.out.println("Puoi associare solo un sensore per categoria in ogni stanza");
+              }
         		  
         	  }
         	  if(atLeastOneActuator){
         		  //seleziona artefatti
               unitaImmobiliare.toStringListaArtefatti();
               int choice = InputDati.leggiIntero("Seleziona numero dell'artefatto da associare ad un attuatore: ", 1, unitaImmobiliare.arrayArtefattiSize()+1);
+              System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaArtefatti(choice-1));
+              int choiceAttuatore = InputDati.leggiIntero("Seleziona il numero dell'attuatore da associare all'artefatto scelto: ", 1, ListaAttuatori.getInstance().getListSize());
+              if(!ListaAttuatori.getInstance().esisteUnArtefattoConCategoriaUguale(ListaAttuatori.getInstance().getActuatorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaStanze(choice-1))){
+                ListaSensori.getInstance().addRoomToSensor(ListaSensori.getInstance().getSensorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaStanze(choice-1));
+              } else {
+                System.out.println("Puoi associare solo un attuatore per categoria in ogni artefatto");
+              }
 
         	  }
            
@@ -196,6 +240,11 @@ public class MenuManutentore {
             System.out.println("Prima devi creare un'unita' immobiliare!");;
           }
           break;
+
+        case 7: //visualizza descrizione unita' immobiliare
+
+          break;
+
     
         default: // Se i controlli nella classe Menu sono corretti, questo non viene mai eseguito !
           System.out.println(ERRORE_FUNZIONE);

@@ -24,6 +24,10 @@ public class ListaCategoriaAttuatori implements Liste{
         return listaCategoriaAttuatoriInstance;
     }
 
+    public CategoriaAttuatori getCategoriaAttuatori(String key){
+        return listaCategoriaAttuatori.get(key);
+    }
+
     @Override
     public boolean alreadyExist(String nameToVerify) {
         if(!listaCategoriaAttuatori.containsKey(nameToVerify)) return false;

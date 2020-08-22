@@ -67,5 +67,21 @@ public class UnitaImmobiliare {
     public String getElementInListaStanze(int index){
         return stanze.get(index);
     }
+
+    public String getElementInListaArtefatti(int index){
+        return artefatti.get(index);
+    }
+
+    public void printUnitDescription(){
+        System.out.println("Nome unita': " + nomeUnita);
+        System.out.println("Stanze: ");
+        for(String listaStanze: stanze){
+            System.out.println(listaStanze.toString());
+        }
+        System.out.println("Artefatti: ");
+        for(String listaArtefatti: artefatti){
+            System.out.println(listaArtefatti.toString());
+        }
+    }
  
 }
