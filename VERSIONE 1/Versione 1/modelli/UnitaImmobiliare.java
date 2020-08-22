@@ -59,6 +59,10 @@ public class UnitaImmobiliare {
     public int arrayStanzeSize(){
         return stanze.size();
     }
+    
+    public int arrayArtefattiSize(){
+        return artefatti.size();
+    }
 
     public String getElementInListaStanze(int index){
         return stanze.get(index);

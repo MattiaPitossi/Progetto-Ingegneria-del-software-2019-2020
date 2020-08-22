@@ -187,7 +187,8 @@ public class MenuManutentore {
         	  }
         	  if(atLeastOneActuator){
         		  //seleziona artefatti
-        		  unitaImmobiliare.toStringListaArtefatti();
+              unitaImmobiliare.toStringListaArtefatti();
+              int choice = InputDati.leggiIntero("Seleziona numero dell'artefatto da associare ad un attuatore: ", 1, unitaImmobiliare.arrayArtefattiSize()+1);
         	  }
            
            
