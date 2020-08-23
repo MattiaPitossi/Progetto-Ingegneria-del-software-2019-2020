@@ -1,9 +1,7 @@
 package menu;
 
 import java.util.ArrayList;
-import java.util.function.IntPredicate;
 import java.util.regex.Pattern;
-
 import modelli.Attuatore;
 import modelli.CategoriaAttuatori;
 import modelli.CategoriaSensori;
@@ -18,7 +16,7 @@ import utility.MyMenu;
 
 public class MenuManutentore {
     final private static String TITOLO = "Menu manutentore";
-    final private static String [] VOCIMENU = {"Crea categoria sensore", "Crea nuova categoria attuatore", "Crea nuovo sensore (richiede la presenza di almeno una categoria)", "Crea nuovo attuatore (richiede la presenza di almeno una categoria)","Crea nuova unita' immobiliare","Descrivi unita' immobiliare" };
+    final private static String [] VOCIMENU = {"Crea nuova categoria sensore", "Crea nuova categoria attuatore", "Inserisci nuovo sensore (richiede la presenza di almeno una categoria)", "Inserisci nuovo attuatore (richiede la presenza di almeno una categoria)","Crea nuova unita' immobiliare","Descrivi unita' immobiliare" };
     final private static String MESS_USCITA = "Vuoi tornare al menu precedente ?";
     final private static String ERRORE_FUNZIONE = "La funzione non rientra tra quelle disponibili !";
     final private static String MESS_ALTRA_OPZIONE = "Selezionare un'altra opzione.";
@@ -93,7 +91,7 @@ public class MenuManutentore {
               listaFunzioni.add(primaFunzione);
               do{
                 altreModalitaOperative = InputDati.leggiStringaNonVuota("Inserisci la modalita' operativa (fine per terminare): ");
-                if(altreModalitaOperative.equals("fine")){
+                if(!altreModalitaOperative.equals("fine")){
                   listaFunzioni.add(altreModalitaOperative);
                 } else {
                   finito = true;
@@ -143,7 +141,7 @@ public class MenuManutentore {
               final Pattern pattern = Pattern.compile("[A-Za-z]+_[A-Za-z]+");
               String nomeAttuatore;
               do{
-                nomeAttuatore = InputDati.leggiStringaNonVuota("Inserisci nome sensore (formato: nome_categoriaAttuatore): ");
+                nomeAttuatore = InputDati.leggiStringaNonVuota("Inserisci nome attuatore (formato: nome_categoriaAttuatore): ");
                 if (!pattern.matcher(nomeAttuatore).matches()) {
                     System.out.println("Il nome dell'attuatroe non è nel formato corretto!");
                 }
@@ -158,8 +156,8 @@ public class MenuManutentore {
               
               Attuatore attuatore = new Attuatore(nomeAttuatore, "",ListaCategoriaAttuatori.getInstance().getCategoriaAttuatori(choiceActuatorCategory),true);
               ListaAttuatori.getInstance().addAttuatoreToList(attuatore);
-              System.out.println("Sensore aggiunto correttamente!");
-              atLeastOneSensor = true;
+              System.out.println("Attuatore aggiunto correttamente!");
+              atLeastOneActuator = true;
             } else {
               System.out.println("Devi creare almeno una categoria di attuatori");
             }
@@ -173,12 +171,12 @@ public class MenuManutentore {
             System.out.println("Unita' immobiliare gia' creata!");
           } else {
             unitaImmobiliare = new UnitaImmobiliare();
-            String nomeUnita = InputDati.leggiStringa("Inserisci nome unita' immobiliare: ");
+            String nomeUnita = InputDati.leggiStringaNonVuota("Inserisci nome unita' immobiliare: ");
             unitaImmobiliare.setNomeUnita(nomeUnita);
-            if(unitaImmobiliare.aggiungiStanza(InputDati.leggiStringa("Inserisci il nome della prima stanza: "))) 
+            if(unitaImmobiliare.aggiungiStanza(InputDati.leggiStringaNonVuota("Inserisci il nome della prima stanza: "))) 
               System.out.println("Stanza aggiunta correttamente");
             do{
-              String nomeStanzeSuccessive = InputDati.leggiStringa("Inserisci il nome della stanza(fine per uscire): ");
+              String nomeStanzeSuccessive = InputDati.leggiStringaNonVuota("Inserisci il nome della stanza(fine per uscire): ");
               if(!unitaImmobiliare.alreadyExistRoom(nomeStanzeSuccessive)){
                 if(nomeStanzeSuccessive.equals("fine")) finitoStanze = true;
                 else if(unitaImmobiliare.aggiungiStanza(nomeStanzeSuccessive)) 
@@ -187,10 +185,10 @@ public class MenuManutentore {
                 System.out.println("Hai gia' inserito una stanza con lo stesso nome!");
               }
             } while(!finitoStanze);
-            if(unitaImmobiliare.aggiungiArtefatto(InputDati.leggiStringa("Inserisci il nome del primo artefatto: "))) 
+            if(unitaImmobiliare.aggiungiArtefatto(InputDati.leggiStringaNonVuota("Inserisci il nome del primo artefatto: "))) 
             System.out.println("Artefatto aggiunto correttamente");
             do{
-              String nomeArtefattiSuccessivi = InputDati.leggiStringa("Inserisci il nome dell'artefatto(fine per uscire): ");
+              String nomeArtefattiSuccessivi = InputDati.leggiStringaNonVuota("Inserisci il nome dell'artefatto(fine per uscire): ");
               if(!unitaImmobiliare.alreadyExistArtefact(nomeArtefattiSuccessivi)){
                 if(nomeArtefattiSuccessivi.equals("fine")) finitoArtefatti = true;
                 else if(unitaImmobiliare.aggiungiArtefatto(nomeArtefattiSuccessivi)) 
@@ -207,8 +205,12 @@ public class MenuManutentore {
           break;
 
         case 6: // Descrivi unità immobiliare (verificare che sia stata creata e che ci sia almeno un sensore/attuatore) 
-          if(alreadyCreatedUnit == true && (atLeastOneActuator || atLeastOneSensor)){
-        	  if(atLeastOneSensor) {
+
+          if(!alreadyCreatedUnit){
+            System.out.println("Prima devi creare un'unita' immobiliare!");
+          }
+          else if(atLeastOneSensor){
+        	  
         		  //seleziona stanze
               unitaImmobiliare.toStringListaStanze();
               int choice = InputDati.leggiIntero("Seleziona numero della stanza da associare ad un sensore: ", 1, unitaImmobiliare.arrayStanzeSize()+1);
@@ -220,40 +222,30 @@ public class MenuManutentore {
               } else {
                 System.out.println("Puoi associare solo un sensore per categoria in ogni stanza");
               }
-        		  
-        	  }
-        	  if(atLeastOneActuator){
+          }
+        	
+        	else if(atLeastOneActuator){
         		  //seleziona artefatti
               unitaImmobiliare.toStringListaArtefatti();
               int choice = InputDati.leggiIntero("Seleziona numero dell'artefatto da associare ad un attuatore: ", 1, unitaImmobiliare.arrayArtefattiSize()+1);
               System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaArtefatti(choice-1));
+              ListaAttuatori.getInstance().printList();
               int choiceAttuatore = InputDati.leggiIntero("Seleziona il numero dell'attuatore da associare all'artefatto scelto: ", 1, ListaAttuatori.getInstance().getListSize());
-              if(!ListaAttuatori.getInstance().esisteUnArtefattoConCategoriaUguale(ListaAttuatori.getInstance().getActuatorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaStanze(choice-1))){
-                ListaSensori.getInstance().addRoomToSensor(ListaSensori.getInstance().getSensorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaStanze(choice-1));
+              if(!ListaAttuatori.getInstance().esisteUnArtefattoConCategoriaUguale(ListaAttuatori.getInstance().getActuatorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaArtefatti(choice-1))){
+                ListaAttuatori.getInstance().addArtefactToActuator(ListaAttuatori.getInstance().getActuatorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaArtefatti(choice-1));
               } else {
                 System.out.println("Puoi associare solo un attuatore per categoria in ogni artefatto");
               }
-
-        	  }
-           
           } else {
-            System.out.println("Prima devi creare un'unita' immobiliare!");;
+            System.out.println("Non sono presenti sensori o attuatori da associare al momento");
           }
           break;
-
-        case 7: //visualizza descrizione unita' immobiliare
-
-          break;
-
-    
         default: // Se i controlli nella classe Menu sono corretti, questo non viene mai eseguito !
           System.out.println(ERRORE_FUNZIONE);
           System.out.println(MESS_ALTRA_OPZIONE);
           break;
       }
-  
       return false;
   
     }
-    
 }

@@ -2,6 +2,7 @@ package modelli;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ListaCategoriaAttuatori implements Liste{
     private Map<String, CategoriaAttuatori> listaCategoriaAttuatori;
@@ -36,7 +37,12 @@ public class ListaCategoriaAttuatori implements Liste{
 
     @Override
     public void printList() {
-        // TODO Auto-generated method stub
+        int i=1;
+        Set<String> keys = listaCategoriaAttuatori.keySet();
+        for (String k : keys) {
+            System.out.println(i +". "+ k);
+            i+=1;
+        }
 
     }
 

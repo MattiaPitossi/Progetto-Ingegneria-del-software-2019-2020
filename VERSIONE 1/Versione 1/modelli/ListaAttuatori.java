@@ -48,6 +48,10 @@ public class ListaAttuatori implements Liste {
         listaAttuatori.add(attuatore);
     }
 
+    public void addArtefactToActuator(Attuatore attuatore, String artefattoAssociato){
+        attuatore.setArtefattoAssociato(artefattoAssociato);
+    }
+
     @Override
     public void printList() {
         int i = 1;
@@ -73,13 +77,12 @@ public class ListaAttuatori implements Liste {
 
     @Override
     public int getListSize() {
-        // TODO Auto-generated method stub
-        return 0;
+        return listaAttuatori.size();
     }
 
     @Override
     public boolean isEmptyList() {
-        // TODO Auto-generated method stub
+        if(listaAttuatori.isEmpty()) return true;
         return false;
     }
     
