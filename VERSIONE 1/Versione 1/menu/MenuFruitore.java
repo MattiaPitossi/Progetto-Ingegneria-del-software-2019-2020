@@ -10,6 +10,7 @@ public class MenuFruitore {
     final private static String MESS_USCITA = "Vuoi tornare al menu precedente ?";
     final private static String ERRORE_FUNZIONE = "La funzione non rientra tra quelle disponibili !";
     final private static String MESS_ALTRA_OPZIONE = "Selezionare un'altra opzione.";
+    private InputDati inputDati = new InputDati();
     
     public void esegui(){
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
@@ -26,7 +27,7 @@ public class MenuFruitore {
 
       switch (numFunzione) {
         case 0: // Esci
-          return InputDati.yesOrNo(MESS_USCITA);
+          return inputDati.yesOrNo(MESS_USCITA);
           //break; // ! Superfluo e non solo ... (non compila)
     
         case 1: // Visualizza dati rilevati sensori (previa verifica della presenza di tali)
@@ -37,6 +38,11 @@ public class MenuFruitore {
             ListaSensori.getInstance().printListValues();
           }
    
+          break;
+        
+        default: // Se i controlli nella classe Menu sono corretti, questo non viene mai eseguito !
+          System.out.println(ERRORE_FUNZIONE);
+          System.out.println(MESS_ALTRA_OPZIONE);
           break;
       }
   

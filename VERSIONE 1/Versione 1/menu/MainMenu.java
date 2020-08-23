@@ -13,6 +13,7 @@ public class MainMenu {
     final private static String MESS_ALTRA_OPZIONE = "Selezionare un'altra opzione.";
     private MenuManutentore menuManutentore = new MenuManutentore();
     private MenuFruitore menuFruitore = new MenuFruitore();
+    private InputDati inputDati = new InputDati();
 
     public void esegui(){
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
@@ -28,7 +29,7 @@ public class MainMenu {
    
       switch (numFunzione) {
         case 0: // Esci
-          return InputDati.yesOrNo(MESS_USCITA);
+          return inputDati.yesOrNo(MESS_USCITA);
           //break; // ! Superfluo e non solo ... (non compila)
     
         case 1: // Apri menu utente

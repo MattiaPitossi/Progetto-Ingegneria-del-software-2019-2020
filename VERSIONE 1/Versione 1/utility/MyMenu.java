@@ -13,6 +13,7 @@ public class MyMenu
 
   private String titolo;
   private String [] voci;
+  private InputDati inputDati = new InputDati();
 
 	
   public MyMenu (String titolo, String [] voci)
@@ -24,7 +25,7 @@ public class MyMenu
   public int scegli ()
   {
 	stampaMenu();
-	return InputDati.leggiIntero(RICHIESTA_INSERIMENTO, 0, voci.length);	 
+	return inputDati.leggiIntero(RICHIESTA_INSERIMENTO, 0, voci.length);	 
   }
 		
   public void stampaMenu ()
