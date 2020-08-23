@@ -12,7 +12,12 @@ public class ListaCategoriaSensori implements Liste{
         listaCategoriaSensori = new HashMap<>();
     }
 
-    //Aggiunge il sensore nella lista
+    /**
+     * Aggiunge il sensore nella lista
+     * @param name nome del sensore
+     * @param categoriaSensori categoria da scegliere
+     * @since versione 1
+     */
     public void addToList(String name, CategoriaSensori categoriaSensori){
         listaCategoriaSensori.put(name, categoriaSensori);
     }

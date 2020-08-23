@@ -8,7 +8,7 @@ public class CategoriaAttuatori {
     private String descrizione;
     private ArrayList<String> modalitaOperative = new ArrayList<String>();
 
-    //Costuttore del sensore in base alle richieste del progetto
+    //Costuttore dell'attuatore in base alle richieste del progetto
     public CategoriaAttuatori(String nome, String descrizione, ArrayList<String> modalitaOperative){
         this.nome = nome;
         this.descrizione = descrizione;

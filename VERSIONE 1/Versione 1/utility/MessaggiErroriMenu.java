@@ -28,7 +28,6 @@ public class MessaggiErroriMenu {
     public static final String MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA_DEI_SENSORI = "Inserisci il nome della categoria dei sensori: ";
     public static final String MESS_SELEZIONA_IL_NUMERO_DELL_ATTUATORE_DA_ASSOCIARE_ALL_ARTEFATTO_SCELTO = "Seleziona il numero dell'attuatore da associare all'artefatto scelto: ";
     
-
     //errori
     public static final String ERRORE_HAI_GIA_INSERITO_UN_ARTEFATTO_CON_LO_STESSO_NOME = "Hai gia' inserito un artefatto con lo stesso nome!";
     public static final String ERRORE_HAI_GIA_INSERITO_UNA_STANZA_CON_LO_STESSO_NOME = "Hai gia' inserito una stanza con lo stesso nome!";

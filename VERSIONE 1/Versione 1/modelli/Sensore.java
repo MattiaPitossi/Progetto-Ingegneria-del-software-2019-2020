@@ -1,5 +1,15 @@
 package modelli;
 
+/**
+ * La classe {@code Sensore} rappresenta
+ * il modello di un sensore
+ *
+ * @author  Mattia Pitossi
+ * @author  Simone Pitossi
+ * @since   versione 1
+ */
+
+
 public class Sensore {
     
     private String nomeSensore;
@@ -7,6 +17,16 @@ public class Sensore {
     private boolean statoAttivo;
     private String stanzaAssociata;
     private CategoriaSensori categoriaAssociata;
+
+    /** 
+     * Costruttore per il sensore
+     * 
+     * @param nomeSensore nome univoco per il sensore
+     * @param stanzaAssociata inizialmente nessuno, viene poi associato in una sezione apposita
+     * @param categoriaAssociata categoria che accompagna il sensore
+     * @param statoAttivo stato attivo/disattivo del sensore, per questa versione sempre attivo
+     * @since versione 1 
+     */
     public Sensore (String nomeSensore, String stanzaAssociata, CategoriaSensori categoriaAssociata, boolean statoAttivo){
         this.nomeSensore = nomeSensore;
         this.stanzaAssociata = stanzaAssociata;

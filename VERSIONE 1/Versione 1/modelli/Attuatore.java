@@ -1,5 +1,14 @@
 package modelli;
 
+/**
+ * La classe {@code Attuatore} rappresenta
+ * il modello di un attuatore
+ *
+ * @author  Mattia Pitossi
+ * @author  Simone Pitossi
+ * @since   versione 1
+ */
+
 public class Attuatore {
 
     private String nomeAttuatore;
@@ -8,6 +17,16 @@ public class Attuatore {
     private String artefattoAssociato;
     private CategoriaAttuatori categoriaAssociata;
 
+    
+    /** 
+     * Costruttore per l'attuatore
+     * 
+     * @param nomeAttuatore nome univoco per l'attuare
+     * @param artefattoAssociato inizialmente nessuno, viene poi associato in una sezione apposita
+     * @param categoriaAssociata categoria che accompagna l'attuatore
+     * @param statoAttivo stato attivo/disattivo dell'attuatore, per questa versione sempre attivo
+     * @since versione 1 
+     */
     public Attuatore(String nomeAttuatore, String artefattoAssociato, CategoriaAttuatori categoriaAssociata, boolean statoAttivo){
         this.nomeAttuatore = nomeAttuatore;
         this.artefattoAssociato = artefattoAssociato;

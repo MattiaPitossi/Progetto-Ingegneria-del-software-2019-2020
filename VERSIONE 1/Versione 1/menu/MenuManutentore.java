@@ -86,10 +86,10 @@ public class MenuManutentore {
               do {
                 nomeCategoriaAttuatori = inputDati
                     .leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA_DEGLI_ATTUATORI);
-                if (ListaCategoriaSensori.getInstance().alreadyExist(nomeCategoriaAttuatori)) {
+                if (ListaCategoriaAttuatori.getInstance().alreadyExist(nomeCategoriaAttuatori)) {
                   System.out.println(ERRORE_ATTENZIONE_IL_NOME_DI_QUESTA_CATEGORIA_È_GIÀ_PRESENTE);
                 }
-              } while (ListaCategoriaSensori.getInstance().alreadyExist(nomeCategoriaAttuatori));
+              } while (ListaCategoriaAttuatori.getInstance().alreadyExist(nomeCategoriaAttuatori));
               String descrizioneCategoriaAttuatori = inputDati.leggiStringa(MESS_INSERISCI_UNA_DESCRIZIONE_FACOLTATIVA);
               //per questa versione azioni non parametriche
               String primaFunzione = inputDati.leggiStringaNonVuota(MESS_INSERISCI_LA_PRIMA_MODALITA_OPERATIVA);

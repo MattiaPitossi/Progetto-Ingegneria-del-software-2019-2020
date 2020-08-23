@@ -13,9 +13,14 @@ public class ListaCategoriaAttuatori implements Liste{
         listaCategoriaAttuatori = new HashMap<>();
     }
 
-    //Aggiunge il sensore nella lista
-    public void addToList(String name, CategoriaAttuatori categoriaSensori){
-        listaCategoriaAttuatori.put(name, categoriaSensori);
+    /**
+     * Aggiunge l'attuaore nella lista
+     * @param name nome attuatore
+     * @param categoriaAttuatori categoria da scegliere
+     * @since versione 1
+     */
+    public void addToList(String name, CategoriaAttuatori categoriaAttuatori){
+        listaCategoriaAttuatori.put(name, categoriaAttuatori);
     }
 
     //Per evitare race conditions..inoltre evita che vengano create più istanze di liste categorie

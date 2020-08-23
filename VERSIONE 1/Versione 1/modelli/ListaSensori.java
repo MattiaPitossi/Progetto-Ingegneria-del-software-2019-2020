@@ -3,24 +3,49 @@ package modelli;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * La classe {@code ListaSensori} rappresenta le liste 
+ * che verranno utilizzate per contenere i sensori
+ *
+ * @author  Mattia Pitossi
+ * @author  Simone Pitossi
+ * @since   versione 1
+ */
+
 public class ListaSensori implements Liste {
 
     ArrayList<Sensore> listaSensori = new ArrayList<>();
     private static ListaSensori listaSensoriInstance;
     Random random = new Random();
 
-    //Per evitare race conditions..inoltre evita che vengano create più istanze di liste categorie
+    /** 
+     * Per evitare race conditions..inoltre evita che vengano create più istanze di liste categoriee
+     * 
+     * @since versione 1 
+     */
     public static synchronized ListaSensori getInstance() {
         if (listaSensoriInstance == null)
             listaSensoriInstance = new ListaSensori();
         return listaSensoriInstance;
     }
 
+    /** 
+     * 
+     * @param sensore sensore che verra' aggiunto in lista
+     * @since versione 1 
+     */
     public void addSensoreToList(Sensore sensore){
         listaSensori.add(sensore);
     }
 
-    //verifica stanze
+     /** 
+     * Questo metodo controlla che non sia gia' presente una stanza
+     * con un sensore con categoria uguale
+     * 
+     * @param sensore sensore da verificare
+     * @param stanzaDaVerificare stanza che verra' controllata
+     * @since versione 1 
+     */
     public boolean esisteUnaStanzaConCategoriaUguale(Sensore sensore, String stanzaDaVerificare){
 
         for(Sensore lista: listaSensori){
@@ -35,10 +60,21 @@ public class ListaSensori implements Liste {
     }
 
 
+    /** 
+     * Ritorna il sensore dell'indice richiesto
+     * @param i indice del sensore nella lista
+     * @since versione 1 
+     */
     public Sensore getSensorFromList(int i){
         return listaSensori.get(i);
     }
 
+    /** 
+     * Aggiunge la stanza associata al sensore
+     * @param sensore sensore a cui aggiungere la stanza
+     * @param stanzaAssociata stanza del sensore
+     * @since versione 1 
+     */
     public void addRoomToSensor(Sensore sensore, String stanzaAssociata){
         sensore.setStanzaAssociata(stanzaAssociata);
     }
@@ -59,6 +95,10 @@ public class ListaSensori implements Liste {
 
     }
 
+    /** 
+     * Stampa i vari output dei diversi sensori inseriti
+     * @since versione 1 
+     */
     public void printListValues() {
         int i = 1;
         for(Sensore lista : listaSensori) {
@@ -73,6 +113,10 @@ public class ListaSensori implements Liste {
 
     }
 
+    /** 
+     * Stampa le varie associazioni dei sensori nelle stanze
+     * @since versione 1 
+     */
     public void printListAssociations() {
         int i = 1;
         for(Sensore lista : listaSensori) {
