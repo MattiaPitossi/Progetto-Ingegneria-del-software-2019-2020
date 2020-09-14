@@ -1,8 +1,10 @@
-package modelli;
+package modelli.liste;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import modelli.CategoriaSensori;
 
 public class ListaCategoriaSensori implements Liste{
     private Map<String, CategoriaSensori> listaCategoriaSensori;

@@ -25,9 +25,10 @@ public class Sensore {
      * @param stanzaAssociata inizialmente nessuno, viene poi associato in una sezione apposita
      * @param categoriaAssociata categoria che accompagna il sensore
      * @param statoAttivo stato attivo/disattivo del sensore, per questa versione sempre attivo
+     * @param valoreRilevato viene inserito il valore numerico rilevato dal sensore
      * @since versione 1 
      */
-    public Sensore (String nomeSensore, String stanzaAssociata, CategoriaSensori categoriaAssociata, boolean statoAttivo){
+    public Sensore (String nomeSensore, String stanzaAssociata, CategoriaSensori categoriaAssociata, boolean statoAttivo, int valoreRilevato){
         this.nomeSensore = nomeSensore;
         this.stanzaAssociata = stanzaAssociata;
         this.categoriaAssociata = categoriaAssociata;

@@ -5,10 +5,10 @@ import java.util.regex.Pattern;
 import modelli.Attuatore;
 import modelli.CategoriaAttuatori;
 import modelli.CategoriaSensori;
-import modelli.ListaAttuatori;
-import modelli.ListaCategoriaAttuatori;
-import modelli.ListaCategoriaSensori;
-import modelli.ListaSensori;
+import modelli.liste.ListaAttuatori;
+import modelli.liste.ListaCategoriaAttuatori;
+import modelli.liste.ListaCategoriaSensori;
+import modelli.liste.ListaSensori;
 import modelli.Sensore;
 import modelli.UnitaImmobiliare;
 import utility.InputDati;
@@ -78,7 +78,7 @@ public class MenuManutentore {
 
               break;
 
-            case 2: // Crea nuova categoria attuatore
+        case 2: // Crea nuova categoria attuatore
               boolean finito = false;
               String nomeCategoriaAttuatori;
               ArrayList<String> listaFunzioni = new ArrayList<String>();
@@ -130,8 +130,8 @@ public class MenuManutentore {
               do{
                 choiceSensorCategory = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA);
               } while(!ListaCategoriaSensori.getInstance().alreadyExist(choiceSensorCategory));
-              
-              Sensore sensore = new Sensore(nomeSensore, "",ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true);
+              int valoreRilevato = inputDati.leggiInteroConMinimo("Inserisci il valore che viene rilevato dal sensore", 0);
+              Sensore sensore = new Sensore(nomeSensore, "",ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true, valoreRilevato);
               ListaSensori.getInstance().addSensoreToList(sensore);
               System.out.println(MESS_SENSORE_AGGIUNTO_CORRETTAMENTE);
               atLeastOneSensor = true;

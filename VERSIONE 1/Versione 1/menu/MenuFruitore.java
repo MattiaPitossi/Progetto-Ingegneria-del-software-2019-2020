@@ -1,6 +1,6 @@
 package menu;
 
-import modelli.ListaSensori;
+import modelli.liste.ListaSensori;
 import utility.InputDati;
 import utility.MyMenu;
 

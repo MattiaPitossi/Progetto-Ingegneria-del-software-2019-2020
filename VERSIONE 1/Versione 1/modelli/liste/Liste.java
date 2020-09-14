@@ -1,4 +1,4 @@
-package modelli;
+package modelli.liste;
 
 /**
  * Interfaccia utilizzata per le liste

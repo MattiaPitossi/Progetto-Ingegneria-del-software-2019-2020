@@ -1,7 +1,9 @@
-package modelli;
+package modelli.liste;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import modelli.Sensore;
 
 /**
  * La classe {@code ListaSensori} rappresenta le liste 

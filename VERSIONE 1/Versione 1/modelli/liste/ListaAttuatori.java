@@ -1,7 +1,9 @@
-package modelli;
+package modelli.liste;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import modelli.Attuatore;
 
 /**
  * La classe {@code ListaAttuatori rappresenta le liste 
