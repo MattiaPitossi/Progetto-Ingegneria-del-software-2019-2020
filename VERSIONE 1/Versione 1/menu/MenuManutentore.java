@@ -17,7 +17,6 @@ import static utility.MessaggiErroriMenu.*;
 
 public class MenuManutentore {
 
-    
     private static final String ERRORE_DEVI_CREARE_ALMENO_UN_UNITA_IMMOBILIARE = "Devi creare almeno un'unita' immobiliare";
     final private static String TITOLO = "Menu manutentore";
     final private static String [] VOCIMENU = {"Crea nuova categoria sensore", "Crea nuova categoria attuatore", "Inserisci nuovo sensore (richiede la presenza di almeno una categoria)", "Inserisci nuovo attuatore (richiede la presenza di almeno una categoria)","Crea nuova unita' immobiliare","Descrivi unita' immobiliare" };
@@ -30,7 +29,6 @@ public class MenuManutentore {
     private UnitaImmobiliare unitaImmobiliare;
     private InputDati inputDati = new InputDati();
 
-   
     public void esegui(){
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
       boolean fineProgramma = false;
