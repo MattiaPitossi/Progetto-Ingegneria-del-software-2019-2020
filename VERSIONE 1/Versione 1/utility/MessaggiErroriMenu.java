@@ -6,7 +6,7 @@ public class MessaggiErroriMenu {
     //messaggi
     public static final String MESS_INSERISCI_IL_NOME_DELL_ARTEFATTO_FINE_PER_USCIRE = "Inserisci il nome dell'artefatto(fine per uscire): ";
     public static final String MESS_INSERISCI_IL_NOME_DEL_PRIMO_ARTEFATTO = "Inserisci il nome del primo artefatto: ";
-    public static final String MESS_INSERISCI_IL_NOME_DELLA_STANZA_FINE_PER_USCIRE = "Inserisci il nome della stanza(fine per uscire): ";
+    public static final String MESS_INSERISCI_IL_NOME_DELLA_STANZA_FINE_PER_USCIRE = "Inserisci il nome della stanza(fine per passare all'inserimento degli artefatti): ";
     public static final String MESS_STANZA_AGGIUNTA_CORRETTAMENTE = "Stanza aggiunta correttamente";
     public static final String MESS_ARTEFATTO_AGGIUNTO_CORRETTAMENTE = "Artefatto aggiunto correttamente";
     public static final String MESS_INSERISCI_IL_NOME_DELLA_PRIMA_STANZA = "Inserisci il nome della prima stanza: ";
