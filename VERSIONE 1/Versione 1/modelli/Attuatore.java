@@ -27,7 +27,7 @@ public class Attuatore {
      * @param statoAttivo stato attivo/disattivo dell'attuatore, per questa versione sempre attivo
      * @since versione 1 
      */
-    public Attuatore(String nomeAttuatore, String artefattoAssociato, CategoriaAttuatori categoriaAssociata, boolean statoAttivo){
+    public Attuatore(String nomeAttuatore, String artefattoAssociato, CategoriaAttuatori categoriaAssociata, boolean statoAttivo, String unitaAssociata){
         this.nomeAttuatore = nomeAttuatore;
         this.artefattoAssociato = artefattoAssociato;
         this.categoriaAssociata = categoriaAssociata;
@@ -58,8 +58,8 @@ public class Attuatore {
         this.artefattoAssociato = artefattoAssociato;
     }
 
-    public CategoriaAttuatori getCategoriaAssociata() {
-        return categoriaAssociata;
+    public String getCategoriaAssociata() {
+        return categoriaAssociata.getNome();
     }
 
     public void setCategoriaAssociata(CategoriaAttuatori categoriaAssociata) {

@@ -39,12 +39,12 @@ public class ListaAttuatori implements Liste {
      * @param artefattoDaVerificare artefatto che verra' controllato
      * @since versione 1 
      */
-    public boolean esisteUnArtefattoConCategoriaUguale(Attuatore attuatore, String artefattoDaVerificare){
+    public boolean esisteUnArtefattoConCategoriaUguale(String attuatoreScelto, String artefattoDaVerificare){
 
         for(Attuatore lista: listaAttuatori){
 
             if(artefattoDaVerificare.equals(lista.getArtefattoAssociato())){
-                if(attuatore.getCategoriaAssociata().equals(lista.getCategoriaAssociata())){
+                if(attuatoreScelto.equals(lista.getCategoriaAssociata())){
                     return true;
                 }
             }

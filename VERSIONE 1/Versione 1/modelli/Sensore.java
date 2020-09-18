@@ -17,6 +17,7 @@ public class Sensore {
     private boolean statoAttivo;
     private String stanzaAssociata;
     private CategoriaSensori categoriaAssociata;
+    private int valoreRilevato;
 
     /** 
      * Costruttore per il sensore
@@ -28,11 +29,12 @@ public class Sensore {
      * @param valoreRilevato viene inserito il valore numerico rilevato dal sensore
      * @since versione 1 
      */
-    public Sensore (String nomeSensore, String stanzaAssociata, CategoriaSensori categoriaAssociata, boolean statoAttivo, int valoreRilevato){
+    public Sensore (String nomeSensore, String stanzaAssociata, CategoriaSensori categoriaAssociata, boolean statoAttivo, int valoreRilevato, String unitaAssociata){
         this.nomeSensore = nomeSensore;
         this.stanzaAssociata = stanzaAssociata;
         this.categoriaAssociata = categoriaAssociata;
         this.statoAttivo = statoAttivo;
+        this.valoreRilevato = valoreRilevato;
     }
 
     public String getNomeSensore() {
@@ -65,6 +67,18 @@ public class Sensore {
 
     public void setCategoriaAssociata(CategoriaSensori categoriaAssociata) {
         this.categoriaAssociata = categoriaAssociata;
+    }
+
+    public boolean isStatoAttivo() {
+        return statoAttivo;
+    }
+
+    public void setStatoAttivo(boolean statoAttivo) {
+        this.statoAttivo = statoAttivo;
+    }
+
+    public int getValoreRilevato(){
+        return valoreRilevato;
     }
 
     

@@ -1,7 +1,6 @@
 package menu;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 import modelli.Attuatore;
 import modelli.CategoriaAttuatori;
 import modelli.CategoriaSensori;
@@ -19,6 +18,7 @@ import static utility.MessaggiErroriMenu.*;
 public class MenuManutentore {
 
     
+    private static final String ERRORE_DEVI_CREARE_ALMENO_UN_UNITA_IMMOBILIARE = "Devi creare almeno un'unita' immobiliare";
     final private static String TITOLO = "Menu manutentore";
     final private static String [] VOCIMENU = {"Crea nuova categoria sensore", "Crea nuova categoria attuatore", "Inserisci nuovo sensore (richiede la presenza di almeno una categoria)", "Inserisci nuovo attuatore (richiede la presenza di almeno una categoria)","Crea nuova unita' immobiliare","Descrivi unita' immobiliare" };
     final private static String MESS_USCITA = "Vuoi tornare al menu precedente ?";
@@ -27,8 +27,6 @@ public class MenuManutentore {
     private boolean alreadyCreatedUnit = false;
     private boolean atLeastOneSensorCategoryCreated = false;
     private boolean atLeastOneActuatorCategoryCreated = false;
-    private boolean atLeastOneSensor = false;
-    private boolean atLeastOneActuator = false;
     private UnitaImmobiliare unitaImmobiliare;
     private InputDati inputDati = new InputDati();
 
@@ -113,44 +111,54 @@ public class MenuManutentore {
          Crea nuovo sensore (solo se esiste almeno una categoria di sensore 
          e può essere associato solo a stanze che non abbiano già il medesimo sensore)
         */
-            if(atLeastOneSensorCategoryCreated){
-              //espressione regolare per il formato richiesto
-              final Pattern pattern = Pattern.compile("[A-Za-z]+_[A-Za-z]+");
-              String nomeSensore;
-              do{
-                nomeSensore = inputDati.leggiStringaNonVuota(MESS_INSERISCI_NOME_SENSORE_FORMATO_NOME_CATEGORIADELSENSORE);
-                if (!pattern.matcher(nomeSensore).matches()) {
-                    System.out.println(ERRORE_IL_NOME_DEL_SENSORE_NON_È_NEL_FORMATO_CORRETTO);
-                }
-              } while(!pattern.matcher(nomeSensore).matches());
-              //stampa categorie sensori disponibili
-              ListaCategoriaSensori.getInstance().printList();
-              //salva selezione
-              String choiceSensorCategory;
-              do{
-                choiceSensorCategory = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA);
-              } while(!ListaCategoriaSensori.getInstance().alreadyExist(choiceSensorCategory));
-              int valoreRilevato = inputDati.leggiInteroConMinimo("Inserisci il valore che viene rilevato dal sensore", 0);
-              Sensore sensore = new Sensore(nomeSensore, "",ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true, valoreRilevato);
-              ListaSensori.getInstance().addSensoreToList(sensore);
-              System.out.println(MESS_SENSORE_AGGIUNTO_CORRETTAMENTE);
-              atLeastOneSensor = true;
+        if(alreadyCreatedUnit){
+          if(atLeastOneSensorCategoryCreated){
+            //espressione regolare per il formato richiesto
+            String nomeSensore = "";
+            String stanzaSceltaDaAssociare = "";
+            
+            nomeSensore = inputDati.leggiStringaNonVuota(MESS_INSERISCI_NOME_SENSORE_FORMATO_NOME_CATEGORIADELSENSORE);
+            
+            //stampa categorie sensori disponibili
+            ListaCategoriaSensori.getInstance().printList();
+            //salva selezione
+            String choiceSensorCategory;
+            do{
+              choiceSensorCategory = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA);
+            } while(!ListaCategoriaSensori.getInstance().alreadyExist(choiceSensorCategory));
+            int valoreRilevato = inputDati.leggiInteroConMinimo("Inserisci il valore che viene rilevato dal sensore: ", 0);
+            //Associa stanza a sensore
+            unitaImmobiliare.toStringListaStanze();
+            int choice = inputDati.leggiIntero(MESS_SELEZIONA_NUMERO_DELLA_STANZA_DA_ASSOCIARE_AD_UN_SENSORE, 1, unitaImmobiliare.arrayStanzeSize()+1);
+            System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaStanze(choice-1));
+            ListaSensori.getInstance().printList();
+            
+            if(!ListaSensori.getInstance().esisteUnaStanzaConCategoriaUguale(choiceSensorCategory, unitaImmobiliare.getElementInListaStanze(choice-1))){
+              stanzaSceltaDaAssociare =  unitaImmobiliare.getElementInListaStanze(choice-1);
             } else {
-              System.out.println(ERRORE_DEVI_CREARE_ALMENO_UNA_CATEGORIA_DI_SENSORI);
+              System.out.println(ERRORE_PUOI_ASSOCIARE_SOLO_UN_SENSORE_PER_CATEGORIA_IN_OGNI_STANZA);
+              break;
             }
+            //crea nuovo sensore
+            Sensore sensore = new Sensore(nomeSensore+"_"+choiceSensorCategory, stanzaSceltaDaAssociare,ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true, valoreRilevato,unitaImmobiliare.getNomeUnita());
+            ListaSensori.getInstance().addSensoreToList(sensore);
+            System.out.println(MESS_SENSORE_AGGIUNTO_CORRETTAMENTE);
+          } else {
+            System.out.println(ERRORE_DEVI_CREARE_ALMENO_UNA_CATEGORIA_DI_SENSORI);
+          }
+        } else {
+          System.out.println(ERRORE_DEVI_CREARE_ALMENO_UN_UNITA_IMMOBILIARE);
+        }
+           
             
             break;
 
         case 4: // Crea nuovo attuatore (solo se esiste almeno una categoria di attuatore)
+          if(alreadyCreatedUnit){
             if(atLeastOneActuatorCategoryCreated){
-              final Pattern pattern = Pattern.compile("[A-Za-z]+_[A-Za-z]+");
-              String nomeAttuatore;
-              do{
-                nomeAttuatore = inputDati.leggiStringaNonVuota(MESS_INSERISCI_NOME_ATTUATORE_FORMATO_NOME_CATEGORIA_ATTUATORE);
-                if (!pattern.matcher(nomeAttuatore).matches()) {
-                    System.out.println(ERRORE_IL_NOME_DELL_ATTUATORE_NON_È_NEL_FORMATO_CORRETTO);
-                }
-              } while(!pattern.matcher(nomeAttuatore).matches());
+              String nomeAttuatore = "";
+              String artefattoSelezionatoDaAssociare = "";
+              nomeAttuatore = inputDati.leggiStringaNonVuota(MESS_INSERISCI_NOME_ATTUATORE_FORMATO_NOME_CATEGORIA_ATTUATORE);
               //stampa categorie attuatori disponibili
               ListaCategoriaAttuatori.getInstance().printList();
               //salva selezione
@@ -158,18 +166,36 @@ public class MenuManutentore {
               do{
                 choiceActuatorCategory = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA);
               } while(!ListaCategoriaAttuatori.getInstance().alreadyExist(choiceActuatorCategory));
+
               
-              Attuatore attuatore = new Attuatore(nomeAttuatore, "",ListaCategoriaAttuatori.getInstance().getCategoriaAttuatori(choiceActuatorCategory),true);
+              //Associa attuatore ad artefatto
+               unitaImmobiliare.toStringListaArtefatti();
+               int choice = inputDati.leggiIntero(MESS_SELEZIONA_NUMERO_DELL_ARTEFATTO_DA_ASSOCIARE_AD_UN_ATTUATORE, 1, unitaImmobiliare.arrayArtefattiSize()+1);
+               System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaArtefatti(choice-1));
+               ListaAttuatori.getInstance().printList();
+               if(!ListaAttuatori.getInstance().esisteUnArtefattoConCategoriaUguale(choiceActuatorCategory, unitaImmobiliare.getElementInListaArtefatti(choice-1))){
+                 //ListaAttuatori.getInstance().addArtefactToActuator(ListaAttuatori.getInstance().getActuatorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaArtefatti(choice-1));
+                 artefattoSelezionatoDaAssociare = unitaImmobiliare.getElementInListaArtefatti(choice-1);
+               } else {
+                 System.out.println(ERRORE_PUOI_ASSOCIARE_SOLO_UN_ATTUATORE_PER_CATEGORIA_IN_OGNI_ARTEFATTO);
+                 break;
+               } 
+              
+              Attuatore attuatore = new Attuatore(nomeAttuatore+"_"+choiceActuatorCategory, artefattoSelezionatoDaAssociare,ListaCategoriaAttuatori.getInstance().getCategoriaAttuatori(choiceActuatorCategory),true,unitaImmobiliare.getNomeUnita());
               ListaAttuatori.getInstance().addAttuatoreToList(attuatore);
               System.out.println(MESS_ATTUATORE_AGGIUNTO_CORRETTAMENTE);
-              atLeastOneActuator = true;
             } else {
               System.out.println(ERRORE_DEVI_CREARE_ALMENO_UNA_CATEGORIA_DI_ATTUATORI);
             }
+          } else {
+            System.out.println(ERRORE_DEVI_CREARE_ALMENO_UN_UNITA_IMMOBILIARE);
+          }
+            
 
           break;
 
-        case 5: // Crea nuova unita' immobiliare (unica per questa versione, verificare che non sia già presente)
+        // Crea nuova unita' immobiliare (unica per questa versione, verificare che non sia già presente)
+        case 5: 
           boolean finitoStanze = false;
           boolean finitoArtefatti = false;
           if(alreadyCreatedUnit == true){
@@ -209,42 +235,6 @@ public class MenuManutentore {
           
           break;
 
-        case 6: // Descrivi unità immobiliare (verificare che sia stata creata e che ci sia almeno un sensore/attuatore) 
-
-          if(!alreadyCreatedUnit){
-            System.out.println(ERRORE_PRIMA_DEVI_CREARE_UN_UNITA_IMMOBILIARE);
-          }
-          else if(atLeastOneSensor){
-        	  
-        		  //seleziona stanze
-              unitaImmobiliare.toStringListaStanze();
-              int choice = inputDati.leggiIntero(MESS_SELEZIONA_NUMERO_DELLA_STANZA_DA_ASSOCIARE_AD_UN_SENSORE, 1, unitaImmobiliare.arrayStanzeSize()+1);
-              System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaStanze(choice-1));
-              ListaSensori.getInstance().printList();
-              int choiceSensore = inputDati.leggiIntero(MESS_SELEZIONA_IL_NUMERO_DEL_SENSORE_DA_ASSOCIARE_ALLA_STANZA_SCELTA, 1, ListaSensori.getInstance().getListSize());
-              if(!ListaSensori.getInstance().esisteUnaStanzaConCategoriaUguale(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1))){
-                ListaSensori.getInstance().addRoomToSensor(ListaSensori.getInstance().getSensorFromList(choiceSensore-1), unitaImmobiliare.getElementInListaStanze(choice-1));
-              } else {
-                System.out.println(ERRORE_PUOI_ASSOCIARE_SOLO_UN_SENSORE_PER_CATEGORIA_IN_OGNI_STANZA);
-              }
-          }
-        	
-        	else if(atLeastOneActuator){
-        		  //seleziona artefatti
-              unitaImmobiliare.toStringListaArtefatti();
-              int choice = inputDati.leggiIntero(MESS_SELEZIONA_NUMERO_DELL_ARTEFATTO_DA_ASSOCIARE_AD_UN_ATTUATORE, 1, unitaImmobiliare.arrayArtefattiSize()+1);
-              System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaArtefatti(choice-1));
-              ListaAttuatori.getInstance().printList();
-              int choiceAttuatore = inputDati.leggiIntero(MESS_SELEZIONA_IL_NUMERO_DELL_ATTUATORE_DA_ASSOCIARE_ALL_ARTEFATTO_SCELTO, 1, ListaAttuatori.getInstance().getListSize());
-              if(!ListaAttuatori.getInstance().esisteUnArtefattoConCategoriaUguale(ListaAttuatori.getInstance().getActuatorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaArtefatti(choice-1))){
-                ListaAttuatori.getInstance().addArtefactToActuator(ListaAttuatori.getInstance().getActuatorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaArtefatti(choice-1));
-              } else {
-                System.out.println(ERRORE_PUOI_ASSOCIARE_SOLO_UN_ATTUATORE_PER_CATEGORIA_IN_OGNI_ARTEFATTO);
-              }
-          } else {
-            System.out.println(ERRORE_NON_SONO_PRESENTI_SENSORI_O_ATTUATORI_DA_ASSOCIARE_AL_MOMENTO);
-          }
-          break;
         default: // Se i controlli nella classe Menu sono corretti, questo non viene mai eseguito !
           System.out.println(ERRORE_FUNZIONE);
           System.out.println(MESS_ALTRA_OPZIONE);
