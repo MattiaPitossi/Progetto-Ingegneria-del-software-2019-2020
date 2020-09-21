@@ -1,15 +1,14 @@
 package menu;
 
 import java.util.ArrayList;
-import modelli.Attuatore;
-import modelli.CategoriaAttuatori;
-import modelli.CategoriaSensori;
+
+import modelli.categorie.*;
+import modelli.dispositivi.*;
 import modelli.liste.ListaAttuatori;
 import modelli.liste.ListaCategoriaAttuatori;
 import modelli.liste.ListaCategoriaSensori;
 import modelli.liste.ListaSensori;
 import modelli.liste.ListaUnitaImmobiliare;
-import modelli.Sensore;
 import modelli.UnitaImmobiliare;
 import utility.InputDati;
 import utility.MyMenu;
@@ -20,7 +19,7 @@ public class MenuManutentore {
 
     private static final String ERRORE_DEVI_CREARE_ALMENO_UN_UNITA_IMMOBILIARE = "Devi creare almeno un'unita' immobiliare";
     final private static String TITOLO = "Menu manutentore";
-    final private static String [] VOCIMENU = {"Crea nuova categoria sensore", "Crea nuova categoria attuatore", "Inserisci nuovo sensore (richiede la presenza di almeno una categoria)", "Inserisci nuovo attuatore (richiede la presenza di almeno una categoria)","Crea nuova unita' immobiliare","Descrivi unita' immobiliare" };
+    final private static String [] VOCIMENU = {"Crea nuova categoria sensore", "Crea nuova categoria attuatore", "Inserisci nuovo sensore (richiede la presenza di almeno una categoria)", "Inserisci nuovo attuatore (richiede la presenza di almeno una categoria)","Crea nuova unita' immobiliare" };
     final private static String MESS_USCITA = "Vuoi tornare al menu precedente ?";
     final private static String ERRORE_FUNZIONE = "La funzione non rientra tra quelle disponibili !";
     final private static String MESS_ALTRA_OPZIONE = "Selezionare un'altra opzione.";
@@ -29,6 +28,7 @@ public class MenuManutentore {
     private boolean atLeastOneActuatorCategoryCreated = false;
     private UnitaImmobiliare unitaImmobiliare;
     private InputDati inputDati = new InputDati();
+    private String unitaImmobiliareSceltaManutentore;
 
     public void esegui(){
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
@@ -168,7 +168,6 @@ public class MenuManutentore {
                 choiceActuatorCategory = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA);
               } while(!ListaCategoriaAttuatori.getInstance().alreadyExist(choiceActuatorCategory));
 
-              
               //Associa attuatore ad artefatto
                unitaImmobiliare.toStringListaArtefatti();
                int choice = inputDati.leggiIntero(MESS_SELEZIONA_NUMERO_DELL_ARTEFATTO_DA_ASSOCIARE_AD_UN_ATTUATORE, 1, unitaImmobiliare.arrayArtefattiSize()+1);
@@ -241,7 +240,20 @@ public class MenuManutentore {
           ListaUnitaImmobiliare.getInstance().addUnitaToList(unitaImmobiliare);
           System.out.println(MESS_LA_CREAZIONE_DELL_UNITA_IMMOBILIARE_E_COMPLETATA);
         
-        break;
+          break;
+
+        case 6: //Seleziona l'unita' su cui lavorare
+          if(ListaUnitaImmobiliare.getInstance().isEmptyList()){
+            System.out.println("Non sono presenti unita' immobiliari al momento!");
+          } else {
+            ListaUnitaImmobiliare.getInstance().printList();
+            int unitaScelta = inputDati.leggiIntero("Inserisci il numero dell'unita' su cui vuoi lavorare: ", 1, ListaUnitaImmobiliare.getInstance().getListSize());
+            unitaImmobiliareSceltaManutentore = ListaUnitaImmobiliare.getInstance().getUnitaFromList(unitaScelta - 1).getNomeUnita();
+            System.out.println("Unita' scelta correttamente");
+          }
+
+          
+          break;
 
         default: // Se i controlli nella classe Menu sono corretti, questo non viene mai eseguito !
           System.out.println(ERRORE_FUNZIONE);

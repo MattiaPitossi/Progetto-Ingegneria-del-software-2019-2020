@@ -18,7 +18,7 @@ public class MessaggiErroriMenu {
     public static final String MESS_SENSORE_AGGIUNTO_CORRETTAMENTE = "Sensore aggiunto correttamente!";
     public static final String MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA = "Inserisci il nome della categoria: ";
     public static final String MESS_SELEZIONA_NUMERO_DELLA_STANZA_DA_ASSOCIARE_AD_UN_SENSORE = "Seleziona numero della stanza da associare ad un sensore: ";
-    public static final String MESS_INSERISCI_NOME_SENSORE_FORMATO_NOME_CATEGORIADELSENSORE = "Inserisci nome sensore (formato: nome_categoriadelsensore): ";
+    public static final String MESS_INSERISCI_NOME_SENSORE_FORMATO_NOME_CATEGORIADELSENSORE = "Inserisci nome sensore: ";
     public static final String MESS_INSERISCI_LA_MODALITA_OPERATIVA_FINE_PER_TERMINARE = "Inserisci la modalita' operativa (fine per terminare): ";
     public static final String MESS_SELEZIONA_NUMERO_DELL_ARTEFATTO_DA_ASSOCIARE_AD_UN_ATTUATORE = "Seleziona numero dell'artefatto da associare ad un attuatore: ";
     public static final String MESS_INSERISCI_LA_PRIMA_MODALITA_OPERATIVA = "Inserisci la prima modalita' operativa: ";

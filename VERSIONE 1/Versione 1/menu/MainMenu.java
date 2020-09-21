@@ -1,5 +1,7 @@
 package menu;
 
+import java.util.List;
+
 import modelli.liste.ListaAttuatori;
 import modelli.liste.ListaSensori;
 import utility.InputDati;
@@ -44,8 +46,14 @@ public class MainMenu {
 
           if(menuManutentore.isUnitCreated()){
             menuManutentore.printUnitDescription();
-            ListaSensori.getInstance().printListAssociations();
-            ListaAttuatori.getInstance().printListAssociations();
+            if(!ListaSensori.getInstance().isEmptyList()){
+              ListaSensori.getInstance().printListAssociations();
+            }
+            if(!ListaSensori.getInstance().isEmptyList()){
+              ListaAttuatori.getInstance().printListAssociations();
+            }
+            
+            
           } else {
             System.out.println("Prima devi creare un'unita' immobiliare");
           }

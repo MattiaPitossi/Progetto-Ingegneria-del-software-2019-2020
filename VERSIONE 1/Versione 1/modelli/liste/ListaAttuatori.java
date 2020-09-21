@@ -3,7 +3,8 @@ package modelli.liste;
 import java.util.ArrayList;
 import java.util.Random;
 
-import modelli.Attuatore;
+import modelli.categorie.*;
+import modelli.dispositivi.Attuatore;
 
 /**
  * La classe {@code ListaAttuatori rappresenta le liste 
@@ -102,13 +103,10 @@ public class ListaAttuatori implements Liste {
      */
     public void printListAssociations() {
         int i = 1;
-        for(Attuatore lista : listaAttuatori) {
-            if(lista.getArtefattoAssociato().equals("")){
-                System.out.println(i +". "+lista.getNomeAttuatore()+ " non allocato ");
-            } else {
-                System.out.println(i +". "+lista.getNomeAttuatore()+ " allocato in "+ lista.getArtefattoAssociato());
-            }
-            i+=1;
+        System.out.println("Attuatori nell'unita': ");
+        for(Attuatore lista : listaAttuatori) { 
+            System.out.println(i +". "+lista.getNomeAttuatore()+ " allocato in "+ lista.getArtefattoAssociato());
+            i += 1;
         }
 
     }

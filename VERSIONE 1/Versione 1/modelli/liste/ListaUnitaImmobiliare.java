@@ -20,7 +20,7 @@ public class ListaUnitaImmobiliare implements Liste {
         return listaUnitaImmobiliareInstance;
     }
 
-	  /** 
+    /** 
      * Questo metodo controlla che non sia gia' presente una artefatto
      * con un attuatore con categoria uguale
      * 

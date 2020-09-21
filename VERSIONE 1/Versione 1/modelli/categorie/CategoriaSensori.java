@@ -1,4 +1,4 @@
-package modelli;
+package modelli.categorie;
 public class CategoriaSensori {
     
     private String nome;

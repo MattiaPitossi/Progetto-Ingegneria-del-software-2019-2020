@@ -3,7 +3,8 @@ package modelli.liste;
 import java.util.ArrayList;
 import java.util.Random;
 
-import modelli.Sensore;
+import modelli.categorie.*;
+import modelli.dispositivi.Sensore;
 
 /**
  * La classe {@code ListaSensori} rappresenta le liste 
@@ -121,12 +122,9 @@ public class ListaSensori implements Liste {
      */
     public void printListAssociations() {
         int i = 1;
-        for(Sensore lista : listaSensori) {
-            if(lista.getStanzaAssociata().equals("")){
-                System.out.println(i +". "+lista.getNomeSensore()+ " non allocato ");
-            } else {
-                System.out.println(i +". "+lista.getNomeSensore()+ " allocato in "+ lista.getStanzaAssociata());
-            }
+        System.out.println("Sensori nell'unita': ");
+        for(Sensore lista : listaSensori) {  
+            System.out.println(i +". "+lista.getNomeSensore()+ " allocato in "+ lista.getStanzaAssociata() +"Valore rilevato: " + lista.getValoreRilevato());
             i+=1;
         }
 

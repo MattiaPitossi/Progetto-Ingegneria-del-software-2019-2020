@@ -1,12 +1,13 @@
-package modelli;
+package modelli.dispositivi;
+
+import modelli.categorie.*;
 
 /**
- * La classe {@code Attuatore} rappresenta
- * il modello di un attuatore
+ * La classe {@code Attuatore} rappresenta il modello di un attuatore
  *
- * @author  Mattia Pitossi
- * @author  Simone Pitossi
- * @since   versione 1
+ * @author Mattia Pitossi
+ * @author Simone Pitossi
+ * @since versione 1
  */
 
 public class Attuatore {

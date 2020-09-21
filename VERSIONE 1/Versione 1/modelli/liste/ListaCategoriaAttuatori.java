@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import modelli.CategoriaAttuatori;
+import modelli.categorie.*;
+import modelli.dispositivi.Attuatore;
 
 public class ListaCategoriaAttuatori implements Liste{
     private Map<String, CategoriaAttuatori> listaCategoriaAttuatori;

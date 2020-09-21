@@ -1,5 +1,5 @@
-package modelli;
-
+package modelli.dispositivi;
+import modelli.categorie.*;
 /**
  * La classe {@code Sensore} rappresenta
  * il modello di un sensore

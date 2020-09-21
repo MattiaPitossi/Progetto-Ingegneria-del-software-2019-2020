@@ -1,4 +1,4 @@
-package modelli;
+package modelli.categorie;
 
 import java.util.ArrayList;
 
