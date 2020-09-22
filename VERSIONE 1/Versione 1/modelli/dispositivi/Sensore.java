@@ -29,15 +29,16 @@ public class Sensore {
      * @param valoreRilevato viene inserito il valore numerico rilevato dal sensore
      * @since versione 1 
      */
-    public Sensore (String nomeSensore, String stanzaAssociata, CategoriaSensori categoriaAssociata, boolean statoAttivo, int valoreRilevato, String unitaAssociata){
+    public Sensore (String nomeSensore, String stanzaAssociata, CategoriaSensori categoriaAssociata, boolean statoAttivo, String unitaAssociata){
         this.nomeSensore = nomeSensore;
         this.stanzaAssociata = stanzaAssociata;
         this.categoriaAssociata = categoriaAssociata;
         this.statoAttivo = statoAttivo;
-        this.valoreRilevato = valoreRilevato;
     }
 
-    public String getNomeSensore() {
+
+
+	public String getNomeSensore() {
         return nomeSensore;
     }
 

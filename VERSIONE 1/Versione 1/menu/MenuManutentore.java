@@ -57,55 +57,74 @@ public class MenuManutentore {
         case 0: // Esci
           return inputDati.yesOrNo(MESS_USCITA);
        
-    
         case 1: // Crea nuova categoria sensore
-            String nomeCategoriaSensori;
-            do{
-                nomeCategoriaSensori = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA_DEI_SENSORI);
-                if(ListaCategoriaSensori.getInstance().alreadyExist(nomeCategoriaSensori)) {
-                  System.out.println(ERRORE_ATTENZIONE_IL_NOME_DI_QUESTA_CATEGORIA_È_GIÀ_PRESENTE);
-                }
-              } while (ListaCategoriaSensori.getInstance().alreadyExist(nomeCategoriaSensori));
-              String descrizioneCategoriaSensori = inputDati.leggiStringa(MESS_INSERISCI_UNA_DESCRIZIONE_FACOLTATIVA);
-              // per questa versione una singola variabile fisica
-              String variabileFisicaLetta = inputDati
-                  .leggiStringaNonVuota(MESS_INSERISCI_LA_VARIABILE_FISICA_CHE_VERRÀ_RILEVATA);
-              CategoriaSensori categoriaCreata = new CategoriaSensori(nomeCategoriaSensori, descrizioneCategoriaSensori,
-                  variabileFisicaLetta);
-              ListaCategoriaSensori.getInstance().addToList(nomeCategoriaSensori, categoriaCreata);
-              atLeastOneSensorCategoryCreated = true;
+          String nomeCategoriaSensori;
+          CategoriaSensori categoriaCreata = null;
+          ArrayList<String> dominioValoriRilevati = new ArrayList<>();
+          do{
+              nomeCategoriaSensori = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA_DEI_SENSORI);
+              if(ListaCategoriaSensori.getInstance().alreadyExist(nomeCategoriaSensori)) {
+                System.out.println(ERRORE_ATTENZIONE_IL_NOME_DI_QUESTA_CATEGORIA_È_GIÀ_PRESENTE);
+              }
+          } while (ListaCategoriaSensori.getInstance().alreadyExist(nomeCategoriaSensori));
+          String descrizioneCategoriaSensori = inputDati.leggiStringa(MESS_INSERISCI_UNA_DESCRIZIONE_FACOLTATIVA);
+          // per questa versione una singola variabile fisica
+          if(inputDati.yesOrNo("E' una categoria di un sensore numerico?")){
+            String variabileFisicaLetta = inputDati
+            .leggiStringaNonVuota(MESS_INSERISCI_LA_VARIABILE_FISICA_CHE_VERRÀ_RILEVATA);
+            categoriaCreata = new CategoriaSensori(nomeCategoriaSensori, descrizioneCategoriaSensori,
+            variabileFisicaLetta);
 
-              break;
+          } else {
+            //allora si tratta di un sensore non numerico
+           
+            boolean finito = false;
+
+            do{
+              String daLeggere = inputDati.leggiStringaNonVuota("Insersci i valori rilevati (fine per terminare): ");
+              
+              if(daLeggere.equals("fine")){
+                finito = true;
+              } else {
+                dominioValoriRilevati.add(daLeggere);
+              }
+            }while(!finito);
+            categoriaCreata = new CategoriaSensori(nomeCategoriaSensori, descrizioneCategoriaSensori, dominioValoriRilevati);
+          }
+         
+          ListaCategoriaSensori.getInstance().addToList(nomeCategoriaSensori, categoriaCreata);
+          atLeastOneSensorCategoryCreated = true;
+
+          break;
 
         case 2: // Crea nuova categoria attuatore
-              boolean finito = false;
-              String nomeCategoriaAttuatori;
-              ArrayList<String> listaFunzioni = new ArrayList<String>();
-              String altreModalitaOperative;
-              do {
-                nomeCategoriaAttuatori = inputDati
-                    .leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA_DEGLI_ATTUATORI);
-                if (ListaCategoriaAttuatori.getInstance().alreadyExist(nomeCategoriaAttuatori)) {
-                  System.out.println(ERRORE_ATTENZIONE_IL_NOME_DI_QUESTA_CATEGORIA_È_GIÀ_PRESENTE);
-                }
-              } while (ListaCategoriaAttuatori.getInstance().alreadyExist(nomeCategoriaAttuatori));
-              String descrizioneCategoriaAttuatori = inputDati.leggiStringa(MESS_INSERISCI_UNA_DESCRIZIONE_FACOLTATIVA);
-              //per questa versione azioni non parametriche
-              String primaFunzione = inputDati.leggiStringaNonVuota(MESS_INSERISCI_LA_PRIMA_MODALITA_OPERATIVA);
-              listaFunzioni.add(primaFunzione);
-              do{
-                altreModalitaOperative = inputDati.leggiStringaNonVuota(MESS_INSERISCI_LA_MODALITA_OPERATIVA_FINE_PER_TERMINARE);
-                if(!altreModalitaOperative.equals("fine")){
-                  listaFunzioni.add(altreModalitaOperative);
-                } else {
-                  finito = true;
-                }
-              } while(!finito);
-              CategoriaAttuatori categoriaAttuatoriCreata = new CategoriaAttuatori(nomeCategoriaAttuatori, descrizioneCategoriaAttuatori, listaFunzioni);
-              ListaCategoriaAttuatori.getInstance().addToList(nomeCategoriaAttuatori, categoriaAttuatoriCreata);
-              atLeastOneActuatorCategoryCreated = true;
+          boolean finito = false;
+          String nomeCategoriaAttuatori;
+          ArrayList<String> listaFunzioni = new ArrayList<String>();
+          String altreModalitaOperative;
+          do {
+            nomeCategoriaAttuatori = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA_DEGLI_ATTUATORI);
+            if (ListaCategoriaAttuatori.getInstance().alreadyExist(nomeCategoriaAttuatori)) {
+              System.out.println(ERRORE_ATTENZIONE_IL_NOME_DI_QUESTA_CATEGORIA_È_GIÀ_PRESENTE);
+            }
+          }while (ListaCategoriaAttuatori.getInstance().alreadyExist(nomeCategoriaAttuatori));
+          String descrizioneCategoriaAttuatori = inputDati.leggiStringa(MESS_INSERISCI_UNA_DESCRIZIONE_FACOLTATIVA);
+          //per questa versione azioni non parametriche
+          String primaFunzione = inputDati.leggiStringaNonVuota(MESS_INSERISCI_LA_PRIMA_MODALITA_OPERATIVA);
+          listaFunzioni.add(primaFunzione);
+          do{
+            altreModalitaOperative = inputDati.leggiStringaNonVuota(MESS_INSERISCI_LA_MODALITA_OPERATIVA_FINE_PER_TERMINARE);
+            if(!altreModalitaOperative.equals("fine")){
+              listaFunzioni.add(altreModalitaOperative);
+            } else {
+              finito = true;
+            }
+          } while(!finito);
+          CategoriaAttuatori categoriaAttuatoriCreata = new CategoriaAttuatori(nomeCategoriaAttuatori, descrizioneCategoriaAttuatori, listaFunzioni);
+          ListaCategoriaAttuatori.getInstance().addToList(nomeCategoriaAttuatori, categoriaAttuatoriCreata);
+          atLeastOneActuatorCategoryCreated = true;
 
-              break;
+          break;
 
         case 3: 
         /*
@@ -117,6 +136,7 @@ public class MenuManutentore {
             //espressione regolare per il formato richiesto
             String nomeSensore = "";
             String stanzaSceltaDaAssociare = "";
+            Sensore sensore = null;
             
             nomeSensore = inputDati.leggiStringaNonVuota(MESS_INSERISCI_NOME_SENSORE_FORMATO_NOME_CATEGORIADELSENSORE);
             
@@ -127,7 +147,8 @@ public class MenuManutentore {
             do{
               choiceSensorCategory = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA);
             } while(!ListaCategoriaSensori.getInstance().alreadyExist(choiceSensorCategory));
-            int valoreRilevato = inputDati.leggiInteroConMinimo("Inserisci il valore che viene rilevato dal sensore: ", 0);
+          
+           
             //Associa stanza a sensore
             unitaImmobiliare.toStringListaStanze();
             int choice = inputDati.leggiIntero(MESS_SELEZIONA_NUMERO_DELLA_STANZA_DA_ASSOCIARE_AD_UN_SENSORE, 1, unitaImmobiliare.arrayStanzeSize()+1);
@@ -140,8 +161,14 @@ public class MenuManutentore {
               System.out.println(ERRORE_PUOI_ASSOCIARE_SOLO_UN_SENSORE_PER_CATEGORIA_IN_OGNI_STANZA);
               break;
             }
-            //crea nuovo sensore
-            Sensore sensore = new Sensore(nomeSensore+"_"+choiceSensorCategory, stanzaSceltaDaAssociare,ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true, valoreRilevato,unitaImmobiliare.getNomeUnita());
+            if(inputDati.yesOrNo("E' un sensore numerico?")){
+              int valoreRilevato = inputDati.leggiInteroConMinimo("Inserisci il valore che viene rilevato dal sensore: ", 0);
+                          //crea nuovo sensore numerico
+              sensore = new Sensore(nomeSensore+"_"+choiceSensorCategory, stanzaSceltaDaAssociare,ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true, valoreRilevato,unitaImmobiliare.getNomeUnita());
+            } else {
+              Sensore sensore = new SensoreNonNumerico(nomeSensore+"_"+choiceSensorCategory, stanzaSceltaDaAssociare,ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true,unitaImmobiliare.getNomeUnita());
+            }
+
             ListaSensori.getInstance().addSensoreToList(sensore);
             System.out.println(MESS_SENSORE_AGGIUNTO_CORRETTAMENTE);
           } else {
@@ -252,7 +279,6 @@ public class MenuManutentore {
             System.out.println("Unita' scelta correttamente");
           }
 
-          
           break;
 
         default: // Se i controlli nella classe Menu sono corretti, questo non viene mai eseguito !
@@ -261,6 +287,6 @@ public class MenuManutentore {
           break;
       }
       return false;
-  
+
     }
 }
