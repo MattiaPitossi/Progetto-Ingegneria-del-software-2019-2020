@@ -1,12 +1,13 @@
 package menu;
 
+import modelli.liste.ListaAttuatori;
 import modelli.liste.ListaSensori;
 import utility.InputDati;
 import utility.MyMenu;
 
 public class MenuFruitore {
     final private static String TITOLO = "Menu fruitore";
-    final private static String [] VOCIMENU = {"Visualizza dati sensori"};
+    final private static String [] VOCIMENU = {"Visualizza dati sensori", "Compi azioni con attuatori"};
     final private static String MESS_USCITA = "Vuoi tornare al menu precedente ?";
     final private static String ERRORE_FUNZIONE = "La funzione non rientra tra quelle disponibili !";
     final private static String MESS_ALTRA_OPZIONE = "Selezionare un'altra opzione.";
@@ -39,6 +40,15 @@ public class MenuFruitore {
           }
    
           break;
+
+        case 2: //Effettua azioni
+          if(ListaAttuatori.getInstance().isEmptyList()){
+            System.out.println("Non sono presenti attuatori al momento");
+          } else{
+            ListaAttuatori.getInstance().compiAzioneConAttuatore();
+          }
+          break;
+        
         
         default: // Se i controlli nella classe Menu sono corretti, questo non viene mai eseguito !
           System.out.println(ERRORE_FUNZIONE);

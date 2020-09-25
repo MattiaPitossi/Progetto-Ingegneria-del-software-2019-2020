@@ -17,7 +17,6 @@ public class Sensore {
     private boolean statoAttivo;
     private String stanzaAssociata;
     private CategoriaSensori categoriaAssociata;
-    private int valoreRilevato;
 
     /** 
      * Costruttore per il sensore
@@ -35,8 +34,6 @@ public class Sensore {
         this.categoriaAssociata = categoriaAssociata;
         this.statoAttivo = statoAttivo;
     }
-
-
 
 	public String getNomeSensore() {
         return nomeSensore;
@@ -79,7 +76,7 @@ public class Sensore {
     }
 
     public int getValoreRilevato(){
-        return valoreRilevato;
+        return 0;
     }
 
     

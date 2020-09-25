@@ -6,19 +6,13 @@ public class CategoriaAttuatori {
     
     private String nome;
     private String descrizione;
-    private ArrayList<String> modalitaOperative = new ArrayList<String>();
 
     //Costuttore dell'attuatore in base alle richieste del progetto
-    public CategoriaAttuatori(String nome, String descrizione, ArrayList<String> modalitaOperative){
+    public CategoriaAttuatori(String nome, String descrizione){
         this.nome = nome;
         this.descrizione = descrizione;
-        this.modalitaOperative = modalitaOperative;
     }
 
-    public boolean aggiungiModalitaOperativa(String modalita){
-        modalitaOperative.add(modalita);
-        return true;
-    }
 
     public String getNome() {
         return nome;
@@ -36,11 +30,4 @@ public class CategoriaAttuatori {
         this.descrizione = descrizione;
     }
 
-    public ArrayList<String> getModalitaOperative() {
-        return modalitaOperative;
-    }
-
-    public void setModalitaOperative(ArrayList<String> modalitaOperative) {
-        this.modalitaOperative = modalitaOperative;
-    }
 }

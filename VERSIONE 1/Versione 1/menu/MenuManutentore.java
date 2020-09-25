@@ -8,7 +8,10 @@ import modelli.liste.ListaAttuatori;
 import modelli.liste.ListaCategoriaAttuatori;
 import modelli.liste.ListaCategoriaSensori;
 import modelli.liste.ListaSensori;
+import modelli.liste.ListaSensoriNonNumerici;
 import modelli.liste.ListaUnitaImmobiliare;
+import modelli.ModalitaOperativaParametrica;
+import modelli.Parametro;
 import modelli.UnitaImmobiliare;
 import utility.InputDati;
 import utility.MyMenu;
@@ -100,8 +103,10 @@ public class MenuManutentore {
         case 2: // Crea nuova categoria attuatore
           boolean finito = false;
           String nomeCategoriaAttuatori;
-          ArrayList<String> listaFunzioni = new ArrayList<String>();
+          ArrayList<String> listaModalitaOperativeNonParametriche = new ArrayList<String>();
+          ArrayList<ModalitaOperativaParametrica> listaModalitaOperativeParametriche = new ArrayList<>();
           String altreModalitaOperative;
+          CategoriaAttuatori categoriaAttuatoriCreata = null;
           do {
             nomeCategoriaAttuatori = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA_DEGLI_ATTUATORI);
             if (ListaCategoriaAttuatori.getInstance().alreadyExist(nomeCategoriaAttuatori)) {
@@ -109,18 +114,33 @@ public class MenuManutentore {
             }
           }while (ListaCategoriaAttuatori.getInstance().alreadyExist(nomeCategoriaAttuatori));
           String descrizioneCategoriaAttuatori = inputDati.leggiStringa(MESS_INSERISCI_UNA_DESCRIZIONE_FACOLTATIVA);
-          //per questa versione azioni non parametriche
-          String primaFunzione = inputDati.leggiStringaNonVuota(MESS_INSERISCI_LA_PRIMA_MODALITA_OPERATIVA);
-          listaFunzioni.add(primaFunzione);
-          do{
-            altreModalitaOperative = inputDati.leggiStringaNonVuota(MESS_INSERISCI_LA_MODALITA_OPERATIVA_FINE_PER_TERMINARE);
-            if(!altreModalitaOperative.equals("fine")){
-              listaFunzioni.add(altreModalitaOperative);
-            } else {
-              finito = true;
-            }
-          } while(!finito);
-          CategoriaAttuatori categoriaAttuatoriCreata = new CategoriaAttuatori(nomeCategoriaAttuatori, descrizioneCategoriaAttuatori, listaFunzioni);
+          if(inputDati.yesOrNo("Vuoi inserire una modalita' parametrica?")){
+            String nomeModalita = inputDati.leggiStringaNonVuota("Inserisci un nome per la modalita' operativa parametrica: ");
+            String nomeParametro = inputDati.leggiStringaNonVuota("Inserisci il nome del parametro: ");
+            int valoreParametro = inputDati.leggiInteroConMinimo("Inserisci il valore del parametro: ", 0);
+            Parametro parametro = new Parametro(nomeParametro, valoreParametro);
+            ModalitaOperativaParametrica modalitaParametrica = new ModalitaOperativaParametrica(nomeModalita, parametro);
+            listaModalitaOperativeParametriche.add(modalitaParametrica);
+
+            categoriaAttuatoriCreata = new CategoriaAttuatoriModalitaParametriche(nomeCategoriaAttuatori, descrizioneCategoriaAttuatori, listaModalitaOperativeParametriche);
+
+          } else {
+            String primaFunzione = inputDati.leggiStringaNonVuota(MESS_INSERISCI_LA_PRIMA_MODALITA_OPERATIVA);
+            listaModalitaOperativeNonParametriche.add(primaFunzione);
+            do{
+              altreModalitaOperative = inputDati.leggiStringaNonVuota(MESS_INSERISCI_LA_MODALITA_OPERATIVA_FINE_PER_TERMINARE);
+              if(!altreModalitaOperative.equals("fine")){
+                listaModalitaOperativeNonParametriche.add(altreModalitaOperative);
+              } else {
+                finito = true;
+              }
+            } while(!finito);
+
+            categoriaAttuatoriCreata = new CategoriaAttuatoriModalitaNonParametriche(nomeCategoriaAttuatori, descrizioneCategoriaAttuatori, listaModalitaOperativeNonParametriche);
+
+          }
+         
+          
           ListaCategoriaAttuatori.getInstance().addToList(nomeCategoriaAttuatori, categoriaAttuatoriCreata);
           atLeastOneActuatorCategoryCreated = true;
 
@@ -129,14 +149,19 @@ public class MenuManutentore {
         case 3: 
         /*
          Crea nuovo sensore (solo se esiste almeno una categoria di sensore 
-         e può essere associato solo a stanze che non abbiano già il medesimo sensore)
+         e può essere associato solo a stanze che non abbiano già il medesimo sensore con una stessa categoria)
         */
         if(alreadyCreatedUnit){
+          //Scelta Unita Immobiliare 
+          ListaUnitaImmobiliare.getInstance().printList();
+          int choiceUnita = inputDati.leggiIntero("Seleziona il numero dell'unita su cui lavorare: ", 1, ListaUnitaImmobiliare.getInstance().getListSize());
+          unitaImmobiliare = ListaUnitaImmobiliare.getInstance().getUnitaFromList(choiceUnita - 1);
+          
           if(atLeastOneSensorCategoryCreated){
             //espressione regolare per il formato richiesto
             String nomeSensore = "";
             String stanzaSceltaDaAssociare = "";
-            Sensore sensore = null;
+            Sensore sensore;
             
             nomeSensore = inputDati.leggiStringaNonVuota(MESS_INSERISCI_NOME_SENSORE_FORMATO_NOME_CATEGORIADELSENSORE);
             
@@ -148,6 +173,7 @@ public class MenuManutentore {
               choiceSensorCategory = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA);
             } while(!ListaCategoriaSensori.getInstance().alreadyExist(choiceSensorCategory));
           
+            
            
             //Associa stanza a sensore
             unitaImmobiliare.toStringListaStanze();
@@ -164,9 +190,9 @@ public class MenuManutentore {
             if(inputDati.yesOrNo("E' un sensore numerico?")){
               int valoreRilevato = inputDati.leggiInteroConMinimo("Inserisci il valore che viene rilevato dal sensore: ", 0);
                           //crea nuovo sensore numerico
-              sensore = new Sensore(nomeSensore+"_"+choiceSensorCategory, stanzaSceltaDaAssociare,ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true, valoreRilevato,unitaImmobiliare.getNomeUnita());
+              sensore = new SensoreNumerico(nomeSensore+"_"+choiceSensorCategory, stanzaSceltaDaAssociare,ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true,unitaImmobiliare.getNomeUnita(),valoreRilevato);
             } else {
-              Sensore sensore = new SensoreNonNumerico(nomeSensore+"_"+choiceSensorCategory, stanzaSceltaDaAssociare,ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true,unitaImmobiliare.getNomeUnita());
+              sensore = new SensoreNonNumerico(nomeSensore+"_"+choiceSensorCategory, stanzaSceltaDaAssociare,ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true,unitaImmobiliare.getNomeUnita());
             }
 
             ListaSensori.getInstance().addSensoreToList(sensore);
@@ -289,4 +315,6 @@ public class MenuManutentore {
       return false;
 
     }
+
+
 }

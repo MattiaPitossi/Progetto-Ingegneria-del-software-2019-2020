@@ -121,6 +121,10 @@ public class ListaAttuatori implements Liste {
         if(listaAttuatori.isEmpty()) return true;
         return false;
     }
+
+    public void compiAzioneConAttuatore(){
+        printList();
+    }
     
     
 }

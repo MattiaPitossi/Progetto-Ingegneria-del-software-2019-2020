@@ -49,7 +49,7 @@ public class MainMenu {
             if(!ListaSensori.getInstance().isEmptyList()){
               ListaSensori.getInstance().printListAssociations();
             }
-            if(!ListaSensori.getInstance().isEmptyList()){
+            if(!ListaAttuatori.getInstance().isEmptyList()){
               ListaAttuatori.getInstance().printListAssociations();
             }
             

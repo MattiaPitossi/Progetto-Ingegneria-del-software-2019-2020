@@ -13,7 +13,7 @@ public class MessaggiErroriMenu {
     public static final String MESS_INSERISCI_NOME_UNITA_IMMOBILIARE = "Inserisci nome unita' immobiliare: ";
     public static final String MESS_LA_CREAZIONE_DELL_UNITA_IMMOBILIARE_E_COMPLETATA = "La creazione dell'unita' immobiliare e' completata!";
     public static final String MESS_SELEZIONA_IL_NUMERO_DEL_SENSORE_DA_ASSOCIARE_ALLA_STANZA_SCELTA = "Seleziona il numero del sensore da associare alla stanza scelta: ";
-    public static final String MESS_INSERISCI_NOME_ATTUATORE_FORMATO_NOME_CATEGORIA_ATTUATORE = "Inserisci nome attuatore (formato: nome_categoriaAttuatore): ";
+    public static final String MESS_INSERISCI_NOME_ATTUATORE_FORMATO_NOME_CATEGORIA_ATTUATORE = "Inserisci nome attuatore: ";
     public static final String MESS_ATTUATORE_AGGIUNTO_CORRETTAMENTE = "Attuatore aggiunto correttamente!";
     public static final String MESS_SENSORE_AGGIUNTO_CORRETTAMENTE = "Sensore aggiunto correttamente!";
     public static final String MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA = "Inserisci il nome della categoria: ";

@@ -5,6 +5,8 @@ import java.util.Random;
 
 import modelli.categorie.*;
 import modelli.dispositivi.Sensore;
+import modelli.dispositivi.SensoreNonNumerico;
+import modelli.dispositivi.SensoreNumerico;
 
 /**
  * La classe {@code ListaSensori} rappresenta le liste 
@@ -124,7 +126,11 @@ public class ListaSensori implements Liste {
         int i = 1;
         System.out.println("Sensori nell'unita': ");
         for(Sensore lista : listaSensori) {  
-            System.out.println(i +". "+lista.getNomeSensore()+ " allocato in "+ lista.getStanzaAssociata() +"Valore rilevato: " + lista.getValoreRilevato());
+            if(lista instanceof SensoreNumerico){
+                System.out.println(i +". "+lista.getNomeSensore()+ " allocato in "+ lista.getStanzaAssociata() +" valore rilevato(cfr. descrizione): " + lista.getValoreRilevato());
+            } else {
+                System.out.println(i + ". " + lista.getNomeSensore() + "allocato in" + lista.getCategoriaAssociata());
+            }
             i+=1;
         }
 
