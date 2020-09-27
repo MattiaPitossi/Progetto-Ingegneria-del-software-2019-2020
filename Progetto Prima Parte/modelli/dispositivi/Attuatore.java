@@ -17,6 +17,8 @@ public class Attuatore {
     private boolean statoAttivo;
     private String artefattoAssociato;
     private CategoriaAttuatori categoriaAssociata;
+    private String modalita;
+    private String unitaAssociata;
 
     
     /** 
@@ -33,6 +35,8 @@ public class Attuatore {
         this.artefattoAssociato = artefattoAssociato;
         this.categoriaAssociata = categoriaAssociata;
         this.statoAttivo = statoAttivo;
+        this.unitaAssociata = unitaAssociata;
+        this.modalita = "Idle";
     }
 
     public String getNomeAttuatore() {
@@ -66,5 +70,22 @@ public class Attuatore {
     public void setCategoriaAssociata(CategoriaAttuatori categoriaAssociata) {
         this.categoriaAssociata = categoriaAssociata;
     }
+
+	public String getModalita() {
+		return modalita;
+	}
+
+	public void setModalita(String modalita) {
+		this.modalita = modalita;
+	}
+	
+	public String getUnitaAssociata() {
+		return unitaAssociata;
+	}
+
+	public void setUnitaAssociata(String unitaAssociata) {
+		this.unitaAssociata = unitaAssociata;
+	}
+    
     
 }
