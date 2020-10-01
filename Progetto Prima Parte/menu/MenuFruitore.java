@@ -22,6 +22,7 @@ public class MenuFruitore {
     final private static String MESS_ALTRA_OPZIONE = "Selezionare un'altra opzione.";
     private InputDati inputDati = new InputDati();
     private UnitaImmobiliare unitaScelta;
+    private boolean isUnitaScelta = false;
     
     public void esegui(){
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
@@ -58,16 +59,23 @@ public class MenuFruitore {
        		ListaUnitaImmobiliare.getInstance().printList();
        		int i = inputDati.leggiIntero("Inserisci il numero per scegliere l'unita: ", 1, ListaUnitaImmobiliare.getInstance().getListSize());
        		i = i - 1;
-       		unitaScelta = ListaUnitaImmobiliare.getInstance().getUnitaFromList(i);
+           unitaScelta = ListaUnitaImmobiliare.getInstance().getUnitaFromList(i);
+           isUnitaScelta = true;
        	}
         break;
         
         case 3: //Effettua azioni
+        if(isUnitaScelta){
           if(ListaAttuatori.getInstance().isEmptyList()){
             System.out.println("Non sono presenti attuatori al momento");
           } else{
             ListaAttuatori.getInstance().compiAzioneConAttuatore(unitaScelta, ListaAttuatori.getInstance(), ListaCategoriaAttuatori.getInstance());
           }
+
+        } else {
+          System.out.println("Prima devi scegliere un unita' su cui lavorare");
+        }
+         
         break;
         
         
