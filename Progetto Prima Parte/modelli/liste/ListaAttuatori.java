@@ -67,6 +67,10 @@ public class ListaAttuatori implements Liste {
         return listaAttuatori.get(i);
     }
 
+    public ArrayList<Attuatore> getArrayAttuatore(){
+        return listaAttuatori;
+    }
+
     @Override
     public boolean alreadyExist(String nameToVerify) {
         // TODO Auto-generated method stub
@@ -171,11 +175,11 @@ public class ListaAttuatori implements Liste {
 			
 			//Nel caso scelga uno viene verificato che la categoria abbia delle modalita parametriche, se ci sono allora viene scelta 
 			if(j == 1) {
-				if(listaCategorieAttuatori.getCategoriaAttuatori(listaAttuatori.listaAttuatori.get(x).getCategoriaAssociata()).getModalitaOperativaNonParametrica().isEmpty()) {
+				if(listaCategorieAttuatori.getCategoriaAttuatori(listaAttuatori.getArrayAttuatore().get(x).getCategoriaAssociata()).getArrayModalitaOperativaNonParametrica().isEmpty()) {
 					System.out.println("Non sono presenti Modalità Operative Non Parametriche. ");
 				} else {
-					String modalitaNonParametrica = listaCategorieAttuatori.getCategoriaAttuatori(listaAttuatori.listaAttuatori.get(x).getCategoriaAssociata()).getModalitaOperativaNonParametrica();
-					for(Attuatore attuatore : listaAttuatori.listaAttuatori) {
+					String modalitaNonParametrica = listaCategorieAttuatori.getCategoriaAttuatori(listaAttuatori.getArrayAttuatore().get(x).getCategoriaAssociata()).getModalitaOperativaNonParametrica();
+                    for(Attuatore attuatore : listaAttuatori.getArrayAttuatore()) {
 						if(attuatore.getNomeAttuatore().equalsIgnoreCase(dispositiviDellUnita.get(x).getNomeAttuatore())) {
 							attuatore.setModalita(modalitaNonParametrica);
 							System.out.println("L'attuatore è stato impostato.");
@@ -187,12 +191,12 @@ public class ListaAttuatori implements Liste {
 				
 			//Nel caso scelga due viene verificato che la categoria abbia delle modalita parametriche, se ci sono allora viene scelta 	
 			} else if (j == 2) {
-				if(listaCategorieAttuatori.getCategoriaAttuatori(listaAttuatori.listaAttuatori.get(x).getCategoriaAssociata()).getListaModalitaOperativeParametriche().getNome().equalsIgnoreCase("")) {
+				if(listaCategorieAttuatori.getCategoriaAttuatori(listaAttuatori.getArrayAttuatore().get(x).getCategoriaAssociata()).getListaModalitaOperativeParametriche().getNome().equalsIgnoreCase("")) {
 					System.out.println("Non sono presenti Modalità Operative Parametriche. ");
 				} else {
-					ModalitaOperativaParametrica modalita = listaCategorieAttuatori.getCategoriaAttuatori(listaAttuatori.listaAttuatori.get(x).getCategoriaAssociata()).getListaModalitaOperativeParametriche();
+					ModalitaOperativaParametrica modalita = listaCategorieAttuatori.getCategoriaAttuatori(listaAttuatori.getArrayAttuatore().get(x).getCategoriaAssociata()).getListaModalitaOperativeParametriche();
 					Parametro parametro = modalita.getParametro();
-					for(Attuatore attuatore : listaAttuatori.listaAttuatori) {
+					for(Attuatore attuatore : listaAttuatori.getArrayAttuatore()) {
 						if(attuatore.getNomeAttuatore().equalsIgnoreCase(dispositiviDellUnita.get(x).getNomeAttuatore())) {
 							attuatore.setModalita(Integer.toString(parametro.getValore()));
 							System.out.println("L'attuatore è stato impostato.");

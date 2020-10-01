@@ -10,6 +10,7 @@ public class CategoriaAttuatoriModalitaParametriche extends CategoriaAttuatori {
     private InputDati inputDati = new InputDati();
     private ArrayList<ModalitaOperativaParametrica> listaModalitaOperativeParametriche = new ArrayList<>();
     private String modalitaOperativaNonParametrica;
+    private ArrayList<String> modalitaOperativeNonParametriche;
 
     public CategoriaAttuatoriModalitaParametriche(String nome, String descrizione, ArrayList<ModalitaOperativaParametrica> listaModalitaOperativeParametriche) {
         super(nome, descrizione);
@@ -57,5 +58,8 @@ public class CategoriaAttuatoriModalitaParametriche extends CategoriaAttuatori {
 
 	     }
 
+         public ArrayList<String> getArrayModalitaOperativaNonParametrica(){
+            return modalitaOperativeNonParametriche;
+        }
     
 }

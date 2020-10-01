@@ -12,6 +12,7 @@ public class CategoriaAttuatori {
     private ArrayList<ModalitaOperativaParametrica> listaModalitaOperativeParametriche;
     private ModalitaOperativaParametrica modalitaOperativaParametrica;
     private String nonParametrica;
+    private ArrayList<String> modalitaOperativeNonParametriche;
 
     //Costuttore dell'attuatore in base alle richieste del progetto
     public CategoriaAttuatori(String nome, String descrizione){
@@ -52,4 +53,8 @@ public class CategoriaAttuatori {
          return "";
 
      }
+
+    public ArrayList<String> getArrayModalitaOperativaNonParametrica(){
+        return modalitaOperativeNonParametriche;
+    }
 }

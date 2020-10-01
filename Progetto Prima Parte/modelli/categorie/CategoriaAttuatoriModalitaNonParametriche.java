@@ -43,8 +43,14 @@ public class CategoriaAttuatoriModalitaNonParametriche extends CategoriaAttuator
      public String getModalitaOperativaNonParametrica(){
          int scelta;
          stampaListaModalitaOperativeNonParametriche();
-         scelta = inputDati.leggiIntero("messaggio", 1, listaModalitaNonParametriche.size());
+         scelta = inputDati.leggiIntero("Inserisci il numero per scegliere la modalita desiderata: ", 1, listaModalitaNonParametriche.size());
          return listaModalitaNonParametriche.get(scelta-1);
+
+     }
+
+     @Override
+     public ArrayList<String> getArrayModalitaOperativaNonParametrica(){
+         return listaModalitaNonParametriche;
 
      }
      
