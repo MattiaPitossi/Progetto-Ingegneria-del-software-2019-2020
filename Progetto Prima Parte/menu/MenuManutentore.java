@@ -20,7 +20,9 @@ import static utility.MessaggiErroriMenu.*;
 
 public class MenuManutentore {
 
-    private static final String ERRORE_DEVI_CREARE_ALMENO_UN_UNITA_IMMOBILIARE = "Devi creare almeno un'unita' immobiliare";
+    
+
+   
     final private static String TITOLO = "Menu manutentore";
     final private static String [] VOCIMENU = {"Crea nuova categoria sensore", "Crea nuova categoria attuatore", "Inserisci nuovo sensore (richiede la presenza di almeno una categoria)", "Inserisci nuovo attuatore (richiede la presenza di almeno una categoria)","Crea nuova unita' immobiliare" };
     final private static String MESS_USCITA = "Vuoi tornare al menu precedente ?";
@@ -72,7 +74,7 @@ public class MenuManutentore {
           } while (ListaCategoriaSensori.getInstance().alreadyExist(nomeCategoriaSensori));
           String descrizioneCategoriaSensori = inputDati.leggiStringa(MESS_INSERISCI_UNA_DESCRIZIONE_FACOLTATIVA);
           // per questa versione una singola variabile fisica
-          if(inputDati.yesOrNo("E' una categoria di un sensore numerico?")){
+          if(inputDati.yesOrNo(MESS_E_UNA_CATEGORIA_DI_UN_SENSORE_NUMERICO)){
             String variabileFisicaLetta = inputDati
             .leggiStringaNonVuota(MESS_INSERISCI_LA_VARIABILE_FISICA_CHE_VERRÀ_RILEVATA);
             categoriaCreata = new CategoriaSensori(nomeCategoriaSensori, descrizioneCategoriaSensori,
@@ -84,7 +86,7 @@ public class MenuManutentore {
             boolean finito = false;
 
             do{
-              String daLeggere = inputDati.leggiStringaNonVuota("Insersci i valori rilevati (fine per terminare): ");
+              String daLeggere = inputDati.leggiStringaNonVuota(MESS_INSERSCI_I_VALORI_RILEVATI_FINE_PER_TERMINARE);
               
               if(daLeggere.equals("fine")){
                 finito = true;
@@ -114,10 +116,10 @@ public class MenuManutentore {
             }
           }while (ListaCategoriaAttuatori.getInstance().alreadyExist(nomeCategoriaAttuatori));
           String descrizioneCategoriaAttuatori = inputDati.leggiStringa(MESS_INSERISCI_UNA_DESCRIZIONE_FACOLTATIVA);
-          if(inputDati.yesOrNo("Vuoi inserire una modalita' parametrica?")){
-            String nomeModalita = inputDati.leggiStringaNonVuota("Inserisci un nome per la modalita' operativa parametrica: ");
-            String nomeParametro = inputDati.leggiStringaNonVuota("Inserisci il nome del parametro: ");
-            int valoreParametro = inputDati.leggiInteroConMinimo("Inserisci il valore del parametro: ", 0);
+          if(inputDati.yesOrNo(MESS_VUOI_INSERIRE_UNA_MODALITA_PARAMETRICA)){
+            String nomeModalita = inputDati.leggiStringaNonVuota(MESS_INSERISCI_UN_NOME_PER_LA_MODALITA_OPERATIVA_PARAMETRICA);
+            String nomeParametro = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DEL_PARAMETRO);
+            int valoreParametro = inputDati.leggiInteroConMinimo(MESS_INSERISCI_IL_VALORE_INIZIALE_DEL_PARAMETRO, 0);
             Parametro parametro = new Parametro(nomeParametro, valoreParametro);
             ModalitaOperativaParametrica modalitaParametrica = new ModalitaOperativaParametrica(nomeModalita, parametro);
             listaModalitaOperativeParametriche.add(modalitaParametrica);
@@ -154,7 +156,7 @@ public class MenuManutentore {
         if(alreadyCreatedUnit){
           //Scelta Unita Immobiliare 
           ListaUnitaImmobiliare.getInstance().printList();
-          int choiceUnita = inputDati.leggiIntero("Seleziona il numero dell'unita su cui lavorare: ", 1, ListaUnitaImmobiliare.getInstance().getListSize());
+          int choiceUnita = inputDati.leggiIntero(MESS_SELEZIONA_IL_NUMERO_DELL_UNITA_SU_CUI_LAVORARE, 1, ListaUnitaImmobiliare.getInstance().getListSize());
           unitaImmobiliare = ListaUnitaImmobiliare.getInstance().getUnitaFromList(choiceUnita - 1);
           
           if(atLeastOneSensorCategoryCreated){
@@ -187,8 +189,8 @@ public class MenuManutentore {
               System.out.println(ERRORE_PUOI_ASSOCIARE_SOLO_UN_SENSORE_PER_CATEGORIA_IN_OGNI_STANZA);
               break;
             }
-            if(inputDati.yesOrNo("E' un sensore numerico?")){
-              int valoreRilevato = inputDati.leggiInteroConMinimo("Inserisci il valore che viene rilevato dal sensore: ", 0);
+            if(inputDati.yesOrNo(MESS_E_UN_SENSORE_NUMERICO)){
+              int valoreRilevato = inputDati.leggiInteroConMinimo(MESS_INSERISCI_IL_VALORE_CHE_VIENE_RILEVATO_DAL_SENSORE, 0);
                           //crea nuovo sensore numerico
               sensore = new SensoreNumerico(nomeSensore+"_"+choiceSensorCategory, stanzaSceltaDaAssociare,ListaCategoriaSensori.getInstance().getCategoriaSensori(choiceSensorCategory),true,unitaImmobiliare.getNomeUnita(),valoreRilevato);
             } else {
@@ -253,15 +255,15 @@ public class MenuManutentore {
           boolean finitoArtefatti = false;
           boolean finitoNome = false;
           alreadyCreatedUnit = true;
-          System.out.println("La nuova unità immobiliare verrà impostata come default");
+          System.out.println(MESS_LA_NUOVA_UNITA_IMMOBILIARE_VERRÀ_IMPOSTATA_COME_DEFAULT);
           unitaImmobiliare = new UnitaImmobiliare();
           do {
             String nomeUnita = inputDati.leggiStringaNonVuota(MESS_INSERISCI_NOME_UNITA_IMMOBILIARE);
             unitaImmobiliare.setNomeUnita(nomeUnita);
             if(ListaUnitaImmobiliare.getInstance().esisteUnUnitaImmobiliareConNomeUguale(unitaImmobiliare)) {
-              System.out.println("Un'unità con lo stesso nome esiste gia'. ");
+              System.out.println(ERRORE_UN_UNITA_CON_LO_STESSO_NOME_ESISTE_GIA);
             } else {
-              System.out.println("Nome unità inserito.");
+              System.out.println(MESS_NOME_UNITÀ_INSERITO);
               finitoNome = true;
             }
           } while (!finitoNome);
@@ -297,12 +299,12 @@ public class MenuManutentore {
 
         case 6: //Seleziona l'unita' su cui lavorare
           if(ListaUnitaImmobiliare.getInstance().isEmptyList()){
-            System.out.println("Non sono presenti unita' immobiliari al momento!");
+            System.out.println(ERRORE_NON_SONO_PRESENTI_UNITA_IMMOBILIARI_AL_MOMENTO);
           } else {
             ListaUnitaImmobiliare.getInstance().printList();
-            int unitaScelta = inputDati.leggiIntero("Inserisci il numero dell'unita' su cui vuoi lavorare: ", 1, ListaUnitaImmobiliare.getInstance().getListSize());
+            int unitaScelta = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_DELL_UNITA_SU_CUI_VUOI_LAVORARE, 1, ListaUnitaImmobiliare.getInstance().getListSize());
             unitaImmobiliareSceltaManutentore = ListaUnitaImmobiliare.getInstance().getUnitaFromList(unitaScelta - 1).getNomeUnita();
-            System.out.println("Unita' scelta correttamente");
+            System.out.println(MESS_UNITA_SCELTA_CORRETTAMENTE);
           }
 
           break;

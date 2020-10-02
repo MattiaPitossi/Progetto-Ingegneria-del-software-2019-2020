@@ -10,7 +10,6 @@ public class ListaUnitaImmobiliare implements Liste {
     private static ListaUnitaImmobiliare listaUnitaImmobiliareInstance;
     ArrayList<UnitaImmobiliare> listaUnitaImmobiliare = new ArrayList<>();
     /** 
-     * Per evitare race conditions..inoltre evita che vengano create più istanze di liste Unita
      * 
      * @since versione 2 
      */

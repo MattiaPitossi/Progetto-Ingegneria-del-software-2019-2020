@@ -199,7 +199,7 @@ public class ListaAttuatori implements Liste {
 					for(Attuatore attuatore : listaAttuatori.getArrayAttuatore()) {
 						if(attuatore.getNomeAttuatore().equalsIgnoreCase(dispositiviDellUnita.get(x).getNomeAttuatore())) {
 							attuatore.setModalita(Integer.toString(parametro.getValore()));
-							System.out.println("L'attuatore è stato impostato.");
+                            System.out.println("L'attuatore è stato impostato.");
 						}
 					}
 					fine = true;

@@ -1,7 +1,6 @@
 package utility;
 
 public class MessaggiErroriMenu {
-    //menu manutentore
 
     //messaggi
     public static final String MESS_INSERISCI_IL_NOME_DELL_ARTEFATTO_FINE_PER_USCIRE = "Inserisci il nome dell'artefatto(fine per uscire): ";
@@ -27,6 +26,20 @@ public class MessaggiErroriMenu {
     public static final String MESS_INSERISCI_UNA_DESCRIZIONE_FACOLTATIVA = "Inserisci una descrizione (facoltativa): "; 
     public static final String MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA_DEI_SENSORI = "Inserisci il nome della categoria dei sensori: ";
     public static final String MESS_SELEZIONA_IL_NUMERO_DELL_ATTUATORE_DA_ASSOCIARE_ALL_ARTEFATTO_SCELTO = "Seleziona il numero dell'attuatore da associare all'artefatto scelto: ";
+    public static final String MESS_UNITA_SCELTA_CORRETTAMENTE = "Unita' scelta correttamente";
+    public static final String MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_L_UNITA = "Inserisci il numero per scegliere l'unita': ";
+    public static final String MESS_INSERISCI_IL_VALORE_INIZIALE_DEL_PARAMETRO = "Inserisci il valore iniziale del parametro: ";
+    public static final String MESS_INSERISCI_IL_NOME_DEL_PARAMETRO = "Inserisci il nome del parametro: ";
+    public static final String MESS_INSERISCI_UN_NOME_PER_LA_MODALITA_OPERATIVA_PARAMETRICA = "Inserisci un nome per la modalita' operativa parametrica: ";
+    public static final String MESS_INSERISCI_IL_VALORE_CHE_VIENE_RILEVATO_DAL_SENSORE = "Inserisci il valore che viene rilevato dal sensore: ";
+    public static final String MESS_NOME_UNITÀ_INSERITO = "Nome unità inserito.";
+    public static final String MESS_E_UN_SENSORE_NUMERICO = "E' un sensore numerico?";
+    public static final String MESS_SELEZIONA_IL_NUMERO_DELL_UNITA_SU_CUI_LAVORARE = "Seleziona il numero dell'unita su cui lavorare: ";
+    public static final String MESS_LA_NUOVA_UNITA_IMMOBILIARE_VERRÀ_IMPOSTATA_COME_DEFAULT = "La nuova unita' immobiliare verrà impostata come default";
+    public static final String MESS_INSERISCI_IL_NUMERO_DELL_UNITA_SU_CUI_VUOI_LAVORARE = "Inserisci il numero dell'unita' su cui vuoi lavorare: ";
+    public static final String MESS_VUOI_INSERIRE_UNA_MODALITA_PARAMETRICA = "Vuoi inserire una modalita' parametrica?";
+    public static final String MESS_INSERSCI_I_VALORI_RILEVATI_FINE_PER_TERMINARE = "Insersci i valori rilevati (fine per terminare): ";
+    public static final String MESS_E_UNA_CATEGORIA_DI_UN_SENSORE_NUMERICO = "E' una categoria di un sensore numerico?";
     
     //errori
     public static final String ERRORE_HAI_GIA_INSERITO_UN_ARTEFATTO_CON_LO_STESSO_NOME = "Hai gia' inserito un artefatto con lo stesso nome!";
@@ -41,4 +54,11 @@ public class MessaggiErroriMenu {
     public static final String ERRORE_PUOI_ASSOCIARE_SOLO_UN_SENSORE_PER_CATEGORIA_IN_OGNI_STANZA = "Puoi associare solo un sensore per categoria in ogni stanza";
     public static final String ERRORE_IL_NOME_DEL_SENSORE_NON_È_NEL_FORMATO_CORRETTO = "Il nome del sensore non è nel formato corretto!";
     public static final String ERRORE_DEVI_CREARE_ALMENO_UNA_CATEGORIA_DI_SENSORI = "Devi creare almeno una categoria di sensori";
+    public static final String ERRORE_PRIMA_DEVI_SCEGLIERE_UN_UNITA_SU_CUI_LAVORARE = "Prima devi scegliere un unita' su cui lavorare";
+    public static final String ERRORE_NON_SONO_PRESENTI_ATTUATORI_AL_MOMENTO = "Non sono presenti attuatori al momento";
+    public static final String ERRORE_NON_SONO_PRESENTI_UNITA_IMMOBILIARI_AL_MOMENTO = "Non sono presenti unita' immobiliari al momento";
+    public static final String ERRORE_NON_SONO_PRESENTI_SENSORI_AL_MOMENTO = "Non sono presenti sensori al momento";
+    public static final String ERRORE_DEVI_CREARE_ALMENO_UN_UNITA_IMMOBILIARE = "Devi creare almeno un'unita' immobiliare";
+    public static final String ERRORE_UN_UNITA_CON_LO_STESSO_NOME_ESISTE_GIA = "Un'unita' con lo stesso nome esiste gia'. ";
+
 }
