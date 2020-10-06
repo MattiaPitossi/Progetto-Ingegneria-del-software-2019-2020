@@ -8,11 +8,13 @@ public class CategoriaSensori {
     private String descrizione;
     private String datiRilevati;
     private ArrayList<String> dominioValoriRilevati;
+    private String tipoCategoria;
 
     //Costuttore del sensore in base alle richieste del progetto
     public CategoriaSensori(String nome, String descrizione, String datiRilevati){
         this.nome = nome;
         this.descrizione = descrizione;
+        this.tipoCategoria = "Numerico";
         this.datiRilevati = datiRilevati;
     }
 
@@ -20,6 +22,7 @@ public class CategoriaSensori {
     public CategoriaSensori(String nome, String descrizione, ArrayList<String> dominioValoriRilevati){
         this.nome = nome;
         this.descrizione = descrizione;
+        this.tipoCategoria = "Non numerico";
         this.dominioValoriRilevati = dominioValoriRilevati;
     }
 
@@ -39,14 +42,29 @@ public class CategoriaSensori {
         this.descrizione = descrizione;
     }
 
-    public void getDatiRilevati() {
+    
+    public ArrayList<String> getDominioValoriRilevati() {
+		return dominioValoriRilevati;
+	}
+
+	public void setDominioValoriRilevati(ArrayList<String> dominioValoriRilevati) {
+		this.dominioValoriRilevati = dominioValoriRilevati;
+	}
+
+	public void getDatiRilevati() {
+    	int i = 1;
         for(String item: dominioValoriRilevati){
-            System.out.println(item.toString());
+            System.out.println(i + item.toString());
+            i++;
         }
     }
 
     public void setDatiRilevati(String datiRilevati) {
         this.datiRilevati = datiRilevati;
+    }
+    
+    public String getTipoCategoria() {
+    	return tipoCategoria;
     }
 
 }

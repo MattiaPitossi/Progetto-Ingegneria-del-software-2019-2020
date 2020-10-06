@@ -2,7 +2,13 @@ package menu;
 
 import java.util.List;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import modelli.liste.ListaAttuatori;
+import modelli.liste.ListaRegoleDueSensori;
+import modelli.liste.ListaRegoleSempreVere;
+import modelli.liste.ListaRegoleSingoloSensore;
 import modelli.liste.ListaSensori;
 import utility.InputDati;
 import utility.MyMenu;
@@ -16,6 +22,9 @@ public class MainMenu {
     private MenuManutentore menuManutentore = new MenuManutentore();
     private MenuFruitore menuFruitore = new MenuFruitore();
     private InputDati inputDati = new InputDati();
+    private Timer timer1 = new Timer(); 
+    private Timer timer2 = new Timer(); 
+    private Timer timer3 = new Timer(); 
 
     public void esegui(){
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
@@ -26,9 +35,38 @@ public class MainMenu {
 	    }while (!fineProgramma);
     }
     
+   
+
+    
     public boolean eseguiFunzioneScelta(int numFunzione) 
     {
-   
+    	if(!ListaRegoleSempreVere.getInstance().isEmptyList()) {
+		  for(String key : ListaRegoleSempreVere.getInstance().getKeys()) {
+		     TimerTask task = ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key); 
+		     timer1.schedule(task, 0, 50); 
+		  }
+	    } else {
+	  	  System.out.println("Non ci sono regole sempre vere al momento ");
+	    }
+	    
+	   if(!ListaRegoleSingoloSensore.getInstance().isEmptyList()) {
+		  for(String key : ListaRegoleSingoloSensore.getInstance().getKeys()) {
+		   	  TimerTask task = ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key); 
+	          timer2.schedule(task, 0, 50); 
+		  }
+	   } else {
+	    System.out.println("Non ci sono regole con un singolo sensore al momento ");
+	   }
+	    
+	   if(!ListaRegoleDueSensori.getInstance().isEmptyList()) {
+		  for(String key : ListaRegoleDueSensori.getInstance().getKeys()) {
+			   TimerTask task = ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key); 
+			   timer3.schedule(task, 0, 50); 
+		  }
+	   } else {
+		 System.out.println("Non ci sono regole con due sensori al momento ");
+	   }
+	    
       switch (numFunzione) {
         case 0: // Esci
           return inputDati.yesOrNo(MESS_USCITA);

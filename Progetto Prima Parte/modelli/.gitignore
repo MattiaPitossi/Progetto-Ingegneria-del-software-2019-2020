@@ -6,3 +6,12 @@
 /Liste.class
 /Sensore.class
 /UnitaImmobiliare.class
+/Antecedente.class
+/Conseguente.class
+/AntecedenteSempreVero.class
+/AntecedenteTraDueSensori.class
+/AntecedenteSingoloSensore.class
+/Azioni.class
+/RegolaSempreVera.class
+/RegolaSingoloSensore.class
+/RegolaDueSensori.class
