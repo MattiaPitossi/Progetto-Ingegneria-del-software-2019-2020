@@ -40,8 +40,28 @@ public class MessaggiErroriMenu {
     public static final String MESS_VUOI_INSERIRE_UNA_MODALITA_PARAMETRICA = "Vuoi inserire una modalita' parametrica?";
     public static final String MESS_INSERSCI_I_VALORI_RILEVATI_FINE_PER_TERMINARE = "Insersci i valori rilevati (fine per terminare): ";
     public static final String MESS_E_UNA_CATEGORIA_DI_UN_SENSORE_NUMERICO = "E' una categoria di un sensore numerico?";
+    public static final String MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_VALORE_CHE_VERRA_IMPOSTATO = "Inserisci il numero per scegliere il valore che verra' impostato: ";
+	public static final String MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_L_ATTUATORE = "Inserisci il numero per scegliere l'attuatore: ";
+	public static final String MESS_3_REGOLA_CON_DUE_SENSORI = "3. Regola con due sensori; ";
+	public static final String MESS_2_REGOLA_CON_UN_SOLO_SENSORE = "2. Regola con un solo sensore; ";
+	public static final String MESS_1_REGOLA_SEMPRE_VERA = "1. Regola sempre vera; ";
+	public static final String MESS_SCEGLI_IL_VALORE_CON_CUI_CONFRONTARE_IL_SENSORE = "Scegli il valore con cui confrontare il sensore: ";
+	public static final String MESS_INSERISCI_IL_NUMERO_PER_SCELGIERE_IL_TIPO_DI_OPERATORE_BOOLEANO = "Inserisci il numero per scelgiere il tipo di operatore booleano: ";
+	public static final String MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_SENSORE = "Inserisci il numero per scegliere il sensore: ";
+	public static final String MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_TIPO_DI_SENSORE = "Inserisci il numero per scegliere il tipo di sensore: ";
+	public static final String MESS_INSERISCI_IL_VALORE_PER_L_ATTUATORE = "Inserisci il valore per l'attuatore: ";
+	public static final String MESS_VUOI_CONTINUARE_AD_INSERIRE_AZIONI_DA_EFFETTUARE_Y_N = "Vuoi continuare ad inserire azioni da effettuare(Y/N)?: ";
+	public static final String MESS_INSERISCI_IL_NUMERO_DELL_ATTUATORE = "Inserisci il numero dell'attuatore: ";
+	public static final String MESS_INSERISCI_IL_NOME_DELLA_REGOLA = "Inserisci il nome della regola: ";
+	public static final String MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_LA_REGOLA_CHE_VUOI_CREARE = "Inserisci il numero per scegliere la regola che vuoi creare: ";
+
     
     //errori
+    public static final String ERRORE_PUOI_SOLO_INSERIRE_Y_O_N = "Puoi solo inserire Y o N. ";
+    public static final String ERRORE_DEVI_CREARE_ALMENO_DUE_SENSORI = "Devi creare almeno due sensori. ";
+    public static final String ERRORE_ESISTE_GIA_UNA_REGOLA_CON_LO_STESSO_NOME = "Esiste gia' una regola con lo stesso nome.";
+    public static final String ERRORE_NON_SONO_PRESENTI_SENSORI_NON_NUMERICI = "Non sono presenti sensori non numerici!";
+    public static final String ERRORE_NON_PUOI_SCEGLIERE_LO_STESSO_SENSORE = "Non puoi scegliere lo stesso sensore. ";
     public static final String ERRORE_HAI_GIA_INSERITO_UN_ARTEFATTO_CON_LO_STESSO_NOME = "Hai gia' inserito un artefatto con lo stesso nome!";
     public static final String ERRORE_HAI_GIA_INSERITO_UNA_STANZA_CON_LO_STESSO_NOME = "Hai gia' inserito una stanza con lo stesso nome!";
     public static final String ERRORE_UNITA_IMMOBILIARE_GIA_CREATA = "Unita' immobiliare gia' creata!";
