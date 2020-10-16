@@ -19,9 +19,9 @@ import modelli.dispositivi.SensoreNumerico;
 
 public class ListaSensori implements Liste {
 
-    ArrayList<Sensore> listaSensori = new ArrayList<>();
+    private ArrayList<Sensore> listaSensori = new ArrayList<>();
     private static ListaSensori listaSensoriInstance;
-    Random random = new Random();
+    private Random random = new Random();
 
     /** 
      * Per evitare race conditions..inoltre evita che vengano create più istanze di liste categoriee
