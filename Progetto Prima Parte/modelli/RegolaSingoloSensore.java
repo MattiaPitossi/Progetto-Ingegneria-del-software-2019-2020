@@ -4,7 +4,6 @@ import java.util.TimerTask;
 
 import modelli.liste.ListaAttuatori;
 import modelli.liste.ListaSensori;
-import modelli.liste.ListaSensoriNonNumerici;
 
 public class RegolaSingoloSensore extends TimerTask{
 
@@ -104,11 +103,11 @@ public class RegolaSingoloSensore extends TimerTask{
 		
 		if(!sensoreTrovato) {
 			//Ciclo per trovare la posizione del sensore NON NUMERICO
-			for(int j = 0; j < ListaSensoriNonNumerici.getInstance().getListSize(); j++) {
-				if(ListaSensoriNonNumerici.getInstance().getSensorFromList(j).getNomeSensore().equalsIgnoreCase(antecedente.getNomeSensore())) {
+			for(int j = 0; j < ListaSensori.getInstance().getListSize(); j++) {
+				if(ListaSensori.getInstance().getSensorFromList(j).getNomeSensore().equalsIgnoreCase(antecedente.getNomeSensore())) {
 					
 					//Ciclo che verifica se l'operazione booleana = e' verificata
-					if(ListaSensoriNonNumerici.getInstance().getSensorFromList(j).getValoreRilevatoNonNumerico() == antecedente.getValoreConfrontato()) {
+					if(ListaSensori.getInstance().getSensorFromList(j).getValoreRilevatoNonNumerico() == antecedente.getValoreConfrontato()) {
 						operazioneSoddisfata = true;
 					}  else {
 						System.out.println("L'operazione non è soddisfata");

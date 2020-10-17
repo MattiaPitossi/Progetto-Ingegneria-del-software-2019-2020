@@ -78,6 +78,14 @@ public class Sensore {
     public int getValoreRilevato(){
         return 0;
     }
+    
+    public String getValoreRilevatoNonNumerico(){
+        return "";
+    }
+    
+    public String getTipologiaSensore(){
+    	return "sensore";
+    }
 
     
 }

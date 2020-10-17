@@ -9,7 +9,6 @@ import modelli.liste.ListaRegoleDueSensori;
 import modelli.liste.ListaRegoleSempreVere;
 import modelli.liste.ListaRegoleSingoloSensore;
 import modelli.liste.ListaSensori;
-import modelli.liste.ListaSensoriNonNumerici;
 import modelli.liste.ListaUnitaImmobiliare;
 import modelli.AntecedenteSempreVero;
 import modelli.AntecedenteSingoloSensore;
@@ -40,7 +39,7 @@ public class MenuFruitore {
     private InputDati inputDati = new InputDati();
     private UnitaImmobiliare unitaScelta;
     private boolean isUnitaScelta = false;
-	private ArrayList<Azioni> azioni;
+	private ArrayList<Azioni> azioni = new ArrayList<Azioni>();
     
     public void esegui(){
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
@@ -121,9 +120,6 @@ public class MenuFruitore {
         	    	 if(ListaAttuatori.getInstance().isEmptyList()){
         	             System.out.println(ERRORE_NON_SONO_PRESENTI_ATTUATORI_AL_MOMENTO);
         	    	 } else {  
-        	    		 if(ListaSensoriNonNumerici.getInstance().isEmptyList()){
-            	             System.out.println(ERRORE_NON_SONO_PRESENTI_SENSORI_NON_NUMERICI);
-            	    	 } else {  
             	    		System.out.println(MESS_1_REGOLA_SEMPRE_VERA);
             	    		System.out.println(MESS_2_REGOLA_CON_UN_SOLO_SENSORE);
             	    		System.out.println(MESS_3_REGOLA_CON_DUE_SENSORI);
@@ -165,9 +161,9 @@ public class MenuFruitore {
             	    						vuoiContinuare = inputDati.leggiStringaNonVuota(MESS_VUOI_CONTINUARE_AD_INSERIRE_AZIONI_DA_EFFETTUARE_Y_N);
             	    						if(vuoiContinuare.equalsIgnoreCase("Y")) {
             	    							fineScelta = true;
-            	    							fineAggiungiAzioni = true;
             	    						} else if (vuoiContinuare.equalsIgnoreCase("N")) {
             	    							fineScelta = true;
+            	    							fineAggiungiAzioni = true;
             	    						} else {
             	    							System.out.println(ERRORE_PUOI_SOLO_INSERIRE_Y_O_N);
             	    						}
@@ -184,9 +180,9 @@ public class MenuFruitore {
             	    						vuoiContinuare = inputDati.leggiStringaNonVuota(MESS_VUOI_CONTINUARE_AD_INSERIRE_AZIONI_DA_EFFETTUARE_Y_N);
             	    						if(vuoiContinuare.equalsIgnoreCase("Y")) {
             	    							fineScelta = true;
-            	    							fineAggiungiAzioni = true;
             	    						} else if (vuoiContinuare.equalsIgnoreCase("N")) {
             	    							fineScelta = true;
+            	    							fineAggiungiAzioni = true;
             	    						} else {
             	    							System.out.println(ERRORE_PUOI_SOLO_INSERIRE_Y_O_N);
             	    						}
@@ -232,9 +228,11 @@ public class MenuFruitore {
 	            	    		
             	    			//Scelta sensore 
             	    			if(scegliTipoSensore == 1) {
-			            	    	ListaSensori.getInstance().printList();
-			            	   		scegliSensore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_SENSORE, 1, ListaSensori.getInstance().getListSize());
-			            	   		scegliSensore -= 1;
+            	    				do {
+            	    					ListaSensori.getInstance().printList();
+            	    					scegliSensore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_SENSORE, 1, ListaSensori.getInstance().getListSize());
+            	    					scegliSensore -= 1;
+            	    				} while(!ListaSensori.getInstance().getSensorFromList(scegliSensore).getTipologiaSensore().equalsIgnoreCase("Numerico"));
 			            	   		
 				           	   		//Scelta operatore booleano 
 				           	   		System.out.println("1. >");
@@ -275,9 +273,9 @@ public class MenuFruitore {
 	            	    						vuoiContinuare = inputDati.leggiStringaNonVuota(MESS_VUOI_CONTINUARE_AD_INSERIRE_AZIONI_DA_EFFETTUARE_Y_N);
 	            	    						if(vuoiContinuare.equalsIgnoreCase("Y")) {
 	            	    							fineScelta = true;
-	            	    							fineAggiungiAzioni = true;
 	            	    						} else if (vuoiContinuare.equalsIgnoreCase("N")) {
 	            	    							fineScelta = true;
+	            	    							fineAggiungiAzioni = true;
 	            	    						} else {
 	            	    							System.out.println(ERRORE_PUOI_SOLO_INSERIRE_Y_O_N);
 	            	    						}
@@ -294,9 +292,9 @@ public class MenuFruitore {
 	            	    						vuoiContinuare = inputDati.leggiStringaNonVuota(MESS_VUOI_CONTINUARE_AD_INSERIRE_AZIONI_DA_EFFETTUARE_Y_N);
 	            	    						if(vuoiContinuare.equalsIgnoreCase("Y")) {
 	            	    							fineScelta = true;
-	            	    							fineAggiungiAzioni = true;
 	            	    						} else if (vuoiContinuare.equalsIgnoreCase("N")) {
 	            	    							fineScelta = true;
+	            	    							fineAggiungiAzioni = true;
 	            	    						} else {
 	            	    							System.out.println(ERRORE_PUOI_SOLO_INSERIRE_Y_O_N);
 	            	    						}
@@ -317,20 +315,22 @@ public class MenuFruitore {
 			           	   		//Ciclo else per sensori che appartengono a categorie di tipo NON NUMERICO	
 	            	    		} else {
 	            	    			
+	            	    			do {
 	            	    			//Scelta sensore 
-	            	    			ListaSensoriNonNumerici.getInstance().printList();
-	            	    			scegliSensore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_SENSORE, 1, ListaSensoriNonNumerici.getInstance().getListSize());
+	            	    			ListaSensori.getInstance().printList();
+	            	    			scegliSensore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_SENSORE, 1, ListaSensori.getInstance().getListSize());
 			            	   		scegliSensore -= 1;
+	            	    			} while(!ListaSensori.getInstance().getSensorFromList(scegliSensore).getTipologiaSensore().equalsIgnoreCase("Non numerico"));
 	            	    			
 			            	   		//Operatore scelto in automatico 
 	            	    			operatoreBooleano = "=";
 	            	    			
 	            	    			//Scelta valore da impostare 
-	            	    			ListaCategoriaSensori.getInstance().getCategoriaSensori(ListaSensoriNonNumerici.getInstance().getSensorFromList(scegliSensore).getCategoriaAssociata()).getDatiRilevati();
-	            	    			scegliDominioNonNumerico = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_VALORE_CHE_VERRA_IMPOSTATO, 1, ListaCategoriaSensori.getInstance().getCategoriaSensori(ListaSensoriNonNumerici.getInstance().getSensorFromList(scegliSensore).getCategoriaAssociata()).getDominioValoriRilevati().size());
+	            	    			ListaCategoriaSensori.getInstance().getCategoriaSensori(ListaSensori.getInstance().getSensorFromList(scegliSensore).getCategoriaAssociata()).getDatiRilevati();
+	            	    			scegliDominioNonNumerico = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_VALORE_CHE_VERRA_IMPOSTATO, 1, ListaCategoriaSensori.getInstance().getCategoriaSensori(ListaSensori.getInstance().getSensorFromList(scegliSensore).getCategoriaAssociata()).getDominioValoriRilevati().size());
 	            	    			scegliDominioNonNumerico -= 1;
 	            	    			
-	            	    			valoreImpostato = ListaCategoriaSensori.getInstance().getCategoriaSensori(ListaSensoriNonNumerici.getInstance().getSensorFromList(scegliSensore).getCategoriaAssociata()).getDominioValoriRilevati().get(scegliDominioNonNumerico);
+	            	    			valoreImpostato = ListaCategoriaSensori.getInstance().getCategoriaSensori(ListaSensori.getInstance().getSensorFromList(scegliSensore).getCategoriaAssociata()).getDominioValoriRilevati().get(scegliDominioNonNumerico);
 	            	    		
 	            	    			//Creazione Azioni da inserire nel conseguente con un ciclo do per aggiurne da una in su 
 	            	    			do {
@@ -348,9 +348,9 @@ public class MenuFruitore {
 	            	    						vuoiContinuare = inputDati.leggiStringaNonVuota(MESS_VUOI_CONTINUARE_AD_INSERIRE_AZIONI_DA_EFFETTUARE_Y_N);
 	            	    						if(vuoiContinuare.equalsIgnoreCase("Y")) {
 	            	    							fineScelta = true;
-	            	    							fineAggiungiAzioni = true;
 	            	    						} else if (vuoiContinuare.equalsIgnoreCase("N")) {
 	            	    							fineScelta = true;
+	            	    							fineAggiungiAzioni = true;
 	            	    						} else {
 	            	    							System.out.println(ERRORE_PUOI_SOLO_INSERIRE_Y_O_N);
 	            	    						}
@@ -367,9 +367,9 @@ public class MenuFruitore {
 	            	    						vuoiContinuare = inputDati.leggiStringaNonVuota(MESS_VUOI_CONTINUARE_AD_INSERIRE_AZIONI_DA_EFFETTUARE_Y_N);
 	            	    						if(vuoiContinuare.equalsIgnoreCase("Y")) {
 	            	    							fineScelta = true;
-	            	    							fineAggiungiAzioni = true;
 	            	    						} else if (vuoiContinuare.equalsIgnoreCase("N")) {
 	            	    							fineScelta = true;
+	            	    							fineAggiungiAzioni = true;
 	            	    						} else {
 	            	    							System.out.println(ERRORE_PUOI_SOLO_INSERIRE_Y_O_N);
 	            	    						}
@@ -408,22 +408,24 @@ public class MenuFruitore {
 		            	    			
 	            	    			} while(!nomeRegolaNonEsiste);
 		
-	            	    			//Scelta primo sensore 
-		            	    		ListaSensori.getInstance().printList();
-				            	   	scegliSensore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_SENSORE, 1, ListaSensori.getInstance().getListSize());
-				            		scegliSensore -= 1;
+	            	    			do {
+	            	    				//Scelta primo sensore 
+	            	    				ListaSensori.getInstance().printList();
+		            	    			scegliSensore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_SENSORE, 1, ListaSensori.getInstance().getListSize());
+		            	    			scegliSensore -= 1;
+	            	    			} while(!ListaSensori.getInstance().getSensorFromList(scegliSensore).getTipologiaSensore().equalsIgnoreCase("Numerico"));
 		            	    		
 				            		//Scelta secondo sensore con un ciclo do while per verificare che il secondo sensore non sia uguale al primo 
 				            		do {
-				            		ListaSensori.getInstance().printList();
-				            		scegliSecondoSensore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_SENSORE, 1, ListaSensori.getInstance().getListSize());
-				            		scegliSecondoSensore -= 1;
-				            		if (scegliSensore == scegliSecondoSensore) {
-				            			System.out.println(ERRORE_NON_PUOI_SCEGLIERE_LO_STESSO_SENSORE);
-				            		} else {
-				            			sensoriDiversi = true;
-				            		}
-				            		} while(!sensoriDiversi);
+				            			ListaSensori.getInstance().printList();
+				            			scegliSecondoSensore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_SENSORE, 1, ListaSensori.getInstance().getListSize());
+				            			scegliSecondoSensore -= 1;
+				            			if (scegliSensore == scegliSecondoSensore) {
+				            				System.out.println(ERRORE_NON_PUOI_SCEGLIERE_LO_STESSO_SENSORE);
+				            			} else {
+				            				sensoriDiversi = true;
+				            			}
+				            		} while(!sensoriDiversi || !ListaSensori.getInstance().getSensorFromList(scegliSensore).getTipologiaSensore().equalsIgnoreCase("Numerico"));
 				            		
 				            		//Scelta operatore booleano 
 				           	   		System.out.println("1. >");
@@ -460,9 +462,9 @@ public class MenuFruitore {
 	            	    						vuoiContinuare = inputDati.leggiStringaNonVuota(MESS_VUOI_CONTINUARE_AD_INSERIRE_AZIONI_DA_EFFETTUARE_Y_N);
 	            	    						if(vuoiContinuare.equalsIgnoreCase("Y")) {
 	            	    							fineScelta = true;
-	            	    							fineAggiungiAzioni = true;
 	            	    						} else if (vuoiContinuare.equalsIgnoreCase("N")) {
 	            	    							fineScelta = true;
+	            	    							fineAggiungiAzioni = true;
 	            	    						} else {
 	            	    							System.out.println(ERRORE_PUOI_SOLO_INSERIRE_Y_O_N);
 	            	    						}
@@ -479,9 +481,9 @@ public class MenuFruitore {
 	            	    						vuoiContinuare = inputDati.leggiStringaNonVuota(MESS_VUOI_CONTINUARE_AD_INSERIRE_AZIONI_DA_EFFETTUARE_Y_N);
 	            	    						if(vuoiContinuare.equalsIgnoreCase("Y")) {
 	            	    							fineScelta = true;
-	            	    							fineAggiungiAzioni = true;
 	            	    						} else if (vuoiContinuare.equalsIgnoreCase("N")) {
 	            	    							fineScelta = true;
+	            	    							fineAggiungiAzioni = true;
 	            	    						} else {
 	            	    							System.out.println(ERRORE_PUOI_SOLO_INSERIRE_Y_O_N);
 	            	    						}
@@ -500,7 +502,6 @@ public class MenuFruitore {
 	            	    		} else {
 	            	    			System.out.println(ERRORE_DEVI_CREARE_ALMENO_DUE_SENSORI);
 	            	    		}
-            	    		}
             	    	 }   
         	    	 }
         	     }
