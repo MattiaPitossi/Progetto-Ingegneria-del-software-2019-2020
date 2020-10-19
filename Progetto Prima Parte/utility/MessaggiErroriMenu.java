@@ -57,7 +57,7 @@ public class MessaggiErroriMenu {
 
     
     //errori
-    public static final String ERRORE_PUOI_SOLO_INSERIRE_Y_O_N = "Puoi solo inserire Y o N. ";
+    public static final String ERRORE_PUOI_SOLO_INSERIRE_Y_O_N = "Puoi solo inserire Y oppure N. ";
     public static final String ERRORE_DEVI_CREARE_ALMENO_DUE_SENSORI = "Devi creare almeno due sensori. ";
     public static final String ERRORE_ESISTE_GIA_UNA_REGOLA_CON_LO_STESSO_NOME = "Esiste gia' una regola con lo stesso nome.";
     public static final String ERRORE_NON_SONO_PRESENTI_SENSORI_NON_NUMERICI = "Non sono presenti sensori non numerici!";
