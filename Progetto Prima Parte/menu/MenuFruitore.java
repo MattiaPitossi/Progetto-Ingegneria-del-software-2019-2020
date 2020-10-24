@@ -32,7 +32,7 @@ public class MenuFruitore {
    
     
 	final private static String TITOLO = "Menu fruitore";
-    final private static String [] VOCIMENU = {"Visualizza dati sensori", "Scegli unita Immobiliare", "Compi azioni con attuatori", "Crea regole"};
+    final private static String [] VOCIMENU = {"Visualizza dati sensori", "Scegli unita Immobiliare", "Compi azioni con attuatori", "Crea regole", "Attiva o disattiva regole", "Attiva o disattiva sensori o attuatori "};
     final private static String MESS_USCITA = "Vuoi tornare al menu precedente ?";
     final private static String ERRORE_FUNZIONE = "La funzione non rientra tra quelle disponibili !";
     final private static String MESS_ALTRA_OPZIONE = "Selezionare un'altra opzione.";
@@ -112,6 +112,13 @@ public class MenuFruitore {
         	boolean sensoriDiversi = false;
         	boolean nomeRegolaNonEsiste = true;
         	String vuoiContinuare;
+        	int ora;
+        	int minuti;
+        	float tempo = 0;
+        	float afterDecimalPlace;
+        	String operatoreBooleanoTempo = "";
+        	boolean operatoreDaScegliere = false;
+        	
         	//Ciclo if per verificare che tutti i tipo di sensori e attuatori sono disponibili ed e' stata scelta un'unita' 
         	 if(isUnitaScelta){
         		 if(ListaSensori.getInstance().isEmptyList()){
@@ -302,8 +309,49 @@ public class MenuFruitore {
 	            	    				}
 	            	    			} while(!fineAggiungiAzioni);
 	            	    			
+	            	    			
+	            	    			//scelta dell'orario in cui attivare la regola 
+	            	    			do {
+        	    						fineScelta = false;
+	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attiavre la regola");
+	        	    					if(vuoiContinuare.equalsIgnoreCase("Y")) {
+	        	    						ora = inputDati.leggiIntero("Inserisci l'ora: ", 0, 24);
+	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti: ", 0, 60);
+	        	    						afterDecimalPlace = (float) (minuti/100.00);
+	        	    						tempo = (float)ora + minuti;
+	        	    						fineScelta = true;
+	        	    						operatoreDaScegliere = true;
+	        	    					} else if (vuoiContinuare.equalsIgnoreCase("N")) {
+	        	    						tempo = (float) 000.00;
+	        	    						fineScelta = false;
+	        	    						operatoreBooleanoTempo = "";
+	        	    					}
+        	    					} while(!fineScelta);
+	            	    			
+
+    				           		//Scelta operatore booleano per la variabile del tempo
+	            	    			if(operatoreDaScegliere) {
+	    				       	   		System.out.println("1. >");
+	    				           		System.out.println("2. >=");
+	    				       	  		System.out.println("3. <");
+	    				          		System.out.println("4. <=");
+	    				          		System.out.println("5. =");
+	    				           	  	operatore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCELGIERE_IL_TIPO_DI_OPERATORE_BOOLEANO, 1, 5);
+	    				           	  	if(operatore == 1) {
+	    				           	  		operatoreBooleanoTempo = ">";
+	    				           	  	} else if (operatore == 2) {
+	    				           	  		operatoreBooleanoTempo = ">=";
+	    				           	   	} else if (operatore == 3) {
+	    				           	   		operatoreBooleanoTempo = "<";
+	    			            	  	} else if (operatore == 4) {
+	    			            	  		operatoreBooleanoTempo = "<=";
+	    				           		} else if (operatore == 5) {
+	    				           			operatoreBooleanoTempo = "=";
+	    			           	   		}
+	            	    			}
+    				           	  	
 	            	    			//Viene creato l'antecedente con un singolo sensore NUMERICO 
-				           	   		AntecedenteSingoloSensore antecedente = new AntecedenteSingoloSensore(ListaSensori.getInstance().getSensorFromList(scegliSensore).getNomeSensore(), operatoreBooleano, valoreScelto);
+				           	   		AntecedenteSingoloSensore antecedente = new AntecedenteSingoloSensore(ListaSensori.getInstance().getSensorFromList(scegliSensore).getNomeSensore(), operatoreBooleano, valoreScelto, tempo, operatoreBooleanoTempo);
 				           	   		
 				           	   		//Viene creato il conseguente che contiene tutte le azioni che verrano effettuate se la regola risulta valida 
 				           	   		Conseguente conseguente = new Conseguente(azioni);
@@ -377,7 +425,47 @@ public class MenuFruitore {
 	            	    				}
 	            	    			} while(!fineAggiungiAzioni);
 	            	    			
-	            	    			AntecedenteSingoloSensore antecedente = new AntecedenteSingoloSensore(ListaSensori.getInstance().getSensorFromList(scegliSensore).getNomeSensore(), operatoreBooleano, valoreImpostato);
+
+	            	    			//scelta dell'orario in cui attivare la regola 
+	            	    			do {
+        	    						fineScelta = false;
+	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attiavre la regola");
+	        	    					if(vuoiContinuare.equalsIgnoreCase("Y")) {
+	        	    						ora = inputDati.leggiIntero("Inserisci l'ora: ", 0, 24);
+	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti: ", 0, 60);
+	        	    						afterDecimalPlace = (float) (minuti/100.00);
+	        	    						tempo = (float)ora + minuti;
+	        	    						fineScelta = true;
+	        	    					} else if (vuoiContinuare.equalsIgnoreCase("N")) {
+	        	    						tempo = (float) 000.00;
+	        	    						fineScelta = false;
+	        	    						operatoreBooleanoTempo = "";
+	        	    					}
+        	    					} while(!fineScelta);
+	            	    			
+
+    				           		//Scelta operatore booleano per la variabile del tempo
+	            	    			if(operatoreDaScegliere) {
+	    				       	   		System.out.println("1. >");
+	    				           		System.out.println("2. >=");
+	    				       	  		System.out.println("3. <");
+	    				          		System.out.println("4. <=");
+	    				          		System.out.println("5. =");
+	    				           	  	operatore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCELGIERE_IL_TIPO_DI_OPERATORE_BOOLEANO, 1, 5);
+	    				           	  	if(operatore == 1) {
+	    				           	  		operatoreBooleanoTempo = ">";
+	    				           	  	} else if (operatore == 2) {
+	    				           	  		operatoreBooleanoTempo = ">=";
+	    				           	   	} else if (operatore == 3) {
+	    				           	   		operatoreBooleanoTempo = "<";
+	    			            	  	} else if (operatore == 4) {
+	    			            	  		operatoreBooleanoTempo = "<=";
+	    				           		} else if (operatore == 5) {
+	    				           			operatoreBooleanoTempo = "=";
+	    			           	   		}
+	            	    			}
+	            	    			
+	            	    			AntecedenteSingoloSensore antecedente = new AntecedenteSingoloSensore(ListaSensori.getInstance().getSensorFromList(scegliSensore).getNomeSensore(), operatoreBooleano, valoreImpostato, tempo, operatoreBooleanoTempo);
 	            	    			
 	            	    			//Viene creato il conseguente che contiene tutte le azioni che verrano effettuate se la regola risulta valida 
 				           	   		Conseguente conseguente = new Conseguente(azioni);
@@ -491,9 +579,47 @@ public class MenuFruitore {
 	            	    				}
 	            	    			} while(!fineAggiungiAzioni);
 	            	    			
+	            	    			//scelta dell'orario in cui attivare la regola 
+	            	    			do {
+        	    						fineScelta = false;
+	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attiavre la regola");
+	        	    					if(vuoiContinuare.equalsIgnoreCase("Y")) {
+	        	    						ora = inputDati.leggiIntero("Inserisci l'ora: ", 0, 24);
+	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti: ", 0, 60);
+	        	    						afterDecimalPlace = (float) (minuti/100.00);
+	        	    						tempo = (float)ora + minuti;
+	        	    						fineScelta = true;
+	        	    					} else if (vuoiContinuare.equalsIgnoreCase("N")) {
+	        	    						tempo = (float) 000.00;
+	        	    						fineScelta = false;
+	        	    						operatoreBooleanoTempo = "";
+	        	    					}
+        	    					} while(!fineScelta);
+	            	    			
+
+    				           		//Scelta operatore booleano per la variabile del tempo
+	            	    			if(operatoreDaScegliere) {
+	    				       	   		System.out.println("1. >");
+	    				           		System.out.println("2. >=");
+	    				       	  		System.out.println("3. <");
+	    				          		System.out.println("4. <=");
+	    				          		System.out.println("5. =");
+	    				           	  	operatore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCELGIERE_IL_TIPO_DI_OPERATORE_BOOLEANO, 1, 5);
+	    				           	  	if(operatore == 1) {
+	    				           	  		operatoreBooleanoTempo = ">";
+	    				           	  	} else if (operatore == 2) {
+	    				           	  		operatoreBooleanoTempo = ">=";
+	    				           	   	} else if (operatore == 3) {
+	    				           	   		operatoreBooleanoTempo = "<";
+	    			            	  	} else if (operatore == 4) {
+	    			            	  		operatoreBooleanoTempo = "<=";
+	    				           		} else if (operatore == 5) {
+	    				           			operatoreBooleanoTempo = "=";
+	    			           	   		}
+	            	    			}
 				           	   		
 				           	   		//Creazione antecedente con i NOMI dei due sensori e l'operatore booleano 
-				           	   		AntecedenteTraDueSensori antecedente = new AntecedenteTraDueSensori(ListaSensori.getInstance().getSensorFromList(scegliSensore).getNomeSensore(), ListaSensori.getInstance().getSensorFromList(scegliSecondoSensore).getNomeSensore(), operatoreBooleano);
+				           	   		AntecedenteTraDueSensori antecedente = new AntecedenteTraDueSensori(ListaSensori.getInstance().getSensorFromList(scegliSensore).getNomeSensore(), ListaSensori.getInstance().getSensorFromList(scegliSecondoSensore).getNomeSensore(), operatoreBooleano, tempo, operatoreBooleanoTempo);
 	            	    		
 				           	   		//Viene creato il conseguente che contiene tutte le azioni che verrano effettuate se la regola risulta valida 
 				           	   		Conseguente conseguente = new Conseguente(azioni);
@@ -509,6 +635,732 @@ public class MenuFruitore {
                  System.out.println(ERRORE_PRIMA_DEVI_SCEGLIERE_UN_UNITA_SU_CUI_LAVORARE);
              }
         break;
+        
+        case 5: //Caso per attivare o disattivare le regole 
+        	boolean fineSceltaRegola = false;
+        	boolean fineSceltaContinua = false;
+        	boolean finito = false;
+        	boolean regolaImpossibileDaAttivare = false;
+        	
+        	//Ciclo do perche' il fruitore puo' eseguirlo piu' di una volta 
+        	do {
+        		System.out.println("1. Regole sempre vere");
+        		System.out.println("2. Regole con un solo sensore");
+        		System.out.println("3. Regole con due sensori");
+        		int regolaScelta = inputDati.leggiIntero("Quali regole vuoi attivare o disattivare: ", 1, 3);
+        		
+        		//Caso 1 in cui il fruitore vuole attivare o disattivare una regola sempre vera 
+        		if(regolaScelta == 1) {
+        			
+        		if(ListaRegoleSempreVere.getInstance().isEmptyList()) {
+        			System.out.println("Non ci sono regole di questo tipo al momento");
+        		} else {
+        			//Scelta della regola
+        			ListaRegoleSempreVere.getInstance().printList();
+        			int sceltaRegolaSempreVera = inputDati.leggiIntero("Inserisci il numero per scegliere la regola: ", 1, ListaRegoleSempreVere.getInstance().getListSize());
+        			sceltaRegolaSempreVera -= 1;
+        			String keyRegola = ListaRegoleSempreVere.getInstance().returnKey(sceltaRegolaSempreVera);
+                    	
+                    		//Ciclo for in cui verifica per ogni azione del conseguente 
+                    		for(Azioni azione : ListaRegoleSempreVere.getInstance().getRegolaSempreVera(keyRegola).getConseguente().getArrayAzioni()) {
+                        		
+                    			//Ciclo for per trovare la posizione dell'attuatore 
+        						for(int k = 0; k < ListaAttuatori.getInstance().getListSize(); k++) {
+        								
+        								//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 
+        								if(ListaAttuatori.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore())) {
+        									
+        									//Se almeno un attuatore non è attivo allora la regola verra' disattivata 
+        									if(!ListaAttuatori.getInstance().getActuatorFromList(k).isStatoAttivo()) {
+        										regolaImpossibileDaAttivare = true;
+        									}
+        								}
+        	                	}
+                        	}
+                    	
+                    		//Se il valore boolean e' true allora la regola non puo' essere attivata
+                    	if(regolaImpossibileDaAttivare) {
+                		System.out.println("Questa regola non puo' essere attivata al momento ");
+                		} else {
+        			
+        			
+        			
+        			
+        			//Ciclo if in cui il fruitore puo' disattivare la regola se la regola e' gia' attiva
+        			if(ListaRegoleSempreVere.getInstance().getRegolaSempreVera(keyRegola).getAttivaDisattiva()) {
+        				do {
+	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare la regola(Y/N)? ");
+	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+	        						ListaRegoleSempreVere.getInstance().getRegolaSempreVera(keyRegola).setAttivaDisattiva(false);
+	        						System.out.println("La regola è stata disattivata.");
+	        						fineSceltaRegola = true;
+	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+	        						System.out.println("La regola è rimasta attiva");
+	        						fineSceltaRegola = true;
+	        					
+	        					} else {
+	    	        				System.out.println("Puoi inserire solo Y o N.");
+	    	        			}
+	        				} while(!fineSceltaRegola);
+        				
+        			//Ciclo else in cui il fruitore puo' attivare la regola e' gia disattiva
+        			} else {
+        				do {
+	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare la regola(Y/N)? ");
+	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+	        						ListaRegoleSempreVere.getInstance().getRegolaSempreVera(keyRegola).setAttivaDisattiva(true);
+	        						System.out.println("La regola è stata attivata.");
+	        						fineSceltaRegola = true;
+	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+	        						System.out.println("La regola è rimasta disattivata");
+	        						fineSceltaRegola = true;
+	        					
+	        					}  else {
+	    	        				System.out.println("Puoi inserire solo Y o N.");
+	    	        			}
+	        				} while(!fineSceltaRegola);
+        			}
+                	}
+        			
+        			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
+        			do {
+	        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altre regole(Y/N)?: ");
+	        			if(continuaMetodo.equalsIgnoreCase("Y")) {
+	        				fineSceltaContinua = true;
+	        				finito = false;
+	        			} else if(continuaMetodo.equalsIgnoreCase("N")) {
+	        				fineSceltaContinua = true; 
+	        				finito = true;
+	        			} else {
+	        				System.out.println("Puoi inserire solo Y o N.");
+	        			}
+        			} while(!fineSceltaContinua);
+        		}
+        		} else if(regolaScelta == 2) {
+        			if(ListaRegoleSingoloSensore.getInstance().isEmptyList()) {
+            			System.out.println("Non ci sono regole di questo tipo al momento");
+            		} else {	
+              			//Scelta della regola
+              			ListaRegoleSingoloSensore.getInstance().printList();
+              			int sceltaRegolaSempreVera = inputDati.leggiIntero("Inserisci il numero per scegliere la regola: ", 1, ListaRegoleSingoloSensore.getInstance().getListSize());
+              			sceltaRegolaSempreVera -= 1;
+              			String keyRegola = ListaRegoleSingoloSensore.getInstance().returnKey(sceltaRegolaSempreVera);
+              			
+              			
+              			//Ciclo for per trovare la posizione del sensore
+						for(int k = 0; k < ListaSensori.getInstance().getListSize(); k++) {
+							
+							//if per verificare se il nome del sensore e' lo stesso nell'antecedente 
+							if(ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(keyRegola).getAntecedente().getNomeSensore().equalsIgnoreCase(ListaSensori.getInstance().getSensorFromList(k).getNomeSensore())) {
+								
+								//Se almeno un sessroe non e' attivo allora la regola verra' disattivata 
+								if(!ListaSensori.getInstance().getSensorFromList(k).isStatoAttivo()) {
+									regolaImpossibileDaAttivare = true;
+								}
+							}
+						}
+                		
+						//Ciclo del conseguente da verificare solo se la regola non e' da disattivare 
+						if(!regolaImpossibileDaAttivare) {
+							
+	                		//Ciclo for in cui verifica per ogni azione del conseguente 
+	                		for(Azioni azione : ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(keyRegola).getConseguente().getArrayAzioni()) {
+	                    		
+	                			//Ciclo for per trovare la posizione dell'attuatore 
+	    						for(int k = 0; k < ListaAttuatori.getInstance().getListSize(); k++) {
+	    								
+	    								//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 
+	    								if(ListaAttuatori.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore())) {
+	    									
+	    									//Se almeno un attuatore non e' attivo allora la regola verra' disattivata 
+	    									if(!ListaAttuatori.getInstance().getActuatorFromList(k).isStatoAttivo()) {
+	    										regolaImpossibileDaAttivare = true;
+	    									}
+	    								}
+	    	                	}
+	                    	}
+						}
+                	
+                	//Se il valore boolean e' true allora la regola non puo' essere attivata
+                	if(regolaImpossibileDaAttivare) {
+                		System.out.println("Questa regola non puo' essere attivata al momento ");
+            		} else {
+            			
+              			
+              			
+              			
+              			//Ciclo if in cui il fruitore puo' disattivare la regola se la regola e' gia' attiva
+              			if(ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(keyRegola).getAttivaDisattiva()) {
+              				do {
+      	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare la regola(Y/N)? ");
+      	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+      	        						ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(keyRegola).setAttivaDisattiva(false);
+      	        						System.out.println("La regola è stata disattivata.");
+      	        						fineSceltaRegola = true;
+      	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+      	        						System.out.println("La regola è rimasta attiva");
+      	        						fineSceltaRegola = true;
+      	        					
+      	        					} else {
+      	    	        				System.out.println("Puoi inserire solo Y o N.");
+      	    	        			}
+      	        				} while(!fineSceltaRegola);
+              				
+              			//Ciclo else in cui il fruitore puo' attivare la regola e' gia disattiva
+              			} else {
+              				do {
+      	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare la regola(Y/N)? ");
+      	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+      	        						ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(keyRegola).setAttivaDisattiva(true);
+      	        						System.out.println("La regola è stata attivata.");
+      	        						fineSceltaRegola = true;
+      	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+      	        						System.out.println("La regola è rimasta disattivata");
+      	        						fineSceltaRegola = true;
+      	        					
+      	        					}  else {
+      	    	        				System.out.println("Puoi inserire solo Y o N.");
+      	    	        			}
+      	        				} while(!fineSceltaRegola);
+              			}
+            		}
+              			
+              			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
+              			do {
+      	        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altre regole(Y/N)?: ");
+      	        			if(continuaMetodo.equalsIgnoreCase("Y")) {
+      	        				fineSceltaContinua = true;
+      	        				finito = false;
+      	        			} else if(continuaMetodo.equalsIgnoreCase("N")) {
+      	        				fineSceltaContinua = true; 
+      	        				finito = true;
+      	        			} else {
+      	        				System.out.println("Puoi inserire solo Y o N.");
+      	        			}
+              			} while(!fineSceltaContinua);
+        			  
+        		
+            		}
+        		//Caso 3 in cui il fruitore vuole attivare o disattivare una regola con un solo sensore
+        		} else if(regolaScelta == 3) {
+        			if(ListaRegoleDueSensori.getInstance().isEmptyList()) {
+            			System.out.println("Non ci sono regole di questo tipo al momento");
+            		} else {
+        			//Scelta della regola
+        			ListaRegoleDueSensori.getInstance().printList();
+        			int sceltaRegolaSempreVera = inputDati.leggiIntero("Inserisci il numero per scegliere la regola: ", 1, ListaRegoleDueSensori.getInstance().getListSize());
+        			sceltaRegolaSempreVera -= 1;
+        			String keyRegola = ListaRegoleDueSensori.getInstance().returnKey(sceltaRegolaSempreVera);
+        			
+        			
+        			//Ciclo for per trovare la posizione del sensore
+					for(int k = 0; k < ListaSensori.getInstance().getListSize(); k++) {
+						
+						//if per verificare se il nome di uno dei due sensori e' lo stesso nell'antecedente 
+						if(ListaRegoleDueSensori.getInstance().getRegolaDueSensori(keyRegola).getAntecedente().getNomeSensore().equalsIgnoreCase(ListaSensori.getInstance().getSensorFromList(k).getNomeSensore()) || ListaRegoleDueSensori.getInstance().getRegolaDueSensori(keyRegola).getAntecedente().getNomeSecondoSensore().equalsIgnoreCase(ListaSensori.getInstance().getSensorFromList(k).getNomeSensore())) {
+							
+							//Se almeno un sessroe non e' attivo allora la regola verra' disattivata 
+							if(!ListaSensori.getInstance().getSensorFromList(k).isStatoAttivo()) {
+								regolaImpossibileDaAttivare = true;
+							}
+						}
+					}
+            		
+					//Ciclo del conseguente da verificare solo se la regola non e' da disattivare 
+					if(!regolaImpossibileDaAttivare) {
+						
+                		//Ciclo for in cui verifica per ogni azione del conseguente 
+                		for(Azioni azione : ListaRegoleDueSensori.getInstance().getRegolaDueSensori(keyRegola).getConseguente().getArrayAzioni()) {
+                    		
+                			//Ciclo for per trovare la posizione dell'attuatore 
+    						for(int k = 0; k < ListaAttuatori.getInstance().getListSize(); k++) {
+    								
+    								//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 
+    								if(ListaAttuatori.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore())) {
+    									
+    									//Se almeno un attuatore non e' attivo allora la regola verra' disattivata 
+    									if(!ListaAttuatori.getInstance().getActuatorFromList(k).isStatoAttivo()) {
+    										regolaImpossibileDaAttivare = true;
+    									}
+    								}
+    	                	}
+                    	}
+					}
+            	
+
+                //Se il valore boolean e' true allora la regola non puo' essere attivata
+            	if(regolaImpossibileDaAttivare) {
+            		System.out.println("Questa regola non puo' essere attivata al momento ");
+        		} else {
+        			
+        			
+        			
+        			//Ciclo if in cui il fruitore puo' disattivare la regola se la regola e' gia' attiva
+        			if(ListaRegoleDueSensori.getInstance().getRegolaDueSensori(keyRegola).getAttivaDisattiva()) {
+        				do {
+	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare la regola(Y/N)? ");
+	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+	        						ListaRegoleDueSensori.getInstance().getRegolaDueSensori(keyRegola).setAttivaDisattiva(false);
+	        						System.out.println("La regola è stata disattivata.");
+	        						fineSceltaRegola = true;
+	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+	        						System.out.println("La regola è rimasta attiva");
+	        						fineSceltaRegola = true;
+	        					
+	        					} else {
+	    	        				System.out.println("Puoi inserire solo Y o N.");
+	    	        			}
+	        				} while(!fineSceltaRegola);
+        				
+        			//Ciclo else in cui il fruitore puo' attivare la regola e' gia disattiva
+        			} else {
+        				do {
+	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare la regola(Y/N)? ");
+	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+	        						ListaRegoleDueSensori.getInstance().getRegolaDueSensori(keyRegola).setAttivaDisattiva(true);
+	        						System.out.println("La regola è stata attivata.");
+	        						fineSceltaRegola = true;
+	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+	        						System.out.println("La regola è rimasta disattivata");
+	        						fineSceltaRegola = true;
+	        					
+	        					}  else {
+	    	        				System.out.println("Puoi inserire solo Y o N.");
+	    	        			}
+	        				} while(!fineSceltaRegola);
+        			}
+        			
+        		}
+        			
+        			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
+        			do {
+	        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altre regole(Y/N)?: ");
+	        			if(continuaMetodo.equalsIgnoreCase("Y")) {
+	        				fineSceltaContinua = true;
+	        				finito = false;
+	        			} else if(continuaMetodo.equalsIgnoreCase("N")) {
+	        				fineSceltaContinua = true; 
+	        				finito = true;
+	        			} else {
+	        				System.out.println("Puoi inserire solo Y o N.");
+	        			}
+        			} while(!fineSceltaContinua);
+        		}
+        		}
+        	} while(!finito);
+        	break;
+        	
+        case 6: //Caso per attivare o disattivare sensori o attuatori 
+        	boolean fineSceltaSensore = false;
+        	int sceltaSensore = 0;
+        	int sceltaAttuatore = 0;
+        	boolean sceltaContinua = false;
+        	boolean fruitoreFinito = false;
+        	
+        	//Ciclo do per attivare o disattivare piu' sensori o attuatori in una sola sessione 
+        	do {
+        		
+	        	//Ciclo if in cui viene verificato che esiste almeno un sensore e un attuatore
+	        	if(!ListaSensori.getInstance().isEmptyList() && !ListaAttuatori.getInstance().isEmptyList()) { 
+		    		System.out.println("1. Sensori");
+		    		System.out.println("2. Attuatori");
+		    		int scelta = inputDati.leggiIntero("Vuoi attivare o disattivare sensori o attuatori: ", 1, 2);
+		    		
+		    		//Ciclo if in cui viene attivato o disattivato il sensore 
+		    		if(scelta == 1) {
+		    			
+		    			//Scelta del sensore
+		    			ListaSensori.getInstance().printList();
+		    			sceltaSensore = inputDati.leggiIntero("Inserisci il numero del sensore che vuoi attivare o disattivare: ", 1, ListaSensori.getInstance().getListSize());
+		    			sceltaSensore -= 1;
+		    			
+		    			//Ciclo if in cui verifica che il sensore e' attivo se vero allora il fruitore puo' disattivarlo 
+		    			if(ListaSensori.getInstance().getSensorFromList(sceltaSensore).isStato()) {
+		    				do {
+		        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare il sensore(Y/N)? ");
+		        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+		        					ListaSensori.getInstance().getSensorFromList(sceltaSensore).setStato(false);
+		        						System.out.println("Il sensore è stato disattivato.");
+		        						fineSceltaSensore = true;
+		        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+		        						System.out.println("Il sensore è rimasto attivo");
+		        						fineSceltaSensore = true;
+		        					
+		        					} else {
+		    	        				System.out.println("Puoi inserire solo Y o N.");
+		    	        			}
+		        				} while(!fineSceltaSensore);
+		    				
+		    			//Ciclo else in cui l'attuatore e' disattivo allora il fruitore puo' attivarlo 
+		    			} else {
+		    				do {
+			    				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare il sensore(Y/N)? ");
+		    					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+		    					ListaSensori.getInstance().getSensorFromList(sceltaSensore).setStato(true);
+		    						System.out.println("Il sensore è stato attivato.");
+		    						fineSceltaSensore = true;
+		    					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+		    						System.out.println("Il sensore è rimasto disattivo");
+		    						fineSceltaSensore = true;
+		    					} else {
+			        				System.out.println("Puoi inserire solo Y o N.");
+			        			}
+		    				} while(!fineSceltaSensore);
+		    			}
+		    			
+	        			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
+	        			do {
+		        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altri sensori o attuatori(Y/N)?: ");
+		        			if(continuaMetodo.equalsIgnoreCase("Y")) {
+		        				sceltaContinua = true;
+		        				fruitoreFinito = false;
+		        			} else if(continuaMetodo.equalsIgnoreCase("N")) {
+		        				sceltaContinua = true; 
+		        				fruitoreFinito = true;
+		        			} else {
+		        				System.out.println("Puoi inserire solo Y o N.");
+		        			}
+	        			} while(!sceltaContinua);
+		    			
+		    		//Ciclo else in cui viene attivato o disattivato l'attuatore
+		    		} else if(scelta == 2){
+		    			
+		    			//Scelta dell'attuatore
+		    			ListaAttuatori.getInstance().printList();
+		    			sceltaAttuatore = inputDati.leggiIntero("Inserisci il numero dell'attuatore che vuoi attivare o disattivare: ", 1, ListaAttuatori.getInstance().getListSize());
+		    			sceltaAttuatore -= 1;
+		    			
+		    			//Ciclo if in cui verifica che se l'attuatore e' attivo se vero allora il fruitore puo' disattivarlo 
+		    			if(ListaAttuatori.getInstance().getActuatorFromList(sceltaAttuatore).isStatoAttivo()) {
+		    				do {
+		        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare il sensore(Y/N)? ");
+		        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+		        						ListaAttuatori.getInstance().getActuatorFromList(sceltaAttuatore).setStatoAttivo(false);
+		        						System.out.println("L'attuatore è stato disattivato.");
+		        						fineSceltaSensore = true;
+		        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+		        						System.out.println("L'attuatore è rimasto attivo");
+		        						fineSceltaSensore = true;
+		        					
+		        					} else {
+		    	        				System.out.println("Puoi inserire solo Y o N.");
+		    	        			}
+		        				} while(!fineSceltaSensore);
+		    				
+		    			//Ciclo else in cui l'attuatore e' disattivo allora il fruitore puo' attivarlo 
+		    			} else {
+		    				do {
+			    				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare l'attuatore(Y/N)? ");
+		    					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+		    						ListaAttuatori.getInstance().getActuatorFromList(sceltaAttuatore).setStatoAttivo(true);
+		    						System.out.println("L'attuatore è stato attivato.");
+		    						fineSceltaSensore = true;
+		    					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+		    						System.out.println("L'attuatore è rimasto disattivo");
+		    						fineSceltaSensore = true;
+		    					} else {
+			        				System.out.println("Puoi inserire solo Y o N.");
+			        			}
+		    				} while(!fineSceltaSensore);
+		    			}
+		    			
+		    			
+	        			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
+	        			do {
+		        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altri sensori o attuatori(Y/N)?: ");
+		        			if(continuaMetodo.equalsIgnoreCase("Y")) {
+		        				sceltaContinua = true;
+		        				fruitoreFinito = false;
+		        			} else if(continuaMetodo.equalsIgnoreCase("N")) {
+		        				sceltaContinua = true; 
+		        				fruitoreFinito = true;
+		        			} else {
+		        				System.out.println("Puoi inserire solo Y o N.");
+		        			}
+	        			} while(!sceltaContinua);
+	        		}
+	        	} else if(!ListaSensori.getInstance().isEmptyList() && ListaAttuatori.getInstance().isEmptyList()) {
+	        		System.out.println("Puoi attivare o disattivare solo sensori al momento.");
+	        	
+	        		//Scelta del sensore
+	    			ListaSensori.getInstance().printList();
+	    			sceltaSensore = inputDati.leggiIntero("Inserisci il numero del sensore che vuoi attivare o disattivare: ", 1, ListaSensori.getInstance().getListSize());
+	    			sceltaSensore -= 1;
+	    			
+	    			//Ciclo if in cui verifica che il sensore e' attivo se vero allora il fruitore puo' disattivarlo 
+	    			if(ListaSensori.getInstance().getSensorFromList(sceltaSensore).isStato()) {
+	    				do {
+	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare il sensore(Y/N)? ");
+	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+	        					ListaSensori.getInstance().getSensorFromList(sceltaSensore).setStato(false);
+	        						System.out.println("Il sensore è stato disattivato.");
+	        						fineSceltaSensore = true;
+	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+	        						System.out.println("Il sensore è rimasto attivo");
+	        						fineSceltaSensore = true;
+	        					
+	        					} else {
+	    	        				System.out.println("Puoi inserire solo Y o N.");
+	    	        			}
+	        				} while(!fineSceltaSensore);
+	    				
+	    			//Ciclo else in cui l'attuatore e' disattivo allora il fruitore puo' attivarlo 
+	    			} else {
+	    				do {
+		    				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare il sensore(Y/N)? ");
+	    					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+	    					ListaSensori.getInstance().getSensorFromList(sceltaSensore).setStato(true);
+	    						System.out.println("Il sensore è stato attivato.");
+	    						fineSceltaSensore = true;
+	    					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+	    						System.out.println("Il sensore è rimasto disattivo");
+	    						fineSceltaSensore = true;
+	    					} else {
+		        				System.out.println("Puoi inserire solo Y o N.");
+		        			}
+	    				} while(!fineSceltaSensore);
+	    			}
+	    			
+        			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
+        			do {
+	        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altri sensori o attuatori(Y/N)?: ");
+	        			if(continuaMetodo.equalsIgnoreCase("Y")) {
+	        				sceltaContinua = true;
+	        				fruitoreFinito = false;
+	        			} else if(continuaMetodo.equalsIgnoreCase("N")) {
+	        				sceltaContinua = true; 
+	        				fruitoreFinito = true;
+	        			} else {
+	        				System.out.println("Puoi inserire solo Y o N.");
+	        			}
+        			} while(!sceltaContinua);
+	    			
+	        	} else if(ListaSensori.getInstance().isEmptyList() && !ListaAttuatori.getInstance().isEmptyList()) {
+	        		System.out.println("Puoi attivare o disattivare solo attuatori al momento.");
+	        		
+
+	    			//Scelta dell'attuatore
+	    			ListaAttuatori.getInstance().printList();
+	    			sceltaAttuatore = inputDati.leggiIntero("Inserisci il numero dell'attuatore che vuoi attivare o disattivare: ", 1, ListaAttuatori.getInstance().getListSize());
+	    			sceltaAttuatore -= 1;
+	    			
+	    			//Ciclo if in cui verifica che se l'attuatore e' attivo se vero allora il fruitore puo' disattivarlo 
+	    			if(ListaAttuatori.getInstance().getActuatorFromList(sceltaAttuatore).isStatoAttivo()) {
+	    				do {
+	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare il sensore(Y/N)? ");
+	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+	        						ListaAttuatori.getInstance().getActuatorFromList(sceltaAttuatore).setStatoAttivo(false);
+	        						System.out.println("L'attuatore è stato disattivato.");
+	        						fineSceltaSensore = true;
+	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+	        						System.out.println("L'attuatore è rimasto attivo");
+	        						fineSceltaSensore = true;
+	        					
+	        					} else {
+	    	        				System.out.println("Puoi inserire solo Y o N.");
+	    	        			}
+	        				} while(!fineSceltaSensore);
+	    				
+	    			//Ciclo else in cui l'attuatore e' disattivo allora il fruitore puo' attivarlo 
+	    			} else {
+	    				do {
+		    				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare l'attuatore(Y/N)? ");
+	    					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
+	    						ListaAttuatori.getInstance().getActuatorFromList(sceltaAttuatore).setStatoAttivo(true);
+	    						System.out.println("L'attuatore è stato attivato.");
+	    						fineSceltaSensore = true;
+	    					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
+	    						System.out.println("L'attuatore è rimasto disattivo");
+	    						fineSceltaSensore = true;
+	    					} else {
+		        				System.out.println("Puoi inserire solo Y o N.");
+		        			}
+	    				} while(!fineSceltaSensore);
+	    			}
+	    			
+	    			
+        			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
+        			do {
+	        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altri sensori o attuatori(Y/N)?: ");
+	        			if(continuaMetodo.equalsIgnoreCase("Y")) {
+	        				sceltaContinua = true;
+	        				fruitoreFinito = false;
+	        			} else if(continuaMetodo.equalsIgnoreCase("N")) {
+	        				sceltaContinua = true; 
+	        				fruitoreFinito = true;
+	        			} else {
+	        				System.out.println("Puoi inserire solo Y o N.");
+	        			}
+        			} while(!sceltaContinua);
+	        	} else if(ListaSensori.getInstance().isEmptyList() && ListaAttuatori.getInstance().isEmptyList()) {
+	        		System.out.println("Devi prima creare almeno un sensore o un attuatore. ");	
+	        		fruitoreFinito = true;
+	        	}
+	        	
+        	} while(!fruitoreFinito);
+        	
+        	
+        	boolean regolaDaDisattivare = false;
+        	
+        	//Cerca tutte le regole SEMPRE VERE che non possono essere attive al momento 
+        	if(!ListaRegoleSempreVere.getInstance().isEmptyList()) {
+        		
+        		//Ciclo for per verificare una regola SEMPRE VERA alla volta 
+                for(String key : ListaRegoleSempreVere.getInstance().getKeys()) {
+                	
+                	//valore da resettare all'inizio del ciclo per una nuova regola
+                	regolaDaDisattivare = false;
+                	
+                		//Ciclo for in cui verifica per ogni azione del conseguente 
+                		for(Azioni azione : ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key).getConseguente().getArrayAzioni()) {
+                    		
+                			//Ciclo for per trovare la posizione dell'attuatore 
+    						for(int k = 0; k < ListaAttuatori.getInstance().getListSize(); k++) {
+    								
+    								//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 
+    								if(ListaAttuatori.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore())) {
+    									
+    									//Se almeno un attuatore non è attivo allora la regola verra' disattivata 
+    									if(!ListaAttuatori.getInstance().getActuatorFromList(k).isStatoAttivo()) {
+    										regolaDaDisattivare = true;
+    									}
+    								}
+    	                	}
+                    	}
+                	
+                	//Se il valore boolean e' true allora la regola e' da disattivare 
+                	if(regolaDaDisattivare) {
+            			ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key).setAttivaDisattiva(false);
+            			System.out.println("La regola " + ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key).getNomeRegola() + "e' stata disattivata. ");
+            		}  else {
+            			//Se la regola era disattiva allora adesso si riattiva 
+            			if(!ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key).getAttivaDisattiva()) {
+            				System.out.println("La regola " + ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key).getNomeRegola() + "puo' essere riattivata.");
+            			}
+            		}
+                	
+                		
+                }
+               }
+        	
+        	//Cerca tutte le regole CON UN SINGOLO SENSORE che non possono essere attive al momento 
+        	if(!ListaRegoleSingoloSensore.getInstance().isEmptyList()) {
+        		
+        		//Ciclo for per verificare una regola SEMPRE VERA alla volta 
+                for(String key : ListaRegoleSingoloSensore.getInstance().getKeys()) {
+                	
+                	//valore da resettare all'inizio del ciclo per una nuova regola
+                	regolaDaDisattivare = false;
+            
+                		//Ciclo for per trovare la posizione del sensore
+						for(int k = 0; k < ListaSensori.getInstance().getListSize(); k++) {
+							
+							//if per verificare se il nome del sensore e' lo stesso nell'antecedente 
+							if(ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key).getAntecedente().getNomeSensore().equalsIgnoreCase(ListaSensori.getInstance().getSensorFromList(k).getNomeSensore())) {
+								
+								//Se almeno un sessroe non e' attivo allora la regola verra' disattivata 
+								if(!ListaSensori.getInstance().getSensorFromList(k).isStatoAttivo()) {
+									regolaDaDisattivare = true;
+								}
+							}
+						}
+                		
+						//Ciclo del conseguente da verificare solo se la regola non e' da disattivare 
+						if(!regolaDaDisattivare) {
+							
+	                		//Ciclo for in cui verifica per ogni azione del conseguente 
+	                		for(Azioni azione : ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key).getConseguente().getArrayAzioni()) {
+	                    		
+	                			//Ciclo for per trovare la posizione dell'attuatore 
+	    						for(int k = 0; k < ListaAttuatori.getInstance().getListSize(); k++) {
+	    								
+	    								//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 
+	    								if(ListaAttuatori.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore())) {
+	    									
+	    									//Se almeno un attuatore non e' attivo allora la regola verra' disattivata 
+	    									if(!ListaAttuatori.getInstance().getActuatorFromList(k).isStatoAttivo()) {
+	    										regolaDaDisattivare = true;
+	    									}
+	    								}
+	    	                	}
+	                    	}
+						}
+                	
+                	//Se il valore boolean e' true allora la regola e' da disattivare 
+                	if(regolaDaDisattivare) {
+                		ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key).setAttivaDisattiva(false);
+            			System.out.println("La regola " + ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key).getNomeRegola() + "e' stata disattivata. ");
+            		} else {
+            			//Se la regola era disattiva allora adesso si riattiva 
+            			if(!ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key).getAttivaDisattiva()) {
+            				System.out.println("La regola " + ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key).getNomeRegola() + "puo' essere riattivata.");
+            			}
+            		}
+                	
+                		
+                }
+               }
+
+        	//Cerca tutte le regole CON DUE SENSORI che non possono essere attive al momento 
+        	if(!ListaRegoleDueSensori.getInstance().isEmptyList()) {
+        		
+        		//Ciclo for per verificare una regola SEMPRE VERA alla volta 
+                for(String key : ListaRegoleDueSensori.getInstance().getKeys()) {
+                	
+                	//valore da resettare all'inizio del ciclo per una nuova regola
+                	regolaDaDisattivare = false;
+                		
+                		//Ciclo for per trovare la posizione del sensore
+						for(int k = 0; k < ListaSensori.getInstance().getListSize(); k++) {
+							
+							//if per verificare se il nome di uno dei due sensori e' lo stesso nell'antecedente 
+							if(ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).getAntecedente().getNomeSensore().equalsIgnoreCase(ListaSensori.getInstance().getSensorFromList(k).getNomeSensore()) || ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).getAntecedente().getNomeSecondoSensore().equalsIgnoreCase(ListaSensori.getInstance().getSensorFromList(k).getNomeSensore())) {
+								
+								//Se almeno un sessroe non e' attivo allora la regola verra' disattivata 
+								if(!ListaSensori.getInstance().getSensorFromList(k).isStatoAttivo()) {
+									regolaDaDisattivare = true;
+								}
+							}
+						}
+                		
+						//Ciclo del conseguente da verificare solo se la regola non e' da disattivare 
+						if(!regolaDaDisattivare) {
+							
+	                		//Ciclo for in cui verifica per ogni azione del conseguente 
+	                		for(Azioni azione : ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).getConseguente().getArrayAzioni()) {
+	                    		
+	                			//Ciclo for per trovare la posizione dell'attuatore 
+	    						for(int k = 0; k < ListaAttuatori.getInstance().getListSize(); k++) {
+	    								
+	    								//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 
+	    								if(ListaAttuatori.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore())) {
+	    									
+	    									//Se almeno un attuatore non e' attivo allora la regola verra' disattivata 
+	    									if(!ListaAttuatori.getInstance().getActuatorFromList(k).isStatoAttivo()) {
+	    										regolaDaDisattivare = true;
+	    									}
+	    								}
+	    	                	}
+	                    	}
+						}
+                	
+                	//Se il valore boolean e' true allora la regola e' da disattivare 
+                	if(regolaDaDisattivare) {
+                		ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).setAttivaDisattiva(false);
+            			System.out.println("La regola " + ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).getNomeRegola() + "e' stata disattivata. ");
+            		} else {
+            			//Se la regola era disattiva allora adesso si riattiva 
+            			if(!ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).getAttivaDisattiva()) {
+            				System.out.println("La regola " + ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).getNomeRegola() + "puo' essere riattivata.");
+            			}
+            		}
+                	
+                		
+                }
+               }
+	    	
+        	
+        	break; 
         
         default: // Se i controlli nella classe Menu sono corretti, questo non viene mai eseguito !
           System.out.println(ERRORE_FUNZIONE);

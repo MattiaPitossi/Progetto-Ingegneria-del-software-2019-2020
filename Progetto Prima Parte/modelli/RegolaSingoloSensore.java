@@ -1,5 +1,7 @@
 package modelli;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.TimerTask;
 
 import modelli.liste.ListaAttuatori;
@@ -10,11 +12,14 @@ public class RegolaSingoloSensore extends TimerTask{
 	private String nomeRegola;
 	private AntecedenteSingoloSensore antecedente;
 	private Conseguente conseguente;
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
+	private boolean attivaDisattiva;
 	
 	public RegolaSingoloSensore (String nomeRegola, AntecedenteSingoloSensore antecedente, Conseguente conseguente) {
 		this.nomeRegola = nomeRegola;
 		this.antecedente = antecedente;
 		this.conseguente = conseguente;
+		this.attivaDisattiva = true;
 	}
 
 	public String getNomeRegola() {
@@ -39,6 +44,14 @@ public class RegolaSingoloSensore extends TimerTask{
 
 	public void setConseguente(Conseguente conseguente) {
 		this.conseguente = conseguente;
+	}
+
+	public boolean getAttivaDisattiva() {
+		return attivaDisattiva;
+	}
+
+	public void setAttivaDisattiva(boolean attivaDisattiva) {
+		this.attivaDisattiva = attivaDisattiva;
 	}
 
 	@Override
@@ -118,6 +131,10 @@ public class RegolaSingoloSensore extends TimerTask{
 		
 		//If per verificare se il conseguente deve partire 
 		if(operazioneSoddisfata) {
+			
+			//Viene trasformata l'ora in un valore float e salvato 
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			conseguente.setStart(Float.valueOf(sdf.format(timestamp)));
 			
 			//Il conseguente puo' contenere piu' azioni 
 			for(Azioni azione : conseguente.getArrayAzioni()) {

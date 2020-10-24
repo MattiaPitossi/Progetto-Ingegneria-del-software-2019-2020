@@ -86,6 +86,8 @@ public class Sensore {
     public String getTipologiaSensore(){
     	return "sensore";
     }
+    
+    
 
     
 }

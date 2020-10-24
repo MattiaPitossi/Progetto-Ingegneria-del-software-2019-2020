@@ -22,6 +22,20 @@ public class ListaRegoleDueSensori implements Liste{
 		   listaRegoleDueSensoriInstance = new ListaRegoleDueSensori();
 	   return listaRegoleDueSensoriInstance;
 	}
+	
+	public String returnKey(int i) {
+		int j = 0;
+		String nonTrovato = "";
+		 Set<String> keys = listaRegoleDueSensori.keySet();
+		 for (String k : keys) {
+			 if(j == i) {
+	          return k;
+	        } else {
+	        	j += 1;
+	        }
+		 }
+		return nonTrovato;
+	}
 	    
 	@Override
 	public boolean alreadyExist(String nameToVerify) {

@@ -1,5 +1,7 @@
 package modelli;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.TimerTask;
 
 import modelli.liste.ListaAttuatori;
@@ -9,11 +11,14 @@ public class RegolaSempreVera extends TimerTask{
 	private String nomeRegola;
 	private AntecedenteSempreVero antecedente;
 	private Conseguente conseguente;
+	private SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
+	private boolean attivaDisattiva;
 	
 	public RegolaSempreVera (String nomeRegola, AntecedenteSempreVero antecedente, Conseguente conseguente) {
 		this.nomeRegola = nomeRegola;
 		this.antecedente = antecedente;
 		this.conseguente = conseguente;
+		this.attivaDisattiva = true;
 	}
 
 	public String getNomeRegola() {
@@ -40,8 +45,21 @@ public class RegolaSempreVera extends TimerTask{
 		this.conseguente = conseguente;
 	}
 
+	public boolean getAttivaDisattiva() {
+		return attivaDisattiva;
+	}
+
+	public void setAttivaDisattiva(boolean attivaDisattiva) {
+		this.attivaDisattiva = attivaDisattiva;
+	}
+
 	@Override
 	public void run() {
+		
+		//Viene trasformata l'ora in un valore float e salvato 
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		conseguente.setStart(Float.valueOf(sdf.format(timestamp)));
+		
 		//Il conseguente puo' contenere piu' azioni 
 		for(Azioni azione : conseguente.getArrayAzioni()) {
 			
