@@ -28,6 +28,9 @@ public class MainMenu {
     private Timer timer2 = new Timer(); 
     private Timer timer3 = new Timer(); 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
+    private boolean alreadyScheduled1;
+    private boolean alreadyScheduled2;
+    private boolean alreadyScheduled3;
 
     public void esegui(){
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
@@ -43,31 +46,40 @@ public class MainMenu {
     
     public boolean eseguiFunzioneScelta(int numFunzione) 
     {
-    	if(!ListaRegoleSempreVere.getInstance().isEmptyList()) {
-        for(String key : ListaRegoleSempreVere.getInstance().getKeys()) {
-          TimerTask task = ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key); 
-          timer1.schedule(task, 0, 600000); 
-        }
-	    } else {
-	  	  System.out.println("Non ci sono regole sempre vere al momento ");
-	    }
+    	if(!alreadyScheduled1) {
+	    	if(!ListaRegoleSempreVere.getInstance().isEmptyList()) {
+	        for(String key : ListaRegoleSempreVere.getInstance().getKeys()) {
+	          TimerTask task = ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key); 
+	          timer1.schedule(task, 0, 600000); 
+	          alreadyScheduled1 = true;
+	        }
+		    } else {
+		  	  System.out.println("Non ci sono regole sempre vere al momento ");
+		    }
+    	}
 	    
-	   if(!ListaRegoleSingoloSensore.getInstance().isEmptyList()) {
-		  for(String key : ListaRegoleSingoloSensore.getInstance().getKeys()) {
-		   	  TimerTask task = ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key); 
-	          timer2.schedule(task, 0, 600000); 
-		  }
-	   } else {
-	    System.out.println("Non ci sono regole con un singolo sensore al momento ");
-	   }
+    	if(!alreadyScheduled2) {
+		   if(!ListaRegoleSingoloSensore.getInstance().isEmptyList()) {
+			  for(String key : ListaRegoleSingoloSensore.getInstance().getKeys()) {
+			   	  TimerTask task = ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key); 
+		          timer2.schedule(task, 0, 600000); 
+		          alreadyScheduled2 = true;
+			  }
+		   } else {
+		    System.out.println("Non ci sono regole con un singolo sensore al momento ");
+		   }
+    	}
 	    
-	   if(!ListaRegoleDueSensori.getInstance().isEmptyList()) {
-		  for(String key : ListaRegoleDueSensori.getInstance().getKeys()) {
-			   TimerTask task = ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key); 
-			   timer3.schedule(task, 0, 600000); 
-		  }
-	   } else {
-		 System.out.println("Non ci sono regole con due sensori al momento ");
+	   if(!alreadyScheduled3) {
+		   if(!ListaRegoleDueSensori.getInstance().isEmptyList()) {
+			  for(String key : ListaRegoleDueSensori.getInstance().getKeys()) {
+				   TimerTask task = ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key); 
+				   timer3.schedule(task, 0, 600000); 
+				   alreadyScheduled3 = true;
+			  }
+		   } else {
+			 System.out.println("Non ci sono regole con due sensori al momento ");
+		   }
 	   }
 	    
       switch (numFunzione) {

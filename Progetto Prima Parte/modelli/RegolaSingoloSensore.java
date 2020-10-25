@@ -14,12 +14,14 @@ public class RegolaSingoloSensore extends TimerTask{
 	private Conseguente conseguente;
     private SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
 	private boolean attivaDisattiva;
+	private String tipoRegola;
 	
-	public RegolaSingoloSensore (String nomeRegola, AntecedenteSingoloSensore antecedente, Conseguente conseguente) {
+	public RegolaSingoloSensore (String nomeRegola, AntecedenteSingoloSensore antecedente, Conseguente conseguente, String tipoRegola) {
 		this.nomeRegola = nomeRegola;
 		this.antecedente = antecedente;
 		this.conseguente = conseguente;
 		this.attivaDisattiva = true;
+		this.tipoRegola = tipoRegola;
 	}
 
 	public String getNomeRegola() {
@@ -54,80 +56,87 @@ public class RegolaSingoloSensore extends TimerTask{
 		this.attivaDisattiva = attivaDisattiva;
 	}
 
+	public String getTipoRegola() {
+		return tipoRegola;
+	}
+
+	public void setTipoRegola(String tipoRegola) {
+		this.tipoRegola = tipoRegola;
+	}
+
 	@Override
 	public void run() {
 		boolean operazioneSoddisfata = false;
 		boolean sensoreTrovato = false;
 		int valoreRilevato = 0;
-		
+		System.out.println("Verifica della regola " + nomeRegola + "... ");
 		//Ciclo per trovare la posizione del sensore NUMERICO se non viene trovato allora il sensore e' NON NUMERICO 
 		for(int i = 0; i < ListaSensori.getInstance().getListSize(); i++) {
 			if(ListaSensori.getInstance().getSensorFromList(i).getNomeSensore().equalsIgnoreCase(antecedente.getNomeSensore())) {
 				
-				//Valore boolean che viene impostato true per non fare anche il ciclo del sensore NON NUMERICO 
-				sensoreTrovato = true;
-				
-				//Viene trasformato il valore confrontato in un int 
-				valoreRilevato = Integer.parseInt(antecedente.getValoreConfrontato());
-				 
-				//Ciclo if else per verificare quale e' l'operazione booleana da soddisfare
-				if(antecedente.getOperatoreBooleano().equalsIgnoreCase(">")) {
-					//Ciclo che verifica se l'operazione booleana > e' verificata
-					if(ListaSensori.getInstance().getSensorFromList(i).getValoreRilevato() > valoreRilevato) {
-						operazioneSoddisfata = true;
-					} else {
-						System.out.println("L'operazione non è soddisfata");
+				if(tipoRegola.equalsIgnoreCase("Numerico")) {
+					//Viene trasformato il valore confrontato in un int 
+					valoreRilevato = Integer.parseInt(antecedente.getValoreConfrontato());
+					 
+					//Ciclo if else per verificare quale e' l'operazione booleana da soddisfare
+					if(antecedente.getOperatoreBooleano().equalsIgnoreCase(">")) {
+						//Ciclo che verifica se l'operazione booleana > e' verificata
+						if(ListaSensori.getInstance().getSensorFromList(i).getValoreRilevato() > valoreRilevato) {
+							operazioneSoddisfata = true;
+						} else {
+							System.out.println("L'operazione non è soddisfata");
+						}
+					} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase(">=")) {
+						
+						//Ciclo che verifica se l'operazione booleana >= e' verificata
+						if(ListaSensori.getInstance().getSensorFromList(i).getValoreRilevato() >= valoreRilevato) {
+							operazioneSoddisfata = true;
+						} else {
+							System.out.println("L'operazione non è soddisfata");
+						}
+					} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase("<")) {
+						
+						//Ciclo che verifica se l'operazione booleana < e' verificata
+						if(ListaSensori.getInstance().getSensorFromList(i).getValoreRilevato() < valoreRilevato) {
+							operazioneSoddisfata = true;
+						} else {
+							System.out.println("L'operazione non è soddisfata");
+						}
+					} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase("<=")) {
+						
+						//Ciclo che verifica se l'operazione booleana <= e' verificata
+						if(ListaSensori.getInstance().getSensorFromList(i).getValoreRilevato() <= valoreRilevato) {
+							operazioneSoddisfata = true;
+						} else {
+							System.out.println("L'operazione non è soddisfata");
+						}
+					} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase("=")) {
+						
+						//Ciclo che verifica se l'operazione booleana = e' verificata
+						if(ListaSensori.getInstance().getSensorFromList(i).getValoreRilevato() == valoreRilevato) {
+							operazioneSoddisfata = true;
+						}  else {
+							System.out.println("L'operazione non è soddisfata");
+						}
 					}
-				} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase(">=")) {
-					
-					//Ciclo che verifica se l'operazione booleana >= e' verificata
-					if(ListaSensori.getInstance().getSensorFromList(i).getValoreRilevato() >= valoreRilevato) {
-						operazioneSoddisfata = true;
-					} else {
-						System.out.println("L'operazione non è soddisfata");
-					}
-				} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase("<")) {
-					
-					//Ciclo che verifica se l'operazione booleana < e' verificata
-					if(ListaSensori.getInstance().getSensorFromList(i).getValoreRilevato() < valoreRilevato) {
-						operazioneSoddisfata = true;
-					} else {
-						System.out.println("L'operazione non è soddisfata");
-					}
-				} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase("<=")) {
-					
-					//Ciclo che verifica se l'operazione booleana <= e' verificata
-					if(ListaSensori.getInstance().getSensorFromList(i).getValoreRilevato() <= valoreRilevato) {
-						operazioneSoddisfata = true;
-					} else {
-						System.out.println("L'operazione non è soddisfata");
-					}
-				} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase("=")) {
-					
-					//Ciclo che verifica se l'operazione booleana = e' verificata
-					if(ListaSensori.getInstance().getSensorFromList(i).getValoreRilevato() == valoreRilevato) {
-						operazioneSoddisfata = true;
-					}  else {
-						System.out.println("L'operazione non è soddisfata");
+				} else {
+					//Ciclo per trovare la posizione del sensore NON NUMERICO
+					for(int j = 0; j < ListaSensori.getInstance().getListSize(); j++) {
+						if(ListaSensori.getInstance().getSensorFromList(j).getNomeSensore().equalsIgnoreCase(antecedente.getNomeSensore())) {
+							
+							//Ciclo che verifica se l'operazione booleana = e' verificata
+							if(ListaSensori.getInstance().getSensorFromList(j).getValoreRilevatoNonNumerico() == antecedente.getValoreConfrontato()) {
+								operazioneSoddisfata = true;
+							}  else {
+								System.out.println("L'operazione non è soddisfata");
+							}
+						}
 					}
 				}
 			}
 		}
 		
-		if(!sensoreTrovato) {
-			//Ciclo per trovare la posizione del sensore NON NUMERICO
-			for(int j = 0; j < ListaSensori.getInstance().getListSize(); j++) {
-				if(ListaSensori.getInstance().getSensorFromList(j).getNomeSensore().equalsIgnoreCase(antecedente.getNomeSensore())) {
-					
-					//Ciclo che verifica se l'operazione booleana = e' verificata
-					if(ListaSensori.getInstance().getSensorFromList(j).getValoreRilevatoNonNumerico() == antecedente.getValoreConfrontato()) {
-						operazioneSoddisfata = true;
-					}  else {
-						System.out.println("L'operazione non è soddisfata");
-					}
-				}
-			}
-		}
+		
 		
 		//If per verificare se il conseguente deve partire 
 		if(operazioneSoddisfata) {

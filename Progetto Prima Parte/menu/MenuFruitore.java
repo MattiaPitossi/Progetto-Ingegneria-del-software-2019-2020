@@ -356,7 +356,7 @@ public class MenuFruitore {
 				           	   		//Viene creato il conseguente che contiene tutte le azioni che verrano effettuate se la regola risulta valida 
 				           	   		Conseguente conseguente = new Conseguente(azioni);
 				           	   		
-				           	   		RegolaSingoloSensore regola = new RegolaSingoloSensore(nomeRegola, antecedente, conseguente);
+				           	   		RegolaSingoloSensore regola = new RegolaSingoloSensore(nomeRegola, antecedente, conseguente, "Numerico");
 				           	   		
 				           	   		ListaRegoleSingoloSensore.getInstance().addToList(nomeRegola, regola);
 	            	    			
@@ -429,10 +429,10 @@ public class MenuFruitore {
 	            	    			//scelta dell'orario in cui attivare la regola 
 	            	    			do {
         	    						fineScelta = false;
-	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attiavre la regola");
+	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attiavre la regola(Y/N): ");
 	        	    					if(vuoiContinuare.equalsIgnoreCase("Y")) {
-	        	    						ora = inputDati.leggiIntero("Inserisci l'ora: ", 0, 24);
-	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti: ", 0, 60);
+	        	    						ora = inputDati.leggiIntero("Inserisci l'ora (valore tra 0 e 24): ", 0, 24);
+	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti: (valore tra 0 e 60)", 0, 60);
 	        	    						afterDecimalPlace = (float) (minuti/100.00);
 	        	    						tempo = (float)ora + minuti;
 	        	    						fineScelta = true;
@@ -470,7 +470,7 @@ public class MenuFruitore {
 	            	    			//Viene creato il conseguente che contiene tutte le azioni che verrano effettuate se la regola risulta valida 
 				           	   		Conseguente conseguente = new Conseguente(azioni);
 				           	   		
-				           	   		RegolaSingoloSensore regola = new RegolaSingoloSensore(nomeRegola, antecedente, conseguente);
+				           	   		RegolaSingoloSensore regola = new RegolaSingoloSensore(nomeRegola, antecedente, conseguente, "Non Numerico");
 			           	   		
 				           	   		ListaRegoleSingoloSensore.getInstance().addToList(nomeRegola, regola);
 	            	    		}
@@ -642,6 +642,9 @@ public class MenuFruitore {
         	boolean finito = false;
         	boolean regolaImpossibileDaAttivare = false;
         	
+        	if(ListaRegoleSempreVere.getInstance().isEmptyList() && ListaRegoleSingoloSensore.getInstance().isEmptyList() && ListaRegoleDueSensori.getInstance().isEmptyList()) {
+        		System.out.println("Non ci sono regole da attivare o disattivare al momento. ");
+        	} else {
         	//Ciclo do perche' il fruitore puo' eseguirlo piu' di una volta 
         	do {
         		System.out.println("1. Regole sempre vere");
@@ -948,6 +951,8 @@ public class MenuFruitore {
         		}
         		}
         	} while(!finito);
+        	
+        	}
         	break;
         	
         case 6: //Caso per attivare o disattivare sensori o attuatori 
