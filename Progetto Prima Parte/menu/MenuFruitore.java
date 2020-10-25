@@ -313,10 +313,10 @@ public class MenuFruitore {
 	            	    			//scelta dell'orario in cui attivare la regola 
 	            	    			do {
         	    						fineScelta = false;
-	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attiavre la regola");
+	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attivare la regola(Y/N): ");
 	        	    					if(vuoiContinuare.equalsIgnoreCase("Y")) {
-	        	    						ora = inputDati.leggiIntero("Inserisci l'ora: ", 0, 24);
-	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti: ", 0, 60);
+	        	    						ora = inputDati.leggiIntero("Inserisci l'ora (valore tra 0 e 24): ", 0, 24);
+	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti (valore tra 0 e 60): ", 0, 60);
 	        	    						afterDecimalPlace = (float) (minuti/100.00);
 	        	    						tempo = (float)ora + minuti;
 	        	    						fineScelta = true;
@@ -429,10 +429,10 @@ public class MenuFruitore {
 	            	    			//scelta dell'orario in cui attivare la regola 
 	            	    			do {
         	    						fineScelta = false;
-	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attiavre la regola(Y/N): ");
+	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attivare la regola(Y/N): ");
 	        	    					if(vuoiContinuare.equalsIgnoreCase("Y")) {
 	        	    						ora = inputDati.leggiIntero("Inserisci l'ora (valore tra 0 e 24): ", 0, 24);
-	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti: (valore tra 0 e 60)", 0, 60);
+	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti (valore tra 0 e 60): ", 0, 60);
 	        	    						afterDecimalPlace = (float) (minuti/100.00);
 	        	    						tempo = (float)ora + minuti;
 	        	    						fineScelta = true;
@@ -582,10 +582,10 @@ public class MenuFruitore {
 	            	    			//scelta dell'orario in cui attivare la regola 
 	            	    			do {
         	    						fineScelta = false;
-	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attiavre la regola");
+	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attivare la regola(Y/N): ");
 	        	    					if(vuoiContinuare.equalsIgnoreCase("Y")) {
-	        	    						ora = inputDati.leggiIntero("Inserisci l'ora: ", 0, 24);
-	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti: ", 0, 60);
+	        	    						ora = inputDati.leggiIntero("Inserisci l'ora (valore tra 0 e 24): ", 0, 24);
+	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti (valore tra 0 e 60): ", 0, 60);
 	        	    						afterDecimalPlace = (float) (minuti/100.00);
 	        	    						tempo = (float)ora + minuti;
 	        	    						fineScelta = true;
@@ -1236,11 +1236,11 @@ public class MenuFruitore {
                 	//Se il valore boolean e' true allora la regola e' da disattivare 
                 	if(regolaDaDisattivare) {
             			ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key).setAttivaDisattiva(false);
-            			System.out.println("La regola " + ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key).getNomeRegola() + "e' stata disattivata. ");
+            			System.out.println("La regola " + ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key).getNomeRegola() + " e' stata disattivata. ");
             		}  else {
             			//Se la regola era disattiva allora adesso si riattiva 
             			if(!ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key).getAttivaDisattiva()) {
-            				System.out.println("La regola " + ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key).getNomeRegola() + "puo' essere riattivata.");
+            				System.out.println("La regola " + ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key).getNomeRegola() + " puo' essere riattivata.");
             			}
             		}
                 	
@@ -1294,11 +1294,11 @@ public class MenuFruitore {
                 	//Se il valore boolean e' true allora la regola e' da disattivare 
                 	if(regolaDaDisattivare) {
                 		ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key).setAttivaDisattiva(false);
-            			System.out.println("La regola " + ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key).getNomeRegola() + "e' stata disattivata. ");
+            			System.out.println("La regola " + ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key).getNomeRegola() + " e' stata disattivata. ");
             		} else {
             			//Se la regola era disattiva allora adesso si riattiva 
             			if(!ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key).getAttivaDisattiva()) {
-            				System.out.println("La regola " + ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key).getNomeRegola() + "puo' essere riattivata.");
+            				System.out.println("La regola " + ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key).getNomeRegola() + " puo' essere riattivata.");
             			}
             		}
                 	
@@ -1352,11 +1352,11 @@ public class MenuFruitore {
                 	//Se il valore boolean e' true allora la regola e' da disattivare 
                 	if(regolaDaDisattivare) {
                 		ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).setAttivaDisattiva(false);
-            			System.out.println("La regola " + ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).getNomeRegola() + "e' stata disattivata. ");
+            			System.out.println("La regola " + ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).getNomeRegola() + " e' stata disattivata. ");
             		} else {
             			//Se la regola era disattiva allora adesso si riattiva 
             			if(!ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).getAttivaDisattiva()) {
-            				System.out.println("La regola " + ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).getNomeRegola() + "puo' essere riattivata.");
+            				System.out.println("La regola " + ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key).getNomeRegola() + " puo' essere riattivata.");
             			}
             		}
                 	
