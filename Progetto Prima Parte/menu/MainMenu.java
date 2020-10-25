@@ -50,7 +50,7 @@ public class MainMenu {
 	    	if(!ListaRegoleSempreVere.getInstance().isEmptyList()) {
 	        for(String key : ListaRegoleSempreVere.getInstance().getKeys()) {
 	          TimerTask task = ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key); 
-	          timer1.schedule(task, 0, 600000); 
+	          timer1.schedule(task, 0, 10000); 
 	          alreadyScheduled1 = true;
 	        }
 		    } else {
@@ -62,7 +62,7 @@ public class MainMenu {
 		   if(!ListaRegoleSingoloSensore.getInstance().isEmptyList()) {
 			  for(String key : ListaRegoleSingoloSensore.getInstance().getKeys()) {
 			   	  TimerTask task = ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key); 
-		          timer2.schedule(task, 0, 600000); 
+		          timer2.schedule(task, 0, 10000); 
 		          alreadyScheduled2 = true;
 			  }
 		   } else {
@@ -74,7 +74,7 @@ public class MainMenu {
 		   if(!ListaRegoleDueSensori.getInstance().isEmptyList()) {
 			  for(String key : ListaRegoleDueSensori.getInstance().getKeys()) {
 				   TimerTask task = ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key); 
-				   timer3.schedule(task, 0, 600000); 
+				   timer3.schedule(task, 0, 10000); 
 				   alreadyScheduled3 = true;
 			  }
 		   } else {

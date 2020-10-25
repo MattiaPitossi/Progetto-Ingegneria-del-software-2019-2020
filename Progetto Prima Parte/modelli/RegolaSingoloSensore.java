@@ -154,6 +154,7 @@ public class RegolaSingoloSensore extends TimerTask{
 					//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 
 					if(ListaAttuatori.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore())) {
 						
+						System.out.println("L'operazione delle regola e' soddisfatta, l'azione/azioni del/degli attuatore/attuatori e' stata effettuata/sono state effettuate");
 						//Se if si avvera' allora viene impostato il valore contenuto nell'azione
 						//Non serve prenderlo dalla categoria visto che e' gia' stato preso nel metodo della creazione dell'azione
 						ListaAttuatori.getInstance().getActuatorFromList(k).setModalita(azione.getValore());
