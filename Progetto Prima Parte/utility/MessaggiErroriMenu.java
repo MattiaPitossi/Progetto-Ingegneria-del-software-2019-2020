@@ -53,7 +53,39 @@ public class MessaggiErroriMenu {
 	public static final String MESS_VUOI_CONTINUARE_AD_INSERIRE_AZIONI_DA_EFFETTUARE_Y_N = "Vuoi continuare ad inserire azioni da effettuare(Y/N)?: ";
 	public static final String MESS_INSERISCI_IL_NUMERO_DELL_ATTUATORE = "Inserisci il numero dell'attuatore: ";
 	public static final String MESS_INSERISCI_IL_NOME_DELLA_REGOLA = "Inserisci il nome della regola: ";
-	public static final String MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_LA_REGOLA_CHE_VUOI_CREARE = "Inserisci il numero per scegliere la regola che vuoi creare: ";
+    public static final String MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_LA_REGOLA_CHE_VUOI_CREARE = "Inserisci il numero per scegliere la regola che vuoi creare: ";
+    public static final String MESS_IL_SENSORE_È_RIMASTO_ATTIVO = "Il sensore è rimasto attivo";
+	public static final String MESS_VUOI_ATTIVARE_O_DISATTIVARE_SENSORI_O_ATTUATORI = "Vuoi attivare o disattivare sensori o attuatori: ";
+	public static final String MESS_VUOI_ATTIVARE_IL_SENSORE_Y_N = "Vuoi attivare il sensore(Y/N)? ";
+	public static final String MESS_VUOI_DISATTIVARE_IL_SENSORE_Y_N = "Vuoi disattivare il sensore(Y/N)? ";
+	public static final String MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_LA_REGOLA = "Inserisci il numero per scegliere la regola: ";
+	public static final String MESS_L_ATTUATORE_È_RIMASTO_ATTIVO = "L'attuatore è rimasto attivo";
+	public static final String MESS_L_ATTUATORE_È_STATO_DISATTIVATO = "L'attuatore è stato disattivato.";
+	public static final String MESS_QUALI_REGOLE_VUOI_ATTIVARE_O_DISATTIVARE = "Quali regole vuoi attivare o disattivare: ";
+	public static final String MESS_IL_SENSORE_È_RIMASTO_DISATTIVO = "Il sensore è rimasto disattivo";
+	public static final String MESS_3_REGOLE_CON_DUE_SENSORI = "3. Regole con due sensori";
+	public static final String MESS_VUOI_ATTIVARE_LA_REGOLA_Y_N = "Vuoi attivare la regola(Y/N)? ";
+	public static final String MESS_IL_SENSORE_È_STATO_ATTIVATO = "Il sensore è stato attivato.";
+	public static final String MESS_2_REGOLE_CON_UN_SOLO_SENSORE = "2. Regole con un solo sensore";
+	public static final String MESS_LA_REGOLA_È_RIMASTA_DISATTIVATA = "La regola è rimasta disattivata";
+	public static final String MESS_1_REGOLE_SEMPRE_VERE = "1. Regole sempre vere";
+	public static final String MESS_IL_SENSORE_È_STATO_DISATTIVATO = "Il sensore è stato disattivato.";
+	public static final String MESS_INSERISCI_I_MINUTI_VALORE_TRA_0_E_60 = "Inserisci i minuti (valore tra 0 e 60): ";
+	public static final String MESS_INSERISCI_L_ORA_VALORE_TRA_0_E_24 = "Inserisci l'ora (valore tra 0 e 24): ";
+	public static final String MESS_L_ATTUATORE_È_RIMASTO_DISATTIVO = "L'attuatore è rimasto disattivo";
+	public static final String MESS_INSERISCI_IL_NUMERO_DEL_SENSORE_CHE_VUOI_ATTIVARE_O_DISATTIVARE = "Inserisci il numero del sensore che vuoi attivare o disattivare: ";
+	public static final String MESS_LA_REGOLA_È_RIMASTA_ATTIVA = "La regola è rimasta attiva";
+	public static final String MESS_L_ATTUATORE_È_STATO_ATTIVATO = "L'attuatore è stato attivato.";
+	public static final String MESS_INSERISCI_IL_NUMERO_DELL_ATTUATORE_CHE_VUOI_ATTIVARE_O_DISATTIVARE = "Inserisci il numero dell'attuatore che vuoi attivare o disattivare: ";
+	public static final String MESS_LA_REGOLA_È_STATA_DISATTIVATA = "La regola è stata disattivata.";
+	public static final String MESS_LA_REGOLA_È_STATA_ATTIVATA = "La regola è stata attivata.";
+    public static final String MESS_2_SENSORE_NON_NUMERICO = "2. Sensore non numerico";
+    public static final String MESS_VUOI_DISATTIVARE_LA_REGOLA_Y_N = "Vuoi disattivare la regola(Y/N)? ";
+    public static final String MESS_VUOI_ATTIVARE_L_ATTUATORE_Y_N = "Vuoi attivare l'attuatore(Y/N)? ";
+    public static final String MESS_VUOI_ATTIVARE_O_DISATTIVARE_ALTRE_REGOLE_Y_N = "Vuoi attivare o disattivare altre regole(Y/N)?: ";
+    public static final String MESS_1_SENSORE_NUMERICO = "1. Sensore numerico";
+	public static final String MESS_VUOI_ATTIVARE_O_DISATTIVARE_ALTRI_SENSORI_O_ATTUATORI_Y_N = "Vuoi attivare o disattivare altri sensori o attuatori(Y/N)?: ";
+	public static final String MESS_VUOI_INSERIRE_UN_ORARIO_IN_CUI_SI_PUO_ATTIVARE_LA_REGOLA_Y_N = "Vuoi inserire un'orario in cui si puo' attivare la regola(Y/N): ";
 
     
     //errori
@@ -80,5 +112,15 @@ public class MessaggiErroriMenu {
     public static final String ERRORE_NON_SONO_PRESENTI_SENSORI_AL_MOMENTO = "Non sono presenti sensori al momento";
     public static final String ERRORE_DEVI_CREARE_ALMENO_UN_UNITA_IMMOBILIARE = "Devi creare almeno un'unita' immobiliare";
     public static final String ERRORE_UN_UNITA_CON_LO_STESSO_NOME_ESISTE_GIA = "Un'unita' con lo stesso nome esiste gia'. ";
+    public static final String ERRORE_NON_CI_SONO_REGOLE_CON_DUE_SENSORI_AL_MOMENTO = "Non ci sono regole con due sensori al momento ";
+    public static final String ERRORE_NON_CI_SONO_REGOLE_CON_UN_SINGOLO_SENSORE_AL_MOMENTO = "Non ci sono regole con un singolo sensore al momento ";
+    public static final String ERRORE_NON_CI_SONO_REGOLE_SEMPRE_VERE_AL_MOMENTO = "Non ci sono regole sempre vere al momento ";
+    public static final String ERRORE_PUOI_ATTIVARE_O_DISATTIVARE_SOLO_SENSORI_AL_MOMENTO = "Puoi attivare o disattivare solo sensori al momento.";
+	public static final String ERRORE_PUOI_ATTIVARE_O_DISATTIVARE_SOLO_ATTUATORI_AL_MOMENTO = "Puoi attivare o disattivare solo attuatori al momento.";
+	public static final String ERRORE_PUOI_INSERIRE_SOLO_Y_O_N = "Puoi inserire solo Y o N.";
+	public static final String ERRORE_QUESTA_REGOLA_NON_PUO_ESSERE_ATTIVATA_AL_MOMENTO = "Questa regola non puo' essere attivata al momento ";
+	public static final String ERRORE_DEVI_PRIMA_CREARE_ALMENO_UN_SENSORE_O_UN_ATTUATORE = "Devi prima creare almeno un sensore o un attuatore. ";
+	public static final String ERRORE_NON_CI_SONO_REGOLE_DI_QUESTO_TIPO_AL_MOMENTO = "Non ci sono regole di questo tipo al momento";
+	public static final String ERRORE_NON_CI_SONO_REGOLE_DA_ATTIVARE_O_DISATTIVARE_AL_MOMENTO = "Non ci sono regole da attivare o disattivare al momento. ";
 
 }

@@ -31,6 +31,8 @@ import java.util.ArrayList;
 public class MenuFruitore {
    
     
+
+	
 	final private static String TITOLO = "Menu fruitore";
     final private static String [] VOCIMENU = {"Visualizza dati sensori", "Scegli unita Immobiliare", "Compi azioni con attuatori", "Crea regole", "Attiva o disattiva regole", "Attiva o disattiva sensori o attuatori "};
     final private static String MESS_USCITA = "Vuoi tornare al menu precedente ?";
@@ -229,8 +231,8 @@ public class MenuFruitore {
             	    			} while(!nomeRegolaNonEsiste);
             	    			
             	    			//Viene scelto il tipo di sensore che si vuole utilizzare 
-            	    			System.out.println("1. Sensore numerico");
-            	    			System.out.println("2. Sensore non numerico");
+            	    			System.out.println(MESS_1_SENSORE_NUMERICO);
+            	    			System.out.println(MESS_2_SENSORE_NON_NUMERICO);
             	    			scegliTipoSensore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_IL_TIPO_DI_SENSORE, 1, 2);
 	            	    		
             	    			//Scelta sensore 
@@ -313,10 +315,10 @@ public class MenuFruitore {
 	            	    			//scelta dell'orario in cui attivare la regola 
 	            	    			do {
         	    						fineScelta = false;
-	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attivare la regola(Y/N): ");
+	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota(MESS_VUOI_INSERIRE_UN_ORARIO_IN_CUI_SI_PUO_ATTIVARE_LA_REGOLA_Y_N);
 	        	    					if(vuoiContinuare.equalsIgnoreCase("Y")) {
-	        	    						ora = inputDati.leggiIntero("Inserisci l'ora (valore tra 0 e 24): ", 0, 24);
-	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti (valore tra 0 e 60): ", 0, 60);
+	        	    						ora = inputDati.leggiIntero(MESS_INSERISCI_L_ORA_VALORE_TRA_0_E_24, 0, 24);
+	        	    						minuti = inputDati.leggiIntero(MESS_INSERISCI_I_MINUTI_VALORE_TRA_0_E_60, 0, 60);
 	        	    						afterDecimalPlace = (float) (minuti/100.00);
 	        	    						tempo = (float)ora + minuti;
 	        	    						fineScelta = true;
@@ -429,10 +431,10 @@ public class MenuFruitore {
 	            	    			//scelta dell'orario in cui attivare la regola 
 	            	    			do {
         	    						fineScelta = false;
-	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attivare la regola(Y/N): ");
+	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota(MESS_VUOI_INSERIRE_UN_ORARIO_IN_CUI_SI_PUO_ATTIVARE_LA_REGOLA_Y_N);
 	        	    					if(vuoiContinuare.equalsIgnoreCase("Y")) {
-	        	    						ora = inputDati.leggiIntero("Inserisci l'ora (valore tra 0 e 24): ", 0, 24);
-	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti (valore tra 0 e 60): ", 0, 60);
+	        	    						ora = inputDati.leggiIntero(MESS_INSERISCI_L_ORA_VALORE_TRA_0_E_24, 0, 24);
+	        	    						minuti = inputDati.leggiIntero(MESS_INSERISCI_I_MINUTI_VALORE_TRA_0_E_60, 0, 60);
 	        	    						afterDecimalPlace = (float) (minuti/100.00);
 	        	    						tempo = (float)ora + minuti;
 	        	    						fineScelta = true;
@@ -582,10 +584,10 @@ public class MenuFruitore {
 	            	    			//scelta dell'orario in cui attivare la regola 
 	            	    			do {
         	    						fineScelta = false;
-	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota("Vuoi inserire un'orario in cui si puo' attivare la regola(Y/N): ");
+	        	    					vuoiContinuare = inputDati.leggiStringaNonVuota(MESS_VUOI_INSERIRE_UN_ORARIO_IN_CUI_SI_PUO_ATTIVARE_LA_REGOLA_Y_N);
 	        	    					if(vuoiContinuare.equalsIgnoreCase("Y")) {
-	        	    						ora = inputDati.leggiIntero("Inserisci l'ora (valore tra 0 e 24): ", 0, 24);
-	        	    						minuti = inputDati.leggiIntero("Inserisci i minuti (valore tra 0 e 60): ", 0, 60);
+	        	    						ora = inputDati.leggiIntero(MESS_INSERISCI_L_ORA_VALORE_TRA_0_E_24, 0, 24);
+	        	    						minuti = inputDati.leggiIntero(MESS_INSERISCI_I_MINUTI_VALORE_TRA_0_E_60, 0, 60);
 	        	    						afterDecimalPlace = (float) (minuti/100.00);
 	        	    						tempo = (float)ora + minuti;
 	        	    						fineScelta = true;
@@ -643,24 +645,24 @@ public class MenuFruitore {
         	boolean regolaImpossibileDaAttivare = false;
         	
         	if(ListaRegoleSempreVere.getInstance().isEmptyList() && ListaRegoleSingoloSensore.getInstance().isEmptyList() && ListaRegoleDueSensori.getInstance().isEmptyList()) {
-        		System.out.println("Non ci sono regole da attivare o disattivare al momento. ");
+        		System.out.println(ERRORE_NON_CI_SONO_REGOLE_DA_ATTIVARE_O_DISATTIVARE_AL_MOMENTO);
         	} else {
         	//Ciclo do perche' il fruitore puo' eseguirlo piu' di una volta 
         	do {
-        		System.out.println("1. Regole sempre vere");
-        		System.out.println("2. Regole con un solo sensore");
-        		System.out.println("3. Regole con due sensori");
-        		int regolaScelta = inputDati.leggiIntero("Quali regole vuoi attivare o disattivare: ", 1, 3);
+        		System.out.println(MESS_1_REGOLE_SEMPRE_VERE);
+        		System.out.println(MESS_2_REGOLE_CON_UN_SOLO_SENSORE);
+        		System.out.println(MESS_3_REGOLE_CON_DUE_SENSORI);
+        		int regolaScelta = inputDati.leggiIntero(MESS_QUALI_REGOLE_VUOI_ATTIVARE_O_DISATTIVARE, 1, 3);
         		
         		//Caso 1 in cui il fruitore vuole attivare o disattivare una regola sempre vera 
         		if(regolaScelta == 1) {
         			
         		if(ListaRegoleSempreVere.getInstance().isEmptyList()) {
-        			System.out.println("Non ci sono regole di questo tipo al momento");
+        			System.out.println(ERRORE_NON_CI_SONO_REGOLE_DI_QUESTO_TIPO_AL_MOMENTO);
         		} else {
         			//Scelta della regola
         			ListaRegoleSempreVere.getInstance().printList();
-        			int sceltaRegolaSempreVera = inputDati.leggiIntero("Inserisci il numero per scegliere la regola: ", 1, ListaRegoleSempreVere.getInstance().getListSize());
+        			int sceltaRegolaSempreVera = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_LA_REGOLA, 1, ListaRegoleSempreVere.getInstance().getListSize());
         			sceltaRegolaSempreVera -= 1;
         			String keyRegola = ListaRegoleSempreVere.getInstance().returnKey(sceltaRegolaSempreVera);
                     	
@@ -683,7 +685,7 @@ public class MenuFruitore {
                     	
                     		//Se il valore boolean e' true allora la regola non puo' essere attivata
                     	if(regolaImpossibileDaAttivare) {
-                		System.out.println("Questa regola non puo' essere attivata al momento ");
+                		System.out.println(ERRORE_QUESTA_REGOLA_NON_PUO_ESSERE_ATTIVATA_AL_MOMENTO);
                 		} else {
         			
         			
@@ -692,34 +694,34 @@ public class MenuFruitore {
         			//Ciclo if in cui il fruitore puo' disattivare la regola se la regola e' gia' attiva
         			if(ListaRegoleSempreVere.getInstance().getRegolaSempreVera(keyRegola).getAttivaDisattiva()) {
         				do {
-	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare la regola(Y/N)? ");
+	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_DISATTIVARE_LA_REGOLA_Y_N);
 	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
 	        						ListaRegoleSempreVere.getInstance().getRegolaSempreVera(keyRegola).setAttivaDisattiva(false);
-	        						System.out.println("La regola è stata disattivata.");
+	        						System.out.println(MESS_LA_REGOLA_È_STATA_DISATTIVATA);
 	        						fineSceltaRegola = true;
 	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-	        						System.out.println("La regola è rimasta attiva");
+	        						System.out.println(MESS_LA_REGOLA_È_RIMASTA_ATTIVA);
 	        						fineSceltaRegola = true;
 	        					
 	        					} else {
-	    	        				System.out.println("Puoi inserire solo Y o N.");
+	    	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 	    	        			}
 	        				} while(!fineSceltaRegola);
         				
         			//Ciclo else in cui il fruitore puo' attivare la regola e' gia disattiva
         			} else {
         				do {
-	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare la regola(Y/N)? ");
+	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_LA_REGOLA_Y_N);
 	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
 	        						ListaRegoleSempreVere.getInstance().getRegolaSempreVera(keyRegola).setAttivaDisattiva(true);
-	        						System.out.println("La regola è stata attivata.");
+	        						System.out.println(MESS_LA_REGOLA_È_STATA_ATTIVATA);
 	        						fineSceltaRegola = true;
 	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-	        						System.out.println("La regola è rimasta disattivata");
+	        						System.out.println(MESS_LA_REGOLA_È_RIMASTA_DISATTIVATA);
 	        						fineSceltaRegola = true;
 	        					
 	        					}  else {
-	    	        				System.out.println("Puoi inserire solo Y o N.");
+	    	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 	    	        			}
 	        				} while(!fineSceltaRegola);
         			}
@@ -727,7 +729,7 @@ public class MenuFruitore {
         			
         			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
         			do {
-	        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altre regole(Y/N)?: ");
+	        			String continuaMetodo = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_O_DISATTIVARE_ALTRE_REGOLE_Y_N);
 	        			if(continuaMetodo.equalsIgnoreCase("Y")) {
 	        				fineSceltaContinua = true;
 	        				finito = false;
@@ -735,17 +737,17 @@ public class MenuFruitore {
 	        				fineSceltaContinua = true; 
 	        				finito = true;
 	        			} else {
-	        				System.out.println("Puoi inserire solo Y o N.");
+	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 	        			}
         			} while(!fineSceltaContinua);
         		}
         		} else if(regolaScelta == 2) {
         			if(ListaRegoleSingoloSensore.getInstance().isEmptyList()) {
-            			System.out.println("Non ci sono regole di questo tipo al momento");
+            			System.out.println(ERRORE_NON_CI_SONO_REGOLE_DI_QUESTO_TIPO_AL_MOMENTO);
             		} else {	
               			//Scelta della regola
               			ListaRegoleSingoloSensore.getInstance().printList();
-              			int sceltaRegolaSempreVera = inputDati.leggiIntero("Inserisci il numero per scegliere la regola: ", 1, ListaRegoleSingoloSensore.getInstance().getListSize());
+              			int sceltaRegolaSempreVera = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_LA_REGOLA, 1, ListaRegoleSingoloSensore.getInstance().getListSize());
               			sceltaRegolaSempreVera -= 1;
               			String keyRegola = ListaRegoleSingoloSensore.getInstance().returnKey(sceltaRegolaSempreVera);
               			
@@ -786,7 +788,7 @@ public class MenuFruitore {
                 	
                 	//Se il valore boolean e' true allora la regola non puo' essere attivata
                 	if(regolaImpossibileDaAttivare) {
-                		System.out.println("Questa regola non puo' essere attivata al momento ");
+                		System.out.println(ERRORE_QUESTA_REGOLA_NON_PUO_ESSERE_ATTIVATA_AL_MOMENTO);
             		} else {
             			
               			
@@ -795,34 +797,34 @@ public class MenuFruitore {
               			//Ciclo if in cui il fruitore puo' disattivare la regola se la regola e' gia' attiva
               			if(ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(keyRegola).getAttivaDisattiva()) {
               				do {
-      	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare la regola(Y/N)? ");
+      	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_DISATTIVARE_LA_REGOLA_Y_N);
       	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
       	        						ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(keyRegola).setAttivaDisattiva(false);
-      	        						System.out.println("La regola è stata disattivata.");
+      	        						System.out.println(MESS_LA_REGOLA_È_STATA_DISATTIVATA);
       	        						fineSceltaRegola = true;
       	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-      	        						System.out.println("La regola è rimasta attiva");
+      	        						System.out.println(MESS_LA_REGOLA_È_RIMASTA_ATTIVA);
       	        						fineSceltaRegola = true;
       	        					
       	        					} else {
-      	    	        				System.out.println("Puoi inserire solo Y o N.");
+      	    	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
       	    	        			}
       	        				} while(!fineSceltaRegola);
               				
               			//Ciclo else in cui il fruitore puo' attivare la regola e' gia disattiva
               			} else {
               				do {
-      	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare la regola(Y/N)? ");
+      	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_LA_REGOLA_Y_N);
       	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
       	        						ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(keyRegola).setAttivaDisattiva(true);
-      	        						System.out.println("La regola è stata attivata.");
+      	        						System.out.println(MESS_LA_REGOLA_È_STATA_ATTIVATA);
       	        						fineSceltaRegola = true;
       	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-      	        						System.out.println("La regola è rimasta disattivata");
+      	        						System.out.println(MESS_LA_REGOLA_È_RIMASTA_DISATTIVATA);
       	        						fineSceltaRegola = true;
       	        					
       	        					}  else {
-      	    	        				System.out.println("Puoi inserire solo Y o N.");
+      	    	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
       	    	        			}
       	        				} while(!fineSceltaRegola);
               			}
@@ -830,7 +832,7 @@ public class MenuFruitore {
               			
               			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
               			do {
-      	        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altre regole(Y/N)?: ");
+      	        			String continuaMetodo = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_O_DISATTIVARE_ALTRE_REGOLE_Y_N);
       	        			if(continuaMetodo.equalsIgnoreCase("Y")) {
       	        				fineSceltaContinua = true;
       	        				finito = false;
@@ -838,7 +840,7 @@ public class MenuFruitore {
       	        				fineSceltaContinua = true; 
       	        				finito = true;
       	        			} else {
-      	        				System.out.println("Puoi inserire solo Y o N.");
+      	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
       	        			}
               			} while(!fineSceltaContinua);
         			  
@@ -847,11 +849,11 @@ public class MenuFruitore {
         		//Caso 3 in cui il fruitore vuole attivare o disattivare una regola con un solo sensore
         		} else if(regolaScelta == 3) {
         			if(ListaRegoleDueSensori.getInstance().isEmptyList()) {
-            			System.out.println("Non ci sono regole di questo tipo al momento");
+            			System.out.println(ERRORE_NON_CI_SONO_REGOLE_DI_QUESTO_TIPO_AL_MOMENTO);
             		} else {
         			//Scelta della regola
         			ListaRegoleDueSensori.getInstance().printList();
-        			int sceltaRegolaSempreVera = inputDati.leggiIntero("Inserisci il numero per scegliere la regola: ", 1, ListaRegoleDueSensori.getInstance().getListSize());
+        			int sceltaRegolaSempreVera = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_LA_REGOLA, 1, ListaRegoleDueSensori.getInstance().getListSize());
         			sceltaRegolaSempreVera -= 1;
         			String keyRegola = ListaRegoleDueSensori.getInstance().returnKey(sceltaRegolaSempreVera);
         			
@@ -893,7 +895,7 @@ public class MenuFruitore {
 
                 //Se il valore boolean e' true allora la regola non puo' essere attivata
             	if(regolaImpossibileDaAttivare) {
-            		System.out.println("Questa regola non puo' essere attivata al momento ");
+            		System.out.println(ERRORE_QUESTA_REGOLA_NON_PUO_ESSERE_ATTIVATA_AL_MOMENTO);
         		} else {
         			
         			
@@ -901,34 +903,34 @@ public class MenuFruitore {
         			//Ciclo if in cui il fruitore puo' disattivare la regola se la regola e' gia' attiva
         			if(ListaRegoleDueSensori.getInstance().getRegolaDueSensori(keyRegola).getAttivaDisattiva()) {
         				do {
-	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare la regola(Y/N)? ");
+	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_DISATTIVARE_LA_REGOLA_Y_N);
 	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
 	        						ListaRegoleDueSensori.getInstance().getRegolaDueSensori(keyRegola).setAttivaDisattiva(false);
-	        						System.out.println("La regola è stata disattivata.");
+	        						System.out.println(MESS_LA_REGOLA_È_STATA_DISATTIVATA);
 	        						fineSceltaRegola = true;
 	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-	        						System.out.println("La regola è rimasta attiva");
+	        						System.out.println(MESS_LA_REGOLA_È_RIMASTA_ATTIVA);
 	        						fineSceltaRegola = true;
 	        					
 	        					} else {
-	    	        				System.out.println("Puoi inserire solo Y o N.");
+	    	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 	    	        			}
 	        				} while(!fineSceltaRegola);
         				
         			//Ciclo else in cui il fruitore puo' attivare la regola e' gia disattiva
         			} else {
         				do {
-	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare la regola(Y/N)? ");
+	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_LA_REGOLA_Y_N);
 	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
 	        						ListaRegoleDueSensori.getInstance().getRegolaDueSensori(keyRegola).setAttivaDisattiva(true);
-	        						System.out.println("La regola è stata attivata.");
+	        						System.out.println(MESS_LA_REGOLA_È_STATA_ATTIVATA);
 	        						fineSceltaRegola = true;
 	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-	        						System.out.println("La regola è rimasta disattivata");
+	        						System.out.println(MESS_LA_REGOLA_È_RIMASTA_DISATTIVATA);
 	        						fineSceltaRegola = true;
 	        					
 	        					}  else {
-	    	        				System.out.println("Puoi inserire solo Y o N.");
+	    	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 	    	        			}
 	        				} while(!fineSceltaRegola);
         			}
@@ -937,7 +939,7 @@ public class MenuFruitore {
         			
         			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
         			do {
-	        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altre regole(Y/N)?: ");
+	        			String continuaMetodo = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_O_DISATTIVARE_ALTRE_REGOLE_Y_N);
 	        			if(continuaMetodo.equalsIgnoreCase("Y")) {
 	        				fineSceltaContinua = true;
 	        				finito = false;
@@ -945,7 +947,7 @@ public class MenuFruitore {
 	        				fineSceltaContinua = true; 
 	        				finito = true;
 	        			} else {
-	        				System.out.println("Puoi inserire solo Y o N.");
+	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 	        			}
         			} while(!fineSceltaContinua);
         		}
@@ -969,53 +971,53 @@ public class MenuFruitore {
 	        	if(!ListaSensori.getInstance().isEmptyList() && !ListaAttuatori.getInstance().isEmptyList()) { 
 		    		System.out.println("1. Sensori");
 		    		System.out.println("2. Attuatori");
-		    		int scelta = inputDati.leggiIntero("Vuoi attivare o disattivare sensori o attuatori: ", 1, 2);
+		    		int scelta = inputDati.leggiIntero(MESS_VUOI_ATTIVARE_O_DISATTIVARE_SENSORI_O_ATTUATORI, 1, 2);
 		    		
 		    		//Ciclo if in cui viene attivato o disattivato il sensore 
 		    		if(scelta == 1) {
 		    			
 		    			//Scelta del sensore
 		    			ListaSensori.getInstance().printList();
-		    			sceltaSensore = inputDati.leggiIntero("Inserisci il numero del sensore che vuoi attivare o disattivare: ", 1, ListaSensori.getInstance().getListSize());
+		    			sceltaSensore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_DEL_SENSORE_CHE_VUOI_ATTIVARE_O_DISATTIVARE, 1, ListaSensori.getInstance().getListSize());
 		    			sceltaSensore -= 1;
 		    			
 		    			//Ciclo if in cui verifica che il sensore e' attivo se vero allora il fruitore puo' disattivarlo 
 		    			if(ListaSensori.getInstance().getSensorFromList(sceltaSensore).isStato()) {
 		    				do {
-		        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare il sensore(Y/N)? ");
+		        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_DISATTIVARE_IL_SENSORE_Y_N);
 		        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
 		        					ListaSensori.getInstance().getSensorFromList(sceltaSensore).setStato(false);
-		        						System.out.println("Il sensore è stato disattivato.");
+		        						System.out.println(MESS_IL_SENSORE_È_STATO_DISATTIVATO);
 		        						fineSceltaSensore = true;
 		        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-		        						System.out.println("Il sensore è rimasto attivo");
+		        						System.out.println(MESS_IL_SENSORE_È_RIMASTO_ATTIVO);
 		        						fineSceltaSensore = true;
 		        					
 		        					} else {
-		    	        				System.out.println("Puoi inserire solo Y o N.");
+		    	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 		    	        			}
 		        				} while(!fineSceltaSensore);
 		    				
 		    			//Ciclo else in cui l'attuatore e' disattivo allora il fruitore puo' attivarlo 
 		    			} else {
 		    				do {
-			    				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare il sensore(Y/N)? ");
+			    				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_IL_SENSORE_Y_N);
 		    					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
 		    					ListaSensori.getInstance().getSensorFromList(sceltaSensore).setStato(true);
-		    						System.out.println("Il sensore è stato attivato.");
+		    						System.out.println(MESS_IL_SENSORE_È_STATO_ATTIVATO);
 		    						fineSceltaSensore = true;
 		    					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-		    						System.out.println("Il sensore è rimasto disattivo");
+		    						System.out.println(MESS_IL_SENSORE_È_RIMASTO_DISATTIVO);
 		    						fineSceltaSensore = true;
 		    					} else {
-			        				System.out.println("Puoi inserire solo Y o N.");
+			        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 			        			}
 		    				} while(!fineSceltaSensore);
 		    			}
 		    			
 	        			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
 	        			do {
-		        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altri sensori o attuatori(Y/N)?: ");
+		        			String continuaMetodo = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_O_DISATTIVARE_ALTRI_SENSORI_O_ATTUATORI_Y_N);
 		        			if(continuaMetodo.equalsIgnoreCase("Y")) {
 		        				sceltaContinua = true;
 		        				fruitoreFinito = false;
@@ -1023,7 +1025,7 @@ public class MenuFruitore {
 		        				sceltaContinua = true; 
 		        				fruitoreFinito = true;
 		        			} else {
-		        				System.out.println("Puoi inserire solo Y o N.");
+		        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 		        			}
 	        			} while(!sceltaContinua);
 		    			
@@ -1032,39 +1034,39 @@ public class MenuFruitore {
 		    			
 		    			//Scelta dell'attuatore
 		    			ListaAttuatori.getInstance().printList();
-		    			sceltaAttuatore = inputDati.leggiIntero("Inserisci il numero dell'attuatore che vuoi attivare o disattivare: ", 1, ListaAttuatori.getInstance().getListSize());
+		    			sceltaAttuatore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_DELL_ATTUATORE_CHE_VUOI_ATTIVARE_O_DISATTIVARE, 1, ListaAttuatori.getInstance().getListSize());
 		    			sceltaAttuatore -= 1;
 		    			
 		    			//Ciclo if in cui verifica che se l'attuatore e' attivo se vero allora il fruitore puo' disattivarlo 
 		    			if(ListaAttuatori.getInstance().getActuatorFromList(sceltaAttuatore).isStatoAttivo()) {
 		    				do {
-		        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare il sensore(Y/N)? ");
+		        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_DISATTIVARE_IL_SENSORE_Y_N);
 		        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
 		        						ListaAttuatori.getInstance().getActuatorFromList(sceltaAttuatore).setStatoAttivo(false);
-		        						System.out.println("L'attuatore è stato disattivato.");
+		        						System.out.println(MESS_L_ATTUATORE_È_STATO_DISATTIVATO);
 		        						fineSceltaSensore = true;
 		        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-		        						System.out.println("L'attuatore è rimasto attivo");
+		        						System.out.println(MESS_L_ATTUATORE_È_RIMASTO_ATTIVO);
 		        						fineSceltaSensore = true;
 		        					
 		        					} else {
-		    	        				System.out.println("Puoi inserire solo Y o N.");
+		    	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 		    	        			}
 		        				} while(!fineSceltaSensore);
 		    				
 		    			//Ciclo else in cui l'attuatore e' disattivo allora il fruitore puo' attivarlo 
 		    			} else {
 		    				do {
-			    				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare l'attuatore(Y/N)? ");
+			    				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_L_ATTUATORE_Y_N);
 		    					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
 		    						ListaAttuatori.getInstance().getActuatorFromList(sceltaAttuatore).setStatoAttivo(true);
-		    						System.out.println("L'attuatore è stato attivato.");
+		    						System.out.println(MESS_L_ATTUATORE_È_STATO_ATTIVATO);
 		    						fineSceltaSensore = true;
 		    					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-		    						System.out.println("L'attuatore è rimasto disattivo");
+		    						System.out.println(MESS_L_ATTUATORE_È_RIMASTO_DISATTIVO);
 		    						fineSceltaSensore = true;
 		    					} else {
-			        				System.out.println("Puoi inserire solo Y o N.");
+			        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 			        			}
 		    				} while(!fineSceltaSensore);
 		    			}
@@ -1072,7 +1074,7 @@ public class MenuFruitore {
 		    			
 	        			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
 	        			do {
-		        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altri sensori o attuatori(Y/N)?: ");
+		        			String continuaMetodo = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_O_DISATTIVARE_ALTRI_SENSORI_O_ATTUATORI_Y_N);
 		        			if(continuaMetodo.equalsIgnoreCase("Y")) {
 		        				sceltaContinua = true;
 		        				fruitoreFinito = false;
@@ -1080,55 +1082,55 @@ public class MenuFruitore {
 		        				sceltaContinua = true; 
 		        				fruitoreFinito = true;
 		        			} else {
-		        				System.out.println("Puoi inserire solo Y o N.");
+		        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 		        			}
 	        			} while(!sceltaContinua);
 	        		}
 	        	} else if(!ListaSensori.getInstance().isEmptyList() && ListaAttuatori.getInstance().isEmptyList()) {
-	        		System.out.println("Puoi attivare o disattivare solo sensori al momento.");
+	        		System.out.println(ERRORE_PUOI_ATTIVARE_O_DISATTIVARE_SOLO_SENSORI_AL_MOMENTO);
 	        	
 	        		//Scelta del sensore
 	    			ListaSensori.getInstance().printList();
-	    			sceltaSensore = inputDati.leggiIntero("Inserisci il numero del sensore che vuoi attivare o disattivare: ", 1, ListaSensori.getInstance().getListSize());
+	    			sceltaSensore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_DEL_SENSORE_CHE_VUOI_ATTIVARE_O_DISATTIVARE, 1, ListaSensori.getInstance().getListSize());
 	    			sceltaSensore -= 1;
 	    			
 	    			//Ciclo if in cui verifica che il sensore e' attivo se vero allora il fruitore puo' disattivarlo 
 	    			if(ListaSensori.getInstance().getSensorFromList(sceltaSensore).isStato()) {
 	    				do {
-	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare il sensore(Y/N)? ");
+	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_DISATTIVARE_IL_SENSORE_Y_N);
 	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
 	        					ListaSensori.getInstance().getSensorFromList(sceltaSensore).setStato(false);
-	        						System.out.println("Il sensore è stato disattivato.");
+	        						System.out.println(MESS_IL_SENSORE_È_STATO_DISATTIVATO);
 	        						fineSceltaSensore = true;
 	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-	        						System.out.println("Il sensore è rimasto attivo");
+	        						System.out.println(MESS_IL_SENSORE_È_RIMASTO_ATTIVO);
 	        						fineSceltaSensore = true;
 	        					
 	        					} else {
-	    	        				System.out.println("Puoi inserire solo Y o N.");
+	    	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 	    	        			}
 	        				} while(!fineSceltaSensore);
 	    				
 	    			//Ciclo else in cui l'attuatore e' disattivo allora il fruitore puo' attivarlo 
 	    			} else {
 	    				do {
-		    				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare il sensore(Y/N)? ");
+		    				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_IL_SENSORE_Y_N);
 	    					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
 	    					ListaSensori.getInstance().getSensorFromList(sceltaSensore).setStato(true);
-	    						System.out.println("Il sensore è stato attivato.");
+	    						System.out.println(MESS_IL_SENSORE_È_STATO_ATTIVATO);
 	    						fineSceltaSensore = true;
 	    					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-	    						System.out.println("Il sensore è rimasto disattivo");
+	    						System.out.println(MESS_IL_SENSORE_È_RIMASTO_DISATTIVO);
 	    						fineSceltaSensore = true;
 	    					} else {
-		        				System.out.println("Puoi inserire solo Y o N.");
+		        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 		        			}
 	    				} while(!fineSceltaSensore);
 	    			}
 	    			
         			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
         			do {
-	        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altri sensori o attuatori(Y/N)?: ");
+	        			String continuaMetodo = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_O_DISATTIVARE_ALTRI_SENSORI_O_ATTUATORI_Y_N);
 	        			if(continuaMetodo.equalsIgnoreCase("Y")) {
 	        				sceltaContinua = true;
 	        				fruitoreFinito = false;
@@ -1136,49 +1138,49 @@ public class MenuFruitore {
 	        				sceltaContinua = true; 
 	        				fruitoreFinito = true;
 	        			} else {
-	        				System.out.println("Puoi inserire solo Y o N.");
+	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 	        			}
         			} while(!sceltaContinua);
 	    			
 	        	} else if(ListaSensori.getInstance().isEmptyList() && !ListaAttuatori.getInstance().isEmptyList()) {
-	        		System.out.println("Puoi attivare o disattivare solo attuatori al momento.");
+	        		System.out.println(ERRORE_PUOI_ATTIVARE_O_DISATTIVARE_SOLO_ATTUATORI_AL_MOMENTO);
 	        		
 
 	    			//Scelta dell'attuatore
 	    			ListaAttuatori.getInstance().printList();
-	    			sceltaAttuatore = inputDati.leggiIntero("Inserisci il numero dell'attuatore che vuoi attivare o disattivare: ", 1, ListaAttuatori.getInstance().getListSize());
+	    			sceltaAttuatore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_DELL_ATTUATORE_CHE_VUOI_ATTIVARE_O_DISATTIVARE, 1, ListaAttuatori.getInstance().getListSize());
 	    			sceltaAttuatore -= 1;
 	    			
 	    			//Ciclo if in cui verifica che se l'attuatore e' attivo se vero allora il fruitore puo' disattivarlo 
 	    			if(ListaAttuatori.getInstance().getActuatorFromList(sceltaAttuatore).isStatoAttivo()) {
 	    				do {
-	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi disattivare il sensore(Y/N)? ");
+	        				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_DISATTIVARE_IL_SENSORE_Y_N);
 	        					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
 	        						ListaAttuatori.getInstance().getActuatorFromList(sceltaAttuatore).setStatoAttivo(false);
-	        						System.out.println("L'attuatore è stato disattivato.");
+	        						System.out.println(MESS_L_ATTUATORE_È_STATO_DISATTIVATO);
 	        						fineSceltaSensore = true;
 	        					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-	        						System.out.println("L'attuatore è rimasto attivo");
+	        						System.out.println(MESS_L_ATTUATORE_È_RIMASTO_ATTIVO);
 	        						fineSceltaSensore = true;
 	        					
 	        					} else {
-	    	        				System.out.println("Puoi inserire solo Y o N.");
+	    	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 	    	        			}
 	        				} while(!fineSceltaSensore);
 	    				
 	    			//Ciclo else in cui l'attuatore e' disattivo allora il fruitore puo' attivarlo 
 	    			} else {
 	    				do {
-		    				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota("Vuoi attivare l'attuatore(Y/N)? ");
+		    				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_L_ATTUATORE_Y_N);
 	    					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
 	    						ListaAttuatori.getInstance().getActuatorFromList(sceltaAttuatore).setStatoAttivo(true);
-	    						System.out.println("L'attuatore è stato attivato.");
+	    						System.out.println(MESS_L_ATTUATORE_È_STATO_ATTIVATO);
 	    						fineSceltaSensore = true;
 	    					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
-	    						System.out.println("L'attuatore è rimasto disattivo");
+	    						System.out.println(MESS_L_ATTUATORE_È_RIMASTO_DISATTIVO);
 	    						fineSceltaSensore = true;
 	    					} else {
-		        				System.out.println("Puoi inserire solo Y o N.");
+		        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 		        			}
 	    				} while(!fineSceltaSensore);
 	    			}
@@ -1186,7 +1188,7 @@ public class MenuFruitore {
 	    			
         			//Ciclo do per scegliere se attivare o disattivare altre regole o finire qui di usare il metodo
         			do {
-	        			String continuaMetodo = inputDati.leggiStringaNonVuota("Vuoi attivare o disattivare altri sensori o attuatori(Y/N)?: ");
+	        			String continuaMetodo = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_O_DISATTIVARE_ALTRI_SENSORI_O_ATTUATORI_Y_N);
 	        			if(continuaMetodo.equalsIgnoreCase("Y")) {
 	        				sceltaContinua = true;
 	        				fruitoreFinito = false;
@@ -1194,11 +1196,11 @@ public class MenuFruitore {
 	        				sceltaContinua = true; 
 	        				fruitoreFinito = true;
 	        			} else {
-	        				System.out.println("Puoi inserire solo Y o N.");
+	        				System.out.println(ERRORE_PUOI_INSERIRE_SOLO_Y_O_N);
 	        			}
         			} while(!sceltaContinua);
 	        	} else if(ListaSensori.getInstance().isEmptyList() && ListaAttuatori.getInstance().isEmptyList()) {
-	        		System.out.println("Devi prima creare almeno un sensore o un attuatore. ");	
+	        		System.out.println(ERRORE_DEVI_PRIMA_CREARE_ALMENO_UN_SENSORE_O_UN_ATTUATORE);	
 	        		fruitoreFinito = true;
 	        	}
 	        	

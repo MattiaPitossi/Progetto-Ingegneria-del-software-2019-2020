@@ -14,8 +14,10 @@ import modelli.liste.ListaRegoleSingoloSensore;
 import modelli.liste.ListaSensori;
 import utility.InputDati;
 import utility.MyMenu;
+import static utility.MessaggiErroriMenu.*;
 
 public class MainMenu {
+    
     final private static String TITOLO = "Sistema domotico";
     final private static String [] VOCIMENU = {"Menu utente", "Menu manutentore (richiede identificazione)","Visualizza descrizione unita'", "Visualizza ora"};
     final private static String MESS_USCITA = "Vuoi veramente uscire ?";
@@ -54,7 +56,7 @@ public class MainMenu {
 	          alreadyScheduled1 = true;
 	        }
 		    } else {
-		  	  System.out.println("Non ci sono regole sempre vere al momento ");
+		  	  System.out.println(ERRORE_NON_CI_SONO_REGOLE_SEMPRE_VERE_AL_MOMENTO);
 		    }
     	}
 	    
@@ -66,7 +68,7 @@ public class MainMenu {
 		          alreadyScheduled2 = true;
 			  }
 		   } else {
-		    System.out.println("Non ci sono regole con un singolo sensore al momento ");
+		    System.out.println(ERRORE_NON_CI_SONO_REGOLE_CON_UN_SINGOLO_SENSORE_AL_MOMENTO);
 		   }
     	}
 	    
@@ -78,7 +80,7 @@ public class MainMenu {
 				   alreadyScheduled3 = true;
 			  }
 		   } else {
-			 System.out.println("Non ci sono regole con due sensori al momento ");
+			 System.out.println(ERRORE_NON_CI_SONO_REGOLE_CON_DUE_SENSORI_AL_MOMENTO);
 		   }
 	   }
 	    
@@ -108,7 +110,7 @@ public class MainMenu {
             
             
           } else {
-            System.out.println("Prima devi creare un'unita' immobiliare");
+            System.out.println(ERRORE_PRIMA_DEVI_CREARE_UN_UNITA_IMMOBILIARE);
           }
         
           break;
