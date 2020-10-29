@@ -1,5 +1,6 @@
 package menu;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -34,7 +35,7 @@ public class MainMenu {
     private boolean alreadyScheduled2;
     private boolean alreadyScheduled3;
 
-    public void esegui(){
+    public void esegui() throws IOException{
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
       boolean fineProgramma = false;
       do{
@@ -46,7 +47,7 @@ public class MainMenu {
    
 
     
-    public boolean eseguiFunzioneScelta(int numFunzione) 
+    public boolean eseguiFunzioneScelta(int numFunzione) throws IOException 
     {
     	if(!alreadyScheduled1) {
 	    	if(!ListaRegoleSempreVere.getInstance().isEmptyList()) {
