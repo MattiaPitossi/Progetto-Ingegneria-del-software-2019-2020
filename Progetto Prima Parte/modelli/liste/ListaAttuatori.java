@@ -9,6 +9,7 @@ import modelli.ModalitaOperativaParametrica;
 import modelli.Parametro;
 import modelli.UnitaImmobiliare;
 import modelli.dispositivi.Attuatore;
+import modelli.dispositivi.Sensore;
 import utility.InputDati;
 
 /**
@@ -73,8 +74,11 @@ public class ListaAttuatori implements Liste {
 
     @Override
     public boolean alreadyExist(String nameToVerify) {
-        // TODO Auto-generated method stub
-        return false;
+    	 for(Attuatore attuatore : listaAttuatori) {
+         	if(attuatore.getNomeAttuatore().equalsIgnoreCase(nameToVerify))
+         		return true;
+         }
+         return false;
     }
 
 

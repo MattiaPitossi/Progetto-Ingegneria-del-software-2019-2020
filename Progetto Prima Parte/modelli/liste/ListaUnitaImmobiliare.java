@@ -3,6 +3,7 @@ package modelli.liste;
 import java.util.ArrayList;
 
 import modelli.UnitaImmobiliare;
+import modelli.dispositivi.Sensore;
 
 public class ListaUnitaImmobiliare implements Liste {
 
@@ -49,8 +50,11 @@ public class ListaUnitaImmobiliare implements Liste {
 
     @Override
     public boolean alreadyExist(String nameToVerify) {
-        // TODO Auto-generated method stub
-        return false;
+    	 for(UnitaImmobiliare unita : listaUnitaImmobiliare) {
+         	if(unita.getNomeUnita().equalsIgnoreCase(nameToVerify))
+         		return true;
+         }
+    	 return false;
     }
 
 

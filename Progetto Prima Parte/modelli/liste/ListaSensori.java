@@ -86,7 +86,10 @@ public class ListaSensori implements Liste {
 
     @Override
     public boolean alreadyExist(String nameToVerify) {
-        // TODO Auto-generated method stub
+        for(Sensore sensore : listaSensori) {
+        	if(sensore.getNomeSensore().equalsIgnoreCase(nameToVerify))
+        		return true;
+        }
         return false;
     }
 

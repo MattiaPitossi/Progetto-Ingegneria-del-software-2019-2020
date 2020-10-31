@@ -15,6 +15,7 @@ import modelli.liste.ListaCategoriaAttuatori;
 import modelli.liste.ListaCategoriaSensori;
 import modelli.liste.ListaSensori;
 import modelli.liste.ListaUnitaImmobiliare;
+import modelli.FileReader;
 import modelli.LeggiFile;
 import modelli.ModalitaOperativaParametrica;
 import modelli.Parametro;
@@ -30,16 +31,20 @@ public class MenuManutentore {
 
    
     final private static String TITOLO = "Menu manutentore";
-    final private static String [] VOCIMENU = {"Crea nuova categoria sensore", "Crea nuova categoria attuatore", "Inserisci nuovo sensore (richiede la presenza di almeno una categoria)", "Inserisci nuovo attuatore (richiede la presenza di almeno una categoria)","Crea nuova unita' immobiliare", "Selezioni l'unita' su cui vuoi lavorare", "Importa Categorie di Sensori e Attuatori", "Importa unita' Immobiliare" };
+    final private static String [] VOCIMENU = {"Crea nuova categoria sensore", "Crea nuova categoria attuatore", "Inserisci nuovo sensore (richiede la presenza di almeno una categoria)", "Inserisci nuovo attuatore (richiede la presenza di almeno una categoria)","Crea nuova unita' immobiliare", "Selezioni l'unita' su cui vuoi lavorare", "Importa Categorie di Sensori e Attuatori", "Importa l'unita' Immobiliare Casa", "Importa regole" };
     final private static String MESS_USCITA = "Vuoi tornare al menu precedente ?";
     final private static String ERRORE_FUNZIONE = "La funzione non rientra tra quelle disponibili !";
     final private static String MESS_ALTRA_OPZIONE = "Selezionare un'altra opzione.";
     private boolean alreadyCreatedUnit = false;
     private boolean atLeastOneSensorCategoryCreated = false;
     private boolean atLeastOneActuatorCategoryCreated = false;
+    private boolean categorieImportate = false;
+    private boolean unitaImportata = false;
     private UnitaImmobiliare unitaImmobiliare;
     private InputDati inputDati = new InputDati();
     private String unitaImmobiliareSceltaManutentore;
+	private ArrayList<ModalitaOperativaParametrica> listaModalitaOperativeParametriche;
+	private FileReader fr = new FileReader();
 
     public void esegui() throws IOException{
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
@@ -316,13 +321,29 @@ public class MenuManutentore {
           break;
 
         case 7: //Importa categorie di sensori e attuatori 
-        	
-        	letturaFile();
+        	fr.letturaFileCategorie();
+        	categorieImportate = true;
         	break;
         	
-        case 8:
+        case 8: //Importa unita Immobiliare
+        	if(categorieImportate) {
+        		fr.letturaFileUnita();
+            	unitaImportata = true;
+        	} else {
+        		System.out.println("Devi prima importare le categorie.");
+        	}
         	
-        	break;
+        break;
+        
+        case 9: //Importa regole 
+        	if(unitaImportata) {
+        		fr.letturaFileRegole();
+        	} else {
+        		System.out.println("Devi prima importare l'unita' immobiliare.");
+        	}
+        	
+        break;
+        
         default: // Se i controlli nella classe Menu sono corretti, questo non viene mai eseguito !
           System.out.println(ERRORE_FUNZIONE);
           System.out.println(MESS_ALTRA_OPZIONE);
@@ -332,62 +353,7 @@ public class MenuManutentore {
 
     }
     
-public void letturaFile() throws IOException {
-		
-		boolean finito = false;
-		String yesOrNo = "";
-		ArrayList<String> dominioValoriRilevati = new ArrayList<>();
-		CategoriaSensori categoriaCreata;
-		
-		Path pathToFile = Paths.get("Cartel1.csv");
-		
-		try(BufferedReader buff = Files.newBufferedReader(pathToFile)) {
-			
-			String line = buff.readLine();
-			
-			while(line != null) {
-				String[] attributes = line.split(";");
-				
-				//Se il primo attributo e' categoria sensore allora verra' creato una categoria sensore 
-				if(attributes[0].equals("Categoria sensore")) {
-					
-					//Ciclo do while per permettere al manutentore di scegliere quali categorie vuole creare 
-					do {
-						yesOrNo = inputDati.leggiStringaNonVuota("Vuoi inserire la categoria " + attributes[1] + " (Y/N)?");
-						
-						if(yesOrNo.equalsIgnoreCase("Y")) {
-							finito = true;
-							
-							//Se la categoria e' numerica allora verra' creata una categoria numerica 
-							if(attributes[3].equalsIgnoreCase("Numerico")) {
-								categoriaCreata = new CategoriaSensori(attributes[1], attributes[2], attributes[4]);
-								
-							//Se la categoria e' non numerica allora verra' creata una categoria non numerica 
-							} else {
-								for(int i = 4; attributes[i] != null; i++ ) {
-									dominioValoriRilevati.add(attributes[i]);
-								}
-								
-								categoriaCreata = new CategoriaSensori(attributes[1], attributes[2], dominioValoriRilevati);
-							}
-							
-							ListaCategoriaSensori.getInstance().addToList(attributes[1], categoriaCreata);
-							System.out.println("La categoria e' stata inserita.");
-							
-						} else if(yesOrNo.equalsIgnoreCase("N")) {
-							finito = true;
-						} else {
-							System.out.println("Puoi inserire solo Y o N.");
-						}
-						
-						line = buff.readLine();
-					} while(!finito);
-				}
-				
-			}
 
-		}
-	}
 
 
 }

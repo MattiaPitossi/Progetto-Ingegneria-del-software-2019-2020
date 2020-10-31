@@ -4,14 +4,5 @@ Categoria sensore;Telecamera;Descrizione; Non Numerico;Persone;Assenza Persone
 Categoria sensore;Rilevatore;Descrizione; Non Numerico;Persone;Assenza Persone
 Categoria attuatore;ApriCancello;Descrizione;Non Parametrica;Apri;Chiudi;Idle
 Categoria attuatore;ApriPorta;Descrizione;Non Parametrica;Apri;Chiudi;Idle
-Categoria attuatore;Termoregolatore;Descrizione;Parametrica;Modalita;Nome Modalita;Parametro;Nome Parametro;10
-Categoria attuatore;Igroregolatore;Descrizione;Parametrica;Modalita;Nome;Parametro;Para;10
-Unita;Casa;Stanze;Camera 1; Camera 2;Bagno;Salotto;Cucina;Artefatti;Cancello;Porta;Calorifero;Ventilatore
-Sensore Numerico;bagno_Igrometro;Bagno;Igrometro;true;10
-Sensore Numerico;salotto_Termometro;Salotto;Termometro;true;10
-Sensore Non Numerico;cucina_Rilevatore;Cucina;Rilevatore
-Sensore Non Numerico;salotto_Telecamera;Salotto;Telecamera
-Attuatore;cancello_ApriCancello;Cancello;ApriCancello;true;Casa
-Attuatore;porta_ApriPorta;Porta;ApriPorta;true;Casa
-Attuatore;calorifero_Termoregolatore;Calorifero;Termoregolatore;true;Casa
-Attuatore;ventilatore_Igroregolatore;Ventilatore;Igroregolatore;true;Casa
+Categoria attuatore;Termoregolatore;Descrizione;Parametrica;Nome Modalita;Nome Parametro;10
+Categoria attuatore;Igroregolatore;Descrizione;Parametrica;Nome;Para;10

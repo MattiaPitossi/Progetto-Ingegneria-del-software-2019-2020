@@ -1,0 +1,3 @@
+Regola Sempre Vera; Temperatura; Antecedente; Conseguente; Azioni; calorifero_Termoregolatore; 20
+Regola Singolo Sensore; Apri Porta; Antecedente; salotto_Telecamera; = ; Persone; 12.00; >; Conseguente; Azioni; porta_ApriPorta; Apri
+Regola Due Sensori; Temperatura e Umidita'; Antecedente; salotto_Termometro; bagno_Igrometro; >; 8.00; >; Azioni; calorifero_Termoregolatore; 20 

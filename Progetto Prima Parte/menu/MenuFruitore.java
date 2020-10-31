@@ -627,6 +627,7 @@ public class MenuFruitore {
 				           	   		Conseguente conseguente = new Conseguente(azioni);
 				           	   		
 				           	   		RegolaDueSensori regola = new RegolaDueSensori(nomeRegola, antecedente, conseguente);
+				           	   		ListaRegoleDueSensori.getInstance().addToList(nomeRegola, regola);
 	            	    		} else {
 	            	    			System.out.println(ERRORE_DEVI_CREARE_ALMENO_DUE_SENSORI);
 	            	    		}

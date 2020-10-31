@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import modelli.RegolaDueSensori;
+import modelli.RegolaSempreVera;
 import modelli.RegolaSingoloSensore;
 
 public class ListaRegoleDueSensori implements Liste{
@@ -72,5 +73,9 @@ public class ListaRegoleDueSensori implements Liste{
 	
 	public RegolaDueSensori getRegolaDueSensori(String key){
         return listaRegoleDueSensori.get(key);
+    }
+	
+	public void addToList(String name, RegolaDueSensori regola){
+		listaRegoleDueSensori.put(name, regola);
     }
 }
