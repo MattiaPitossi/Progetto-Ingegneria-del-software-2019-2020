@@ -33,55 +33,6 @@ public class ListaSensoriNonNumerici implements Liste {
         return listaSensoriInstance;
     }
 
-    /** 
-     * 
-     * @param sensore sensore che verra' aggiunto in lista
-     * @since versione 1 
-     */
-    public void addSensoreToList(SensoreNonNumerico sensore){
-        listaSensori.add(sensore);
-    }
-
-     /** 
-     * Questo metodo controlla che non sia gia' presente una stanza
-     * con un sensore con categoria uguale
-     * 
-     * @param sensore sensore da verificare
-     * @param stanzaDaVerificare stanza che verra' controllata
-     * @since versione 1 
-     */
-    public boolean esisteUnaStanzaConCategoriaUguale(String categoriaSensore, String stanzaDaVerificare){
-
-        for(SensoreNonNumerico lista: listaSensori){
-
-            if(stanzaDaVerificare.equals(lista.getStanzaAssociata())){
-                if(categoriaSensore.equals(lista.getCategoriaAssociata())){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
-    /** 
-     * Ritorna il sensore dell'indice richiesto
-     * @param i indice del sensore nella lista
-     * @since versione 1 
-     */
-    public SensoreNonNumerico getSensorFromList(int i){
-        return listaSensori.get(i);
-    }
-
-    /** 
-     * Aggiunge la stanza associata al sensore
-     * @param sensore sensore a cui aggiungere la stanza
-     * @param stanzaAssociata stanza del sensore
-     * @since versione 1 
-     */
-    public void addRoomToSensor(SensoreNonNumerico sensore, String stanzaAssociata){
-        sensore.setStanzaAssociata(stanzaAssociata);
-    }
 
     @Override
     public boolean alreadyExist(String nameToVerify) {
@@ -99,37 +50,6 @@ public class ListaSensoriNonNumerici implements Liste {
 
     }
 
-    /** 
-     * Stampa i vari output dei diversi sensori inseriti
-     * @since versione 1 
-     */
-    public void printListValues() {
-        int i = 1;
-        for(SensoreNonNumerico lista : listaSensori) {
-            if(lista.getStanzaAssociata().equals("")){
-                System.out.println(i +". "+lista.getNomeSensore()+ " non allocato ");
-            } else {
-                System.out.println(i +". "+lista.getNomeSensore()+ " allocato in "+ lista.getStanzaAssociata()+" ,Valori rilevati(cfr. descrizione): "+ lista.getValoreRilevato());
-            }
-          
-            i+=1;
-        }
-
-    }
-
-    /** 
-     * Stampa le varie associazioni dei sensori nelle stanze
-     * @since versione 1 
-     */
-    public void printListAssociations() {
-        int i = 1;
-        System.out.println("Sensori nell'unita': ");
-        for(SensoreNonNumerico lista : listaSensori) {  
-            System.out.println(i +". "+lista.getNomeSensore()+ " allocato in "+ lista.getStanzaAssociata() +"Valore rilevato: " + lista.getValoreRilevato());
-            i+=1;
-        }
-
-    }
 
     @Override
     public int getListSize() {

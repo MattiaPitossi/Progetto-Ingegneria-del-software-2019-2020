@@ -58,14 +58,7 @@ public class ListaAttuatori implements Liste {
         return false;
     }
 
-    /** 
-     * Ritorna l'attuatore dell'indice richiesto
-     * @param i indice dell'attuatore nella lista
-     * @since versione 1 
-     */
-    public Attuatore getActuatorFromList(int i){
-        return listaAttuatori.get(i);
-    }
+
 
     public ArrayList<Attuatore> getArrayAttuatore(){
         return listaAttuatori;
@@ -87,14 +80,6 @@ public class ListaAttuatori implements Liste {
         listaAttuatori.add(attuatore);
     }
 
-    /** 
-     * @param attuatore attuatore a cui aggiungere l'artefatto
-     * @param artefattoAssociato artefatto dell'attuatore
-     * @since versione 1 
-     */
-    public void addArtefactToActuator(Attuatore attuatore, String artefattoAssociato){
-        attuatore.setArtefattoAssociato(artefattoAssociato);
-    }
 
     @Override
     public void printList() {

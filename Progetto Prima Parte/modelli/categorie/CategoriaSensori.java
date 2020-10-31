@@ -27,26 +27,6 @@ public class CategoriaSensori {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    public void getDatiRilevati() {
-        for(String item: dominioValoriRilevati){
-            System.out.println(item.toString());
-        }
-    }
-
-    public void setDatiRilevati(String datiRilevati) {
-        this.datiRilevati = datiRilevati;
-    }
+ 
 
 }

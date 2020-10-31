@@ -65,24 +65,6 @@ public class ListaSensori implements Liste {
     }
 
 
-    /** 
-     * Ritorna il sensore dell'indice richiesto
-     * @param i indice del sensore nella lista
-     * @since versione 1 
-     */
-    public Sensore getSensorFromList(int i){
-        return listaSensori.get(i);
-    }
-
-    /** 
-     * Aggiunge la stanza associata al sensore
-     * @param sensore sensore a cui aggiungere la stanza
-     * @param stanzaAssociata stanza del sensore
-     * @since versione 1 
-     */
-    public void addRoomToSensor(Sensore sensore, String stanzaAssociata){
-        sensore.setStanzaAssociata(stanzaAssociata);
-    }
 
     @Override
     public boolean alreadyExist(String nameToVerify) {
