@@ -25,7 +25,7 @@ public class ListaCategoriaAttuatori implements Liste{
         listaCategoriaAttuatori.put(name, categoriaAttuatori);
     }
 
-    //Per evitare race conditions..inoltre evita che vengano create più istanze di liste categorie
+    //Evita che vengano create più istanze di liste categorie
     public static synchronized ListaCategoriaAttuatori getInstance() {
         if (listaCategoriaAttuatoriInstance == null)
             listaCategoriaAttuatoriInstance = new ListaCategoriaAttuatori();

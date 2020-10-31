@@ -34,36 +34,19 @@ public class Attuatore {
         this.statoAttivo = statoAttivo;
     }
 
+    /**
+     * Restituisce il nome dell'attuatore
+     * @return nomeAttuatore nome dell'attuatore
+     */
     public String getNomeAttuatore() {
         return nomeAttuatore;
-    }
-
-    public void setNomeAttuatore(String nomeAttuatore) {
-        this.nomeAttuatore = nomeAttuatore;
-    }
-
-    public boolean isStatoAttivo() {
-        return statoAttivo;
-    }
-
-    public void setStatoAttivo(boolean statoAttivo) {
-        this.statoAttivo = statoAttivo;
     }
 
     public String getArtefattoAssociato() {
         return artefattoAssociato;
     }
 
-    public void setArtefattoAssociato(String artefattoAssociato) {
-        this.artefattoAssociato = artefattoAssociato;
-    }
-
     public String getCategoriaAssociata() {
         return categoriaAssociata.getNome();
-    }
-
-    public void setCategoriaAssociata(CategoriaAttuatori categoriaAssociata) {
-        this.categoriaAssociata = categoriaAssociata;
-    }
-    
+    }  
 }

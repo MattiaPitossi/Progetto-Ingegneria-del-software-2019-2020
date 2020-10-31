@@ -25,7 +25,7 @@ public class ListaCategoriaSensori implements Liste{
     }
 
 
-    //Per evitare race conditions..inoltre evita che vengano create più istanze di liste categorie
+    //Evita che vengano create più istanze di liste categorie
     public static synchronized ListaCategoriaSensori getInstance() {
         if (listaCategoriaSensoriInstance == null)
             listaCategoriaSensoriInstance = new ListaCategoriaSensori();
@@ -55,10 +55,6 @@ public class ListaCategoriaSensori implements Liste{
     @Override
     public int getListSize() {
         return listaCategoriaSensori.size();
-    }
-
-    public CategoriaSensori getListElement(String key) {
-        return listaCategoriaSensori.get(key);
     }
 
     @Override

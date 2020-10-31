@@ -15,32 +15,11 @@ public class CategoriaAttuatori {
         this.modalitaOperative = modalitaOperative;
     }
 
-    public boolean aggiungiModalitaOperativa(String modalita){
-        modalitaOperative.add(modalita);
-        return true;
-    }
+
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    public ArrayList<String> getModalitaOperative() {
-        return modalitaOperative;
-    }
-
-    public void setModalitaOperative(ArrayList<String> modalitaOperative) {
-        this.modalitaOperative = modalitaOperative;
-    }
 }
