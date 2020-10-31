@@ -8,7 +8,6 @@ import modelli.liste.ListaAttuatori;
 import modelli.liste.ListaCategoriaAttuatori;
 import modelli.liste.ListaCategoriaSensori;
 import modelli.liste.ListaSensori;
-import modelli.liste.ListaSensoriNonNumerici;
 import modelli.liste.ListaUnitaImmobiliare;
 import modelli.ModalitaOperativaParametrica;
 import modelli.Parametro;
