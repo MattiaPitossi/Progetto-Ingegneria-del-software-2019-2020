@@ -17,7 +17,6 @@ public class ListaRegoleSingoloSensore implements Liste{
     	listaRegoleSingoloSensore = new HashMap<>();
     }
     
-	//Per evitare race conditions..inoltre evita che vengano create più istanze di liste regole
 	public static synchronized ListaRegoleSingoloSensore getInstance() {
 	   if (listaRegoleSingoloSensoreInstance == null)
 		   listaRegoleSingoloSensoreInstance = new ListaRegoleSingoloSensore();

@@ -16,7 +16,6 @@ public class ListaRegoleDueSensori implements Liste{
     	listaRegoleDueSensori = new HashMap<>();
     }
     
-	//Per evitare race conditions..inoltre evita che vengano create più istanze di liste regole
 	public static synchronized ListaRegoleDueSensori getInstance() {
 	   if (listaRegoleDueSensoriInstance == null)
 		   listaRegoleDueSensoriInstance = new ListaRegoleDueSensori();

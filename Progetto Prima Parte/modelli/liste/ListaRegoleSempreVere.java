@@ -18,7 +18,6 @@ public class ListaRegoleSempreVere implements Liste{
 	    	listaRegolaSempreVera = new HashMap<>();
 	    }
 	    
-	   //Per evitare race conditions..inoltre evita che vengano create più istanze di liste regole
 	public static synchronized ListaRegoleSempreVere getInstance() {
 	   if (listaRegolaSempreVeraInstance == null)
 		   listaRegolaSempreVeraInstance = new ListaRegoleSempreVere();
