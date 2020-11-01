@@ -17,32 +17,6 @@ public class RegolaDueSensori extends TimerTask{
 		this.conseguente = conseguente;
 	}
 
-	
-	public String getNomeRegola() {
-		return nomeRegola;
-	}
-
-
-	public void setNomeRegola(String nomeRegola) {
-		this.nomeRegola = nomeRegola;
-	}
-
-	public AntecedenteTraDueSensori getAntecedente() {
-		return antecedente;
-	}
-
-	public void setAntecedente(AntecedenteTraDueSensori antecedente) {
-		this.antecedente = antecedente;
-	}
-
-	public Conseguente getConseguente() {
-		return conseguente;
-	}
-
-	public void setConseguente(Conseguente conseguente) {
-		this.conseguente = conseguente;
-	}
-
 
 	@Override
 	//Metodo da attivare ogni tot tempo 

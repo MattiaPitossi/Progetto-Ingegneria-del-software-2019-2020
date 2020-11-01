@@ -19,9 +19,6 @@ public class SensoreNumerico extends Sensore {
         return valoreRilevato;
     }
 
-    public void setValoreRilevato(int valoreRilevato) {
-        this.valoreRilevato = valoreRilevato;
-    }
 
 	public String getTipologiaSensore() {
 		return tipologiaSensore;

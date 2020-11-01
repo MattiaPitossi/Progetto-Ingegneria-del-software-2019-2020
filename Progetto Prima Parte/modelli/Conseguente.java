@@ -14,8 +14,5 @@ public class Conseguente {
 		return arrayAzioni;
 	}
 
-	public void setArrayAzioni(ArrayList<Azioni> arrayAzioni) {
-		this.arrayAzioni = arrayAzioni;
-	}
 	
 }

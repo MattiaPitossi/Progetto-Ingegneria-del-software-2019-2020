@@ -21,9 +21,6 @@ public class SensoreNonNumerico extends Sensore {
 		return valoreRilevatoNonNumerico;
 	}
 
-	public void setValoreRilevato(String valoreRilevato) {
-		this.valoreRilevatoNonNumerico = valoreRilevato;
-	}
 
 	public String getTipologiaSensore() {
 		return tipologiaSensore;

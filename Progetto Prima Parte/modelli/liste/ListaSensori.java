@@ -24,7 +24,7 @@ public class ListaSensori implements Liste {
     private Random random = new Random();
 
     /** 
-     * Per evitare race conditions..inoltre evita che vengano create più istanze di liste categoriee
+     * Evita che vengano create più istanze di liste categoriee
      * 
      * @since versione 1 
      */
@@ -74,15 +74,7 @@ public class ListaSensori implements Liste {
         return listaSensori.get(i);
     }
 
-    /** 
-     * Aggiunge la stanza associata al sensore
-     * @param sensore sensore a cui aggiungere la stanza
-     * @param stanzaAssociata stanza del sensore
-     * @since versione 1 
-     */
-    public void addRoomToSensor(Sensore sensore, String stanzaAssociata){
-        sensore.setStanzaAssociata(stanzaAssociata);
-    }
+
 
     @Override
     public boolean alreadyExist(String nameToVerify) {

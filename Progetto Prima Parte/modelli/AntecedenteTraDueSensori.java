@@ -16,25 +16,16 @@ public class AntecedenteTraDueSensori {
 		return nomeSensore;
 	}
 
-	public void setNomeSensore(String nomeSensore) {
-		this.nomeSensore = nomeSensore;
-	}
 
 	public String getNomeSecondoSensore() {
 		return nomeSecondoSensore;
 	}
 
-	public void setNomeSecondoSensore(String nomeSecondoSensore) {
-		this.nomeSecondoSensore = nomeSecondoSensore;
-	}
 
 	public String getOperatoreBooleano() {
 		return operatoreBooleano;
 	}
 
-	public void setOperatoreBooleano(String operatoreBooleano) {
-		this.operatoreBooleano = operatoreBooleano;
-	}
 	
 	
 

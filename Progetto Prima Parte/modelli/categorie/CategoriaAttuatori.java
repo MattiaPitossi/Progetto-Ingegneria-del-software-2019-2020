@@ -20,23 +20,10 @@ public class CategoriaAttuatori {
         this.descrizione = descrizione;
     }
 
-
     public String getNome() {
         return nome;
     }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
+    
     //Metodo che non restituisce niente perche serve per quando il fruitore lavora sull'attuatore
     public ModalitaOperativaParametrica getListaModalitaOperativeParametriche() {
     	Parametro parametro = new Parametro("", 0);
@@ -44,9 +31,7 @@ public class CategoriaAttuatori {
 		return modalitaOperativaParametrica;
 	}
 
-	public void setListaModalitaOperativeParametriche(
-		ArrayList<ModalitaOperativaParametrica> listaModalitaOperativeParametriche) {
-	}
+
 	
 	 //Metodo che non restituisce niente perche serve per quando il fruitore lavora sull'attuatore
 	 public String getModalitaOperativaNonParametrica(){

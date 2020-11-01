@@ -15,17 +15,7 @@ public class ModalitaOperativaParametrica {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public Parametro getParametro() {
         return parametro;
     }
-
-    public void setParametro(Parametro parametro) {
-        this.parametro = parametro;
-    }
-    
-    
 }

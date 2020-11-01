@@ -46,11 +46,7 @@ public class CategoriaAttuatoriModalitaParametriche extends CategoriaAttuatori {
 
     }
 
-	@Override
-	public void setListaModalitaOperativeParametriche(
-			ArrayList<ModalitaOperativaParametrica> listaModalitaOperativeParametriche) {
-		this.listaModalitaOperativeParametriche = listaModalitaOperativeParametriche;
-	}
+
     
 	//Metodo che non restituisce niente perche serve per quando il fruitore lavora sull'attuatore
 		 public String getModalitaOperativaNonParametrica(){

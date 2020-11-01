@@ -17,29 +17,14 @@ public class RegolaSingoloSensore extends TimerTask{
 		this.conseguente = conseguente;
 	}
 
-	public String getNomeRegola() {
-		return nomeRegola;
-	}
 
-	public void setNomeRegola(String nomeRegola) {
-		this.nomeRegola = nomeRegola;
-	}
+
 
 	public AntecedenteSingoloSensore getAntecedente() {
 		return antecedente;
 	}
 
-	public void setAntecedente(AntecedenteSingoloSensore antecedente) {
-		this.antecedente = antecedente;
-	}
 
-	public Conseguente getConseguente() {
-		return conseguente;
-	}
-
-	public void setConseguente(Conseguente conseguente) {
-		this.conseguente = conseguente;
-	}
 
 	@Override
 	public void run() {
