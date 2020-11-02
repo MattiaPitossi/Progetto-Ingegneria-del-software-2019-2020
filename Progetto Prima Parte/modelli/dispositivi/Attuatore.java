@@ -43,9 +43,6 @@ public class Attuatore {
         return nomeAttuatore;
     }
 
-    public void setNomeAttuatore(String nomeAttuatore) {
-        this.nomeAttuatore = nomeAttuatore;
-    }
 
     public boolean isStatoAttivo() {
         return statoAttivo;
@@ -67,10 +64,6 @@ public class Attuatore {
         return categoriaAssociata.getNome();
     }
 
-    public void setCategoriaAssociata(CategoriaAttuatori categoriaAssociata) {
-        this.categoriaAssociata = categoriaAssociata;
-    }
-
 	public String getModalita() {
 		return modalita;
 	}
@@ -82,10 +75,5 @@ public class Attuatore {
 	public String getUnitaAssociata() {
 		return unitaAssociata;
 	}
-
-	public void setUnitaAssociata(String unitaAssociata) {
-		this.unitaAssociata = unitaAssociata;
-	}
-    
     
 }

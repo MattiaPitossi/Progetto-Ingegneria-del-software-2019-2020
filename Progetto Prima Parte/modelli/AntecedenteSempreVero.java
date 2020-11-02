@@ -8,9 +8,5 @@ public class AntecedenteSempreVero {
 	public AntecedenteSempreVero() {
 		this.sempreVero = true;
 	}
-	
-	public boolean getSempreVero() {
-		return sempreVero;
-	}
 
 }

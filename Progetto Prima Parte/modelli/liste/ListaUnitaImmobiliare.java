@@ -85,19 +85,4 @@ public class ListaUnitaImmobiliare implements Liste {
         return false;
     }
 
-    /** 
-     * Stampa le varie associazioni delle unità del fruitore
-     * @since versione 1 
-     */
-    public void printListAssociations() {
-    	if(listaUnitaImmobiliare.isEmpty()) {
-    		System.out.println("Non ci sono unita.");
-    	} else {
-	        int i = 1;
-	        for(UnitaImmobiliare unita : listaUnitaImmobiliare) {
-	        	unita.printUnitDescription();
-	        }
-    	}
-
-    }
 }

@@ -53,13 +53,13 @@ public class CategoriaAttuatoriModalitaParametriche extends CategoriaAttuatori {
 	}
     
 	//Metodo che non restituisce niente perche serve per quando il fruitore lavora sull'attuatore
-		 public String getModalitaOperativaNonParametrica(){
-	         return modalitaOperativaNonParametrica;
+   	public String getModalitaOperativaNonParametrica(){
+        return modalitaOperativaNonParametrica;
+   
+   	}
 
-	     }
-
-         public ArrayList<String> getArrayModalitaOperativaNonParametrica(){
-            return modalitaOperativeNonParametriche;
-        }
+    public ArrayList<String> getArrayModalitaOperativaNonParametrica(){
+        return modalitaOperativeNonParametriche;
+    }
     
 }

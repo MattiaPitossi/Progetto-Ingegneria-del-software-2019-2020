@@ -74,15 +74,6 @@ public class ListaSensori implements Liste {
         return listaSensori.get(i);
     }
 
-    /** 
-     * Aggiunge la stanza associata al sensore
-     * @param sensore sensore a cui aggiungere la stanza
-     * @param stanzaAssociata stanza del sensore
-     * @since versione 1 
-     */
-    public void addRoomToSensor(Sensore sensore, String stanzaAssociata){
-        sensore.setStanzaAssociata(stanzaAssociata);
-    }
 
     @Override
     public boolean alreadyExist(String nameToVerify) {

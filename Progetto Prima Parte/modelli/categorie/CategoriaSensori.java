@@ -30,41 +30,16 @@ public class CategoriaSensori {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    
     public ArrayList<String> getDominioValoriRilevati() {
 		return dominioValoriRilevati;
-	}
-
-	public void setDominioValoriRilevati(ArrayList<String> dominioValoriRilevati) {
-		this.dominioValoriRilevati = dominioValoriRilevati;
-	}
-
+    }
+    
 	public void getDatiRilevati() {
     	int i = 1;
         for(String item: dominioValoriRilevati){
             System.out.println(i + item.toString());
             i++;
         }
-    }
-
-    public void setDatiRilevati(String datiRilevati) {
-        this.datiRilevati = datiRilevati;
-    }
-    
-    public String getTipoCategoria() {
-    	return tipoCategoria;
     }
 
 }

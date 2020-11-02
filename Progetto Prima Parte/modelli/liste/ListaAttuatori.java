@@ -87,14 +87,7 @@ public class ListaAttuatori implements Liste {
         listaAttuatori.add(attuatore);
     }
 
-    /** 
-     * @param attuatore attuatore a cui aggiungere l'artefatto
-     * @param artefattoAssociato artefatto dell'attuatore
-     * @since versione 1 
-     */
-    public void addArtefactToActuator(Attuatore attuatore, String artefattoAssociato){
-        attuatore.setArtefattoAssociato(artefattoAssociato);
-    }
+
 
     @Override
     public void printList() {

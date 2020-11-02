@@ -39,10 +39,6 @@ public class Sensore {
         return nomeSensore;
     }
 
-    public void setNomeSensore(String nomeSensore) {
-        this.nomeSensore = nomeSensore;
-    }
-
     public boolean isStato() {
         return statoAttivo;
     }
@@ -63,16 +59,8 @@ public class Sensore {
         return categoriaAssociata.getNome();
     }
 
-    public void setCategoriaAssociata(CategoriaSensori categoriaAssociata) {
-        this.categoriaAssociata = categoriaAssociata;
-    }
-
     public boolean isStatoAttivo() {
         return statoAttivo;
-    }
-
-    public void setStatoAttivo(boolean statoAttivo) {
-        this.statoAttivo = statoAttivo;
     }
 
     public int getValoreRilevato(){
@@ -86,8 +74,5 @@ public class Sensore {
     public String getTipologiaSensore(){
     	return "sensore";
     }
-    
-    
-
     
 }

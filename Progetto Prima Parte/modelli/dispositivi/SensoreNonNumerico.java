@@ -15,16 +15,21 @@ public class SensoreNonNumerico extends Sensore {
         super(nomeSensore, stanzaAssociata, categoriaAssociata, statoAttivo, unitaAssociata);
         this.valoreRilevatoNonNumerico = "";
         this.tipologiaSensore = "Non numerico";
-    }
+	}
+	
 
+	/** 
+     * restituisce il valore rilevato del sensore non numerico
+	 * @return valoreRilevatoNonNumerico
+     */
 	public String getValoreRilevatoNonNumerico() {
 		return valoreRilevatoNonNumerico;
 	}
 
-	public void setValoreRilevato(String valoreRilevato) {
-		this.valoreRilevatoNonNumerico = valoreRilevato;
-	}
-
+	/** 
+     * restituisce la tipologia del sensore non numerico
+	 * @return tipologiaSensore
+     */
 	public String getTipologiaSensore() {
 		return tipologiaSensore;
 	}
