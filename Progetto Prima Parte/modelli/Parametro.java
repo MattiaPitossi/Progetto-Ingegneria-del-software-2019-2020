@@ -10,20 +10,12 @@ public class Parametro {
 
     }
 
-    public String getNomeParametro() {
-        return nomeParametro;
-    }
-
-    public void setNomeParametro(String nomeParametro) {
-        this.nomeParametro = nomeParametro;
-    }
-
+    /**
+     * 
+     * @return     valore del parametro intero
+     */
     public int getValore() {
         return valore;
-    }
-
-    public void setValore(int valore) {
-        this.valore = valore;
     }
 
 }

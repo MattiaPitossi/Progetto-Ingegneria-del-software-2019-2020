@@ -25,24 +25,8 @@ public class RegolaSempreVera extends TimerTask{
 		return nomeRegola;
 	}
 
-	public void setNomeRegola(String nomeRegola) {
-		this.nomeRegola = nomeRegola;
-	}
-
-	public AntecedenteSempreVero getAntecedente() {
-		return antecedente;
-	}
-
-	public void setAntecedente(AntecedenteSempreVero antecedente) {
-		this.antecedente = antecedente;
-	}
-
 	public Conseguente getConseguente() {
 		return conseguente;
-	}
-
-	public void setConseguente(Conseguente conseguente) {
-		this.conseguente = conseguente;
 	}
 
 	public boolean getAttivaDisattiva() {

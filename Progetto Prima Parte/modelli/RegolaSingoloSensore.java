@@ -136,8 +136,6 @@ public class RegolaSingoloSensore extends TimerTask{
 			}
 		}
 		
-		
-		
 		//If per verificare se il conseguente deve partire 
 		if(operazioneSoddisfata) {
 			

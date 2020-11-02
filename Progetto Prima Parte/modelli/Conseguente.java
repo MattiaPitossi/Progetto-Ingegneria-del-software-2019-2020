@@ -16,14 +16,6 @@ public class Conseguente {
 		return arrayAzioni;
 	}
 
-	public void setArrayAzioni(ArrayList<Azioni> arrayAzioni) {
-		this.arrayAzioni = arrayAzioni;
-	}
-
-	public float getStart() {
-		return start;
-	}
-
 	public void setStart(float start) {
 		this.start = start;
 	}

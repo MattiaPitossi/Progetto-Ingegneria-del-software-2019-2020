@@ -14,17 +14,12 @@ public class Azioni {
 		return nomeAttuatore;
 	}
 
-	public void setNomeAttuatore(String nomeAttuatore) {
-		this.nomeAttuatore = nomeAttuatore;
-	}
+
 
 	public String getValore() {
 		return valore;
 	}
 
-	public void setValore(String valore) {
-		this.valore = valore;
-	}
 	
 	
 }

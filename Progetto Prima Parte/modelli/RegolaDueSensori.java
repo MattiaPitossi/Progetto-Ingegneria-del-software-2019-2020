@@ -27,25 +27,12 @@ public class RegolaDueSensori extends TimerTask{
 		return nomeRegola;
 	}
 
-
-	public void setNomeRegola(String nomeRegola) {
-		this.nomeRegola = nomeRegola;
-	}
-
 	public AntecedenteTraDueSensori getAntecedente() {
 		return antecedente;
 	}
 
-	public void setAntecedente(AntecedenteTraDueSensori antecedente) {
-		this.antecedente = antecedente;
-	}
-
 	public Conseguente getConseguente() {
 		return conseguente;
-	}
-
-	public void setConseguente(Conseguente conseguente) {
-		this.conseguente = conseguente;
 	}
 
 	public boolean getAttivaDisattiva() {
