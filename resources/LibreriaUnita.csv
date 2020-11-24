@@ -1,0 +1,18 @@
+Unita;Casa;Stanze;Camera 1; Camera 2;Bagno;Salotto;Cucina;Artefatti;Cancello;Porta;Calorifero;Ventilatore
+Sensore Numerico;bagno_Igrometro;Bagno;Igrometro;true;10;Casa
+Sensore Numerico;salotto_Termometro;Salotto;Termometro;true;10;Casa
+Sensore Non Numerico;cucina_Rilevatore;Cucina;Rilevatore;Casa
+Sensore Non Numerico;salotto_Telecamera;Salotto;Telecamera;Casa
+Attuatore;cancello_ApriCancello;Cancello;ApriCancello;true;Casa
+Attuatore;porta_ApriPorta;Porta;ApriPorta;true;Casa
+Attuatore;calorifero_Termoregolatore;Calorifero;Termoregolatore;true;Casa
+Attuatore;ventilatore_Igroregolatore;Ventilatore;Igroregolatore;true;Casa
+Unita;Villa;Stanze;Soggiorno; Garage ;bagno;cucina;Artefatti;Cancello;Porta;Calorifero;Ventilatore
+Sensore Numerico;bagnoVilla_Igrometro;Bagno;Igrometro;true;10;Villa
+Sensore Numerico;garage_Termometro;Garage;Termometro;true;10;Villa
+Sensore Non Numerico;soggiorno_Rilevatore;Soggiorno;Rilevatore;Villa
+Sensore Non Numerico;cucina_Telecamera;Cucina;Telecamera;Villa
+Attuatore;cancelloVilla_ApriCancello;Cancello;ApriCancello;true;Villa
+Attuatore;portaVilla_ApriPorta;Porta;ApriPorta;true;Villa
+Attuatore;caloriferoVilla_Termoregolatore;Calorifero;Termoregolatore;true;Villa
+Attuatore;ventilatoreVilla_Igroregolatore;Ventilatore;Igroregolatore;true;Villa

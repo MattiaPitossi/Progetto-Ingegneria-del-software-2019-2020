@@ -1,0 +1,8 @@
+Categoria sensore;Igrometro;Da utilizzare per tutti i sensori che si occupano di rilevare l'umidita';Numerico;Umidita’ 
+Categoria sensore;Termometro;Categoria per rilevare la temperatura da sensore;Numerico;Temperatura
+Categoria sensore;Telecamera;Descrizione; Non Numerico;Persone;Assenza Persone
+Categoria sensore;Rilevatore;Descrizione; Non Numerico;Persone;Assenza Persone
+Categoria attuatore;ApriCancello;Descrizione;Non Parametrica;Apri;Chiudi;Idle
+Categoria attuatore;ApriPorta;Descrizione;Non Parametrica;Apri;Chiudi;Idle
+Categoria attuatore;Termoregolatore;Descrizione;Parametrica;Temperatura Desiderata;Valore da impostare;10
+Categoria attuatore;Igroregolatore;Descrizione;Parametrica;Umidita' desiderata;Valore da impostare;10

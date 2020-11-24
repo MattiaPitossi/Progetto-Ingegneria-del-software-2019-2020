@@ -1,0 +1,6 @@
+Regola Sempre Vera;Temperatura;Antecedente;Conseguente;Azioni;calorifero_Termoregolatore; 20;Fine Azioni
+Regola Singolo Sensore;Apri Porta;Non Numerico;Antecedente;salotto_Telecamera;=;Persone;12.00;>;Conseguente;Azioni;porta_ApriPorta;Apri;Fine Azioni
+Regola Due Sensori;Temperatura e Umidita';Antecedente;salotto_Termometro;bagno_Igrometro;>;8.00;>;Azioni;calorifero_Termoregolatore;20;Fine Azioni 
+Regola Sempre Vera;Accendi riscaldamento sempre;Antecedente;Conseguente;Azioni;calorifero_Termoregolatore;20;Fine Azioni
+Regola Singolo Sensore;Apri Porta se sono le 15 e vi e' una persona presente ;Non Numerico;Antecedente;salotto_Telecamera;=;Persone;15.00;>;Conseguente;Azioni;porta_ApriPorta;Apri;Fine Azioni
+Regola Due Sensori;Regola Temperatura e Umidita' se sono passate le ore 9;Antecedente;salotto_Termometro;bagnoVilla_Igrometro;>;9.00;>;Azioni;calorifero_Termoregolatore;20;Fine Azioni 
