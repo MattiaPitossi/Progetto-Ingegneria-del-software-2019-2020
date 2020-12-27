@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.TimerTask;
 
-import modelli.liste.ListaAttuatori;
+import modelli.liste.ListaAttuatoriModel;
 
 public class RegolaSempreVera extends TimerTask{
 	
@@ -63,15 +63,15 @@ public class RegolaSempreVera extends TimerTask{
 			for(Azioni azione : conseguente.getArrayAzioni()) {
 				
 				//Ciclo for per trovare la posizione dell'attuatore 
-				for(int k = 0; k < ListaAttuatori.getInstance().getListSize(); k++) {
+				for(int k = 0; k < ListaAttuatoriModel.getInstance().getListSize(); k++) {
 					
 					//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 
-					if(ListaAttuatori.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore())) {
+					if(ListaAttuatoriModel.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore())) {
 						
 						System.out.println("L'operazione delle regola " + nomeRegola + " e' soddisfatta, l'attuatore " + azione.getNomeAttuatore() + " e' stato impostato a " + azione.getValore());
 						//Se if si avvera' allora viene impostato il valore contenuto nell'azione
 						//Non serve prenderlo dalla categoria visto che e' gia' stato preso nel metodo della creazione dell'azione
-						ListaAttuatori.getInstance().getActuatorFromList(k).setModalita(azione.getValore());
+						ListaAttuatoriModel.getInstance().getActuatorFromList(k).setModalita(azione.getValore());
 					}
 				}
 			}

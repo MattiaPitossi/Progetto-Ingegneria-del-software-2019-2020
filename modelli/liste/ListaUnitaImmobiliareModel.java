@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import modelli.UnitaImmobiliare;
 import modelli.dispositivi.Sensore;
 
-public class ListaUnitaImmobiliare implements Liste {
+public class ListaUnitaImmobiliareModel implements ListeModel {
 
 
-    private static ListaUnitaImmobiliare listaUnitaImmobiliareInstance;
+    private static ListaUnitaImmobiliareModel listaUnitaImmobiliareInstance;
     ArrayList<UnitaImmobiliare> listaUnitaImmobiliare = new ArrayList<>();
     /** 
      * 
      * @since versione 2 
      */
-	public static synchronized ListaUnitaImmobiliare getInstance() {
+	public static synchronized ListaUnitaImmobiliareModel getInstance() {
         if (listaUnitaImmobiliareInstance == null)
-        	listaUnitaImmobiliareInstance = new ListaUnitaImmobiliare();
+        	listaUnitaImmobiliareInstance = new ListaUnitaImmobiliareModel();
         return listaUnitaImmobiliareInstance;
     }
 
@@ -68,14 +68,8 @@ public class ListaUnitaImmobiliare implements Liste {
     }
 
 
-    @Override
-    public void printList() {
-        int i = 1;
-        for(UnitaImmobiliare unita : listaUnitaImmobiliare) {
-            System.out.println(i +". "+unita.getNomeUnita());
-            i=i+1;
-        }
-
+    public ArrayList<UnitaImmobiliare> getArray() {
+    	return listaUnitaImmobiliare;
     }
 
     @Override

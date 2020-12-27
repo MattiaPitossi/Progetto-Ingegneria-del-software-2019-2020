@@ -8,19 +8,19 @@ import modelli.RegolaSempreVera;
 import modelli.RegolaSingoloSensore;
 import modelli.categorie.CategoriaAttuatori;
 
-public class ListaRegoleSingoloSensore implements Liste{
+public class ListaRegoleSingoloSensoreModel implements ListeModel{
 	private Map<String, RegolaSingoloSensore> listaRegoleSingoloSensore;
-    private static ListaRegoleSingoloSensore listaRegoleSingoloSensoreInstance;
+    private static ListaRegoleSingoloSensoreModel listaRegoleSingoloSensoreInstance;
 
     //costruttore che inizializza hashmap 
-    public ListaRegoleSingoloSensore(){
+    public ListaRegoleSingoloSensoreModel(){
     	listaRegoleSingoloSensore = new HashMap<>();
     }
     
 	//Evita che vengano create più istanze di liste regole
-	public static synchronized ListaRegoleSingoloSensore getInstance() {
+	public static synchronized ListaRegoleSingoloSensoreModel getInstance() {
 	   if (listaRegoleSingoloSensoreInstance == null)
-		   listaRegoleSingoloSensoreInstance = new ListaRegoleSingoloSensore();
+		   listaRegoleSingoloSensoreInstance = new ListaRegoleSingoloSensoreModel();
 	   return listaRegoleSingoloSensoreInstance;
 	}
 	    
@@ -28,17 +28,6 @@ public class ListaRegoleSingoloSensore implements Liste{
 	public boolean alreadyExist(String nameToVerify) {
 		if(!listaRegoleSingoloSensore.containsKey(nameToVerify)) return false;
 		return true;
-	}
-	
-	@Override
-	public void printList() {
-		 int i=1;
-	        Set<String> keys = listaRegoleSingoloSensore.keySet();
-	        for (String k : keys) {
-	            System.out.println(i +". "+ k);
-	            i+=1;
-	        }
-		
 	}
 	
 	public String returnKey(int i) {

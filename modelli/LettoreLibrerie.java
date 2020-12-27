@@ -20,14 +20,14 @@ import modelli.dispositivi.Attuatore;
 import modelli.dispositivi.Sensore;
 import modelli.dispositivi.SensoreNonNumerico;
 import modelli.dispositivi.SensoreNumerico;
-import modelli.liste.ListaAttuatori;
-import modelli.liste.ListaCategoriaAttuatori;
-import modelli.liste.ListaCategoriaSensori;
-import modelli.liste.ListaRegoleDueSensori;
-import modelli.liste.ListaRegoleSempreVere;
-import modelli.liste.ListaRegoleSingoloSensore;
-import modelli.liste.ListaSensori;
-import modelli.liste.ListaUnitaImmobiliare;
+import modelli.liste.ListaAttuatoriModel;
+import modelli.liste.ListaCategoriaAttuatoriModel;
+import modelli.liste.ListaCategoriaSensoriModel;
+import modelli.liste.ListaRegoleDueSensoriModel;
+import modelli.liste.ListaRegoleSempreVereModel;
+import modelli.liste.ListaRegoleSingoloSensoreModel;
+import modelli.liste.ListaSensoriModel;
+import modelli.liste.ListaUnitaImmobiliareModel;
 
 public class LettoreLibrerie {
 	
@@ -62,7 +62,7 @@ public class LettoreLibrerie {
 					//Se il primo attributo e' categoria sensore allora verra' creato una categoria sensore 
 					if(attributes[0].equals("Categoria sensore")) {
 								
-						if(ListaCategoriaSensori.getInstance().alreadyExist(attributes[1])) {
+						if(ListaCategoriaSensoriModel.getInstance().alreadyExist(attributes[1])) {
 							System.out.println("Esiste gia' una categoria con il nome " + attributes[1] + ".");
 						} else {
 								//Se la categoria e' numerica allora verra' creata una categoria numerica 
@@ -78,13 +78,13 @@ public class LettoreLibrerie {
 									categoriaCreata = new CategoriaSensori(attributes[1], attributes[2], dominioValoriRilevati);
 								}
 								
-								ListaCategoriaSensori.getInstance().addToList(attributes[1], categoriaCreata);
+								ListaCategoriaSensoriModel.getInstance().addToList(attributes[1], categoriaCreata);
 								System.out.println("La categoria " + attributes[1] + " e' stata aggiunta.");
 							
 						}
 					} else if(attributes[0].equals("Categoria attuatore")) {
 						
-						if(ListaCategoriaAttuatori.getInstance().alreadyExist(attributes[1])) {
+						if(ListaCategoriaAttuatoriModel.getInstance().alreadyExist(attributes[1])) {
 							System.out.println("Esiste gia' una categoria con il nome " + attributes[1] + ".");
 						} else {
 							listaModalitaNonParametriche = new ArrayList<>();
@@ -107,10 +107,10 @@ public class LettoreLibrerie {
 							}
 							
 							if(nonParametrico) {
-								ListaCategoriaAttuatori.getInstance().addToList(attributes[1], categoriaNonParametricaCreata);
+								ListaCategoriaAttuatoriModel.getInstance().addToList(attributes[1], categoriaNonParametricaCreata);
 								System.out.println("La categoria " + attributes[1] + " e' stata aggiunta.");
 							} else if(parametrico) {
-								ListaCategoriaAttuatori.getInstance().addToList(attributes[1], categoriaParametricaCreata);
+								ListaCategoriaAttuatoriModel.getInstance().addToList(attributes[1], categoriaParametricaCreata);
 								System.out.println("La categoria " + attributes[1] + " e' stata aggiunta.");
 							}
 						}
@@ -149,7 +149,7 @@ public class LettoreLibrerie {
 				
 				//Ciclo if che parte se legge unita per creare un unita'
 				if(attributes[0].equalsIgnoreCase("Unita")) {
-					if(ListaUnitaImmobiliare.getInstance().alreadyExist(attributes[1])) {
+					if(ListaUnitaImmobiliareModel.getInstance().alreadyExist(attributes[1])) {
 						System.out.println("Esiste gia' un'unita con il nome " + attributes[1] + ".");
 						esisteUnita = true;
 					} else {
@@ -169,39 +169,39 @@ public class LettoreLibrerie {
 							}
 						}
 						
-						ListaUnitaImmobiliare.getInstance().addUnitaToList(unita);
+						ListaUnitaImmobiliareModel.getInstance().addUnitaToList(unita);
 						System.out.println("Aggiunta l'unita immobiliare " + attributes[1] + ".");
 					}
 				}
 				
 				//Ciclo if che parte se legge sensore numerico per creare un sensore numerico 
 				else if(attributes[0].equalsIgnoreCase("Sensore Numerico") && !esisteUnita) {
-					if(ListaSensori.getInstance().alreadyExist(attributes[1])) {
+					if(ListaSensoriModel.getInstance().alreadyExist(attributes[1])) {
 						System.out.println("Esiste gia' un sensore numerico con il nome " + attributes[1] + ".");
 					} else {
-						sensoreNumerico = new SensoreNumerico(attributes[1], attributes[2], ListaCategoriaSensori.getInstance().getCategoriaSensori(attributes[3]), true, attributes[6], Integer.parseInt(attributes[5]));
-						ListaSensori.getInstance().addSensoreToList(sensoreNumerico);
+						sensoreNumerico = new SensoreNumerico(attributes[1], attributes[2], ListaCategoriaSensoriModel.getInstance().getCategoriaSensori(attributes[3]), true, attributes[6], Integer.parseInt(attributes[5]));
+						ListaSensoriModel.getInstance().addSensoreToList(sensoreNumerico);
 						System.out.println("Aggiunto il sensore numerico " + attributes[1] + ".");
 					}
 				}
 				
 				//Ciclo if che parte se legge sensore non numerico per creare un sensore non numerico 
 				else if(attributes[0].equalsIgnoreCase("Sensore Non Numerico") && !esisteUnita) {
-					if(ListaSensori.getInstance().alreadyExist(attributes[1])) {
+					if(ListaSensoriModel.getInstance().alreadyExist(attributes[1])) {
 						System.out.println("Esiste gia' un sensore numerico con il nome " + attributes[1] + ".");
 					} else {
-						sensoreNonNumerico = new SensoreNonNumerico(attributes[1], attributes[2], ListaCategoriaSensori.getInstance().getCategoriaSensori(attributes[3]), true, attributes[4]);
-						ListaSensori.getInstance().addSensoreToList(sensoreNonNumerico);
+						sensoreNonNumerico = new SensoreNonNumerico(attributes[1], attributes[2], ListaCategoriaSensoriModel.getInstance().getCategoriaSensori(attributes[3]), true, attributes[4]);
+						ListaSensoriModel.getInstance().addSensoreToList(sensoreNonNumerico);
 						System.out.println("Aggiunto il sensore non numerico " + attributes[1] +".");
 					}
 				}
 				
 				else if(attributes[0].equalsIgnoreCase("Attuatore") && !esisteUnita) {
-					if(ListaAttuatori.getInstance().alreadyExist(attributes[1])) {
+					if(ListaAttuatoriModel.getInstance().alreadyExist(attributes[1])) {
 						System.out.println("Esiste gia' un attuatore con il nome " + attributes[1] + ".");
 					} else {
-						attuatore = new Attuatore(attributes[1], attributes[2], ListaCategoriaAttuatori.getInstance().getCategoriaAttuatori(attributes[3]), true, attributes[5]);
-						ListaAttuatori.getInstance().addAttuatoreToList(attuatore);
+						attuatore = new Attuatore(attributes[1], attributes[2], ListaCategoriaAttuatoriModel.getInstance().getCategoriaAttuatori(attributes[3]), true, attributes[5]);
+						ListaAttuatoriModel.getInstance().addAttuatoreToList(attuatore);
 						System.out.println("Aggiunto l'attuatore " + attributes[1] +".");
 					}
 				}
@@ -239,7 +239,7 @@ public class LettoreLibrerie {
 				String[] attributes = line.split(";");
 				
 				if(attributes[0].equalsIgnoreCase("Regola Sempre Vera")) {
-					if(ListaRegoleSempreVere.getInstance().alreadyExist(attributes[1])) {
+					if(ListaRegoleSempreVereModel.getInstance().alreadyExist(attributes[1])) {
 						System.out.println("Esiste gia' una categoria con il nome " + attributes[1] + ".");
 					} else {
 						sempreVero = new AntecedenteSempreVero();
@@ -255,13 +255,13 @@ public class LettoreLibrerie {
 						}
 						conseguente = new Conseguente(azioni);
 						regolaSempreVera = new RegolaSempreVera(attributes[1], sempreVero, conseguente) ;
-						ListaRegoleSempreVere.getInstance().addToList(attributes[1], regolaSempreVera);
+						ListaRegoleSempreVereModel.getInstance().addToList(attributes[1], regolaSempreVera);
 						System.out.println("La regola " + attributes[1] + " di tipo Sempre Vera e' stata aggiunta'.");
 					}
 				}
 				
 				if(attributes[0].equalsIgnoreCase("Regola Singolo Sensore")) {
-					if(ListaRegoleSingoloSensore.getInstance().alreadyExist(attributes[1])) {
+					if(ListaRegoleSingoloSensoreModel.getInstance().alreadyExist(attributes[1])) {
 						System.out.println("Esiste gia' una categoria con il nome " + attributes[1] + ".");
 					} else {
 						singoloSensore = new AntecedenteSingoloSensore(attributes[4], attributes[5], attributes[6], Float.parseFloat(attributes[7]), attributes[8]);
@@ -277,13 +277,13 @@ public class LettoreLibrerie {
 						}
 						conseguente = new Conseguente(azioni);
 						regolaSingoloSensore = new RegolaSingoloSensore(attributes[1], singoloSensore, conseguente, attributes[2]);
-						ListaRegoleSingoloSensore.getInstance().addToList(attributes[1], regolaSingoloSensore);
+						ListaRegoleSingoloSensoreModel.getInstance().addToList(attributes[1], regolaSingoloSensore);
 						System.out.println("La regola " + attributes[1] + " di tipo Singolo Sensore e' stata aggiunta'.");
 					}
 				}
 				
 				if(attributes[0].equalsIgnoreCase("Regola Due Sensori")) {
-					if(ListaRegoleDueSensori.getInstance().alreadyExist(attributes[1])) {
+					if(ListaRegoleDueSensoriModel.getInstance().alreadyExist(attributes[1])) {
 						System.out.println("Esiste gia' una categoria con il nome " + attributes[1] + ".");
 					} else {
 						dueSensori = new AntecedenteTraDueSensori(attributes[3], attributes[4], attributes[5], Float.parseFloat(attributes[6]), attributes[7]);
@@ -299,7 +299,7 @@ public class LettoreLibrerie {
 						}
 						conseguente = new Conseguente(azioni);
 						regolaDueSensori = new RegolaDueSensori(attributes[1], dueSensori, conseguente);
-						ListaRegoleDueSensori.getInstance().addToList(attributes[1], regolaDueSensori);
+						ListaRegoleDueSensoriModel.getInstance().addToList(attributes[1], regolaDueSensori);
 						System.out.println("La regola " + attributes[1] + " di tipo Due Sensori e' stata aggiunta'.");
 					}
 				}

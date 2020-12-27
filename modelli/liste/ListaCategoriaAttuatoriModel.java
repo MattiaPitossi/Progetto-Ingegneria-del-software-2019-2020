@@ -7,12 +7,12 @@ import java.util.Set;
 import modelli.categorie.*;
 import modelli.dispositivi.Attuatore;
 
-public class ListaCategoriaAttuatori implements Liste{
+public class ListaCategoriaAttuatoriModel implements ListeModel{
     private Map<String, CategoriaAttuatori> listaCategoriaAttuatori;
-    private static ListaCategoriaAttuatori listaCategoriaAttuatoriInstance;
+    private static ListaCategoriaAttuatoriModel listaCategoriaAttuatoriInstance;
 
     //costruttore che inizializza hashmap 
-    public ListaCategoriaAttuatori(){
+    public ListaCategoriaAttuatoriModel(){
         listaCategoriaAttuatori = new HashMap<>();
     }
 
@@ -27,9 +27,9 @@ public class ListaCategoriaAttuatori implements Liste{
     }
 
     //Evita che vengano create più istanze di liste categorie
-    public static synchronized ListaCategoriaAttuatori getInstance() {
+    public static synchronized ListaCategoriaAttuatoriModel getInstance() {
         if (listaCategoriaAttuatoriInstance == null)
-            listaCategoriaAttuatoriInstance = new ListaCategoriaAttuatori();
+            listaCategoriaAttuatoriInstance = new ListaCategoriaAttuatoriModel();
         return listaCategoriaAttuatoriInstance;
     }
 
@@ -44,17 +44,6 @@ public class ListaCategoriaAttuatori implements Liste{
     }
 
     @Override
-    public void printList() {
-        int i=1;
-        Set<String> keys = listaCategoriaAttuatori.keySet();
-        for (String k : keys) {
-            System.out.println(i +". "+ k);
-            i+=1;
-        }
-
-    }
-
-    @Override
     public int getListSize() {
         // TODO Auto-generated method stub
         return 0;
@@ -65,4 +54,9 @@ public class ListaCategoriaAttuatori implements Liste{
         if(listaCategoriaAttuatori.isEmpty()) return true;
         return false;
     }
+    
+    public Set<String> getKeys(){
+		Set<String> keys = listaCategoriaAttuatori.keySet();
+		return keys;
+	}
 }

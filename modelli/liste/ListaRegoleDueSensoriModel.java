@@ -8,19 +8,19 @@ import modelli.RegolaDueSensori;
 import modelli.RegolaSempreVera;
 import modelli.RegolaSingoloSensore;
 
-public class ListaRegoleDueSensori implements Liste{
+public class ListaRegoleDueSensoriModel implements ListeModel{
 	private Map<String, RegolaDueSensori> listaRegoleDueSensori;
-    private static ListaRegoleDueSensori listaRegoleDueSensoriInstance;
+    private static ListaRegoleDueSensoriModel listaRegoleDueSensoriInstance;
 
     //costruttore che inizializza hashmap 
-    public ListaRegoleDueSensori(){
+    public ListaRegoleDueSensoriModel(){
     	listaRegoleDueSensori = new HashMap<>();
     }
     
 	//Evita che vengano create più istanze di liste regole
-	public static synchronized ListaRegoleDueSensori getInstance() {
+	public static synchronized ListaRegoleDueSensoriModel getInstance() {
 	   if (listaRegoleDueSensoriInstance == null)
-		   listaRegoleDueSensoriInstance = new ListaRegoleDueSensori();
+		   listaRegoleDueSensoriInstance = new ListaRegoleDueSensoriModel();
 	   return listaRegoleDueSensoriInstance;
 	}
 	
@@ -43,18 +43,7 @@ public class ListaRegoleDueSensori implements Liste{
 		if(!listaRegoleDueSensori.containsKey(nameToVerify)) return false;
 		return true;
 	}
-	
-	@Override
-	public void printList() {
-		 int i=1;
-	        Set<String> keys = listaRegoleDueSensori.keySet();
-	        for (String k : keys) {
-	            System.out.println(i +". "+ k);
-	            i+=1;
-	        }
-		
-	}
-	
+
 	@Override
 	public int getListSize() {
 	    return listaRegoleDueSensori.size();

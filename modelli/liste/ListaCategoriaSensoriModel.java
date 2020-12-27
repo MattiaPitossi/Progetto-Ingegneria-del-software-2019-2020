@@ -7,11 +7,11 @@ import java.util.Set;
 import modelli.categorie.*;
 import modelli.dispositivi.Attuatore;
 
-public class ListaCategoriaSensori implements Liste{
+public class ListaCategoriaSensoriModel implements ListeModel{
     private Map<String, CategoriaSensori> listaCategoriaSensori;
-    private static ListaCategoriaSensori listaCategoriaSensoriInstance;
+    private static ListaCategoriaSensoriModel listaCategoriaSensoriInstance;
 
-    public ListaCategoriaSensori(){
+    public ListaCategoriaSensoriModel(){
         listaCategoriaSensori = new HashMap<>();
     }
 
@@ -27,9 +27,9 @@ public class ListaCategoriaSensori implements Liste{
 
 
     //Evita che vengano create più istanze di liste categorie
-    public static synchronized ListaCategoriaSensori getInstance() {
+    public static synchronized ListaCategoriaSensoriModel getInstance() {
         if (listaCategoriaSensoriInstance == null)
-            listaCategoriaSensoriInstance = new ListaCategoriaSensori();
+            listaCategoriaSensoriInstance = new ListaCategoriaSensoriModel();
         return listaCategoriaSensoriInstance;
     }
 
@@ -44,16 +44,6 @@ public class ListaCategoriaSensori implements Liste{
 	}
 
     @Override
-    public void printList() {
-        int i=1;
-        Set<String> keys = listaCategoriaSensori.keySet();
-        for (String k : keys) {
-            System.out.println(i +". "+ k);
-            i+=1;
-        }
-    }
-
-    @Override
     public int getListSize() {
         return listaCategoriaSensori.size();
     }
@@ -63,4 +53,9 @@ public class ListaCategoriaSensori implements Liste{
         if(listaCategoriaSensori.isEmpty()) return true;
         return false;
     }
+    
+    public Set<String> getKeys(){
+		Set<String> keys = listaCategoriaSensori.keySet();
+		return keys;
+	}
 }

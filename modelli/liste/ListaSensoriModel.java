@@ -17,10 +17,10 @@ import modelli.dispositivi.SensoreNumerico;
  * @since   versione 1
  */
 
-public class ListaSensori implements Liste {
+public class ListaSensoriModel implements ListeModel {
 
     private ArrayList<Sensore> listaSensori = new ArrayList<>();
-    private static ListaSensori listaSensoriInstance;
+    private static ListaSensoriModel listaSensoriInstance;
     private Random random = new Random();
 
     /** 
@@ -28,9 +28,9 @@ public class ListaSensori implements Liste {
      * 
      * @since versione 1 
      */
-    public static synchronized ListaSensori getInstance() {
+    public static synchronized ListaSensoriModel getInstance() {
         if (listaSensoriInstance == null)
-            listaSensoriInstance = new ListaSensori();
+            listaSensoriInstance = new ListaSensoriModel();
         return listaSensoriInstance;
     }
 
@@ -83,37 +83,7 @@ public class ListaSensori implements Liste {
         return false;
     }
 
-    @Override
-    public void printList() {
-        int i = 1;
-        for(Sensore lista : listaSensori) {
-            System.out.println(i +". "+lista.getNomeSensore());
-            i=i+1;
-        }
-
-    }
-
-    /** 
-     * Stampa i vari output dei diversi sensori inseriti
-     * @since versione 1 
-     */
-    public void printListValues() {
-        int i = 1;
-        for(Sensore lista : listaSensori) {
-            if(lista.getStanzaAssociata().equals("")){
-                System.out.println(i +". "+lista.getNomeSensore()+ " non allocato ");
-            } else {
-            	if(lista.getTipologiaSensore().equalsIgnoreCase("Numerico")) {
-                System.out.println(i +". "+lista.getNomeSensore()+ " allocato in "+ lista.getStanzaAssociata()+" ,Valore rilevato(cfr. descrizione): "+ lista.getValoreRilevato());
-            	} else {
-            		System.out.println(i +". "+lista.getNomeSensore()+" allocato in "+ lista.getStanzaAssociata()+" ,Valote rilevato(cfr. descrizione): " + ListaCategoriaSensori.getInstance().getCategoriaSensori(lista.getCategoriaAssociata()).getDominioValoriRilevati().get(0));
-            	}
-            }
-          
-            i+=1;
-        }
-
-    }
+   
 
     /** 
      * Stampa le varie associazioni dei sensori nelle stanze
@@ -136,6 +106,10 @@ public class ListaSensori implements Liste {
     @Override
     public int getListSize() {
         return listaSensori.size();
+    }
+    
+    public ArrayList<Sensore> getList() {
+        return listaSensori;
     }
 
     @Override

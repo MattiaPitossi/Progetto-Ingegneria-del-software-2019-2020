@@ -9,19 +9,19 @@ import modelli.RegolaSempreVera;
 import modelli.categorie.CategoriaAttuatori;
 import modelli.dispositivi.Sensore;
 
-public class ListaRegoleSempreVere implements Liste{
+public class ListaRegoleSempreVereModel implements ListeModel{
 	 private Map<String, RegolaSempreVera> listaRegolaSempreVera;
-	    private static ListaRegoleSempreVere listaRegolaSempreVeraInstance;
+	    private static ListaRegoleSempreVereModel listaRegolaSempreVeraInstance;
 
     //costruttore che inizializza hashmap 
-	public ListaRegoleSempreVere(){
+	public ListaRegoleSempreVereModel(){
 		listaRegolaSempreVera = new HashMap<>();
     }
 	    
 	//evita che vengano create più istanze di liste regole
-	public static synchronized ListaRegoleSempreVere getInstance() {
+	public static synchronized ListaRegoleSempreVereModel getInstance() {
 	   if (listaRegolaSempreVeraInstance == null)
-		   listaRegolaSempreVeraInstance = new ListaRegoleSempreVere();
+		   listaRegolaSempreVeraInstance = new ListaRegoleSempreVereModel();
        return listaRegolaSempreVeraInstance;
     }
 	    
@@ -29,17 +29,6 @@ public class ListaRegoleSempreVere implements Liste{
 	public boolean alreadyExist(String nameToVerify) {
 		if(!listaRegolaSempreVera.containsKey(nameToVerify)) return false;
 		return true;
-	}
-
-	@Override
-	public void printList() {
-		 int i=1;
-	        Set<String> keys = listaRegolaSempreVera.keySet();
-	        for (String k : keys) {
-	            System.out.println(i +". "+ k);
-	            i+=1;
-	        }
-		
 	}
 	
 	public String returnKey(int i) {

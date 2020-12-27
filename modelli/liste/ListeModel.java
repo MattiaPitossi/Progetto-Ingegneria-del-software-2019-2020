@@ -8,7 +8,7 @@ package modelli.liste;
  * @since   versione 1
  */
 
-public interface Liste {
+public interface ListeModel {
 
      /**
      * Verifica che l'elemento non sia gia' in lista 
@@ -18,12 +18,6 @@ public interface Liste {
      * @since      versione 1
      */
     boolean alreadyExist(String nameToVerify);
-
-    /**
-     * Stampa la lista 
-     * @since      versione 1
-     */
-    void printList();
 
     /**
      * Ritorna dimensione della stanza

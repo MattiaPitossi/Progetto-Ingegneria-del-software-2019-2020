@@ -5,13 +5,12 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
-import modelli.liste.ListaAttuatori;
-import modelli.liste.ListaRegoleDueSensori;
-import modelli.liste.ListaRegoleSempreVere;
-import modelli.liste.ListaRegoleSingoloSensore;
-import modelli.liste.ListaSensori;
+import modelli.liste.ListaAttuatoriController;
+import modelli.liste.ListaRegoleDueSensoriController;
+import modelli.liste.ListaRegoleSempreVereController;
+import modelli.liste.ListaRegoleSingoloSensoreController;
+import modelli.liste.ListaSensoriController;
 import utility.InputDati;
 import utility.MyMenu;
 import static utility.MessaggiErroriMenu.*;
@@ -33,7 +32,12 @@ public class MainMenu {
     private boolean alreadyScheduled1;
     private boolean alreadyScheduled2;
     private boolean alreadyScheduled3;
-
+    private ListaRegoleSempreVereController regoleSempreVereController = new ListaRegoleSempreVereController();
+    private ListaRegoleSingoloSensoreController regoleSingoloSensoreController = new ListaRegoleSingoloSensoreController();
+    private ListaRegoleDueSensoriController regoleDueSensoriController = new ListaRegoleDueSensoriController();
+    private ListaSensoriController sensoriController = new ListaSensoriController();
+    private ListaAttuatoriController attuatoriController = new ListaAttuatoriController();
+    
     public void esegui() throws IOException{
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
       boolean fineProgramma = false;
@@ -48,41 +52,12 @@ public class MainMenu {
     
     public boolean eseguiFunzioneScelta(int numFunzione) throws IOException 
     {
-    	if(!alreadyScheduled1) {
-	    	if(!ListaRegoleSempreVere.getInstance().isEmptyList()) {
-	        for(String key : ListaRegoleSempreVere.getInstance().getKeys()) {
-	          TimerTask task = ListaRegoleSempreVere.getInstance().getRegolaSempreVera(key); 
-	          timer1.schedule(task, 0, 300000); 
-	          alreadyScheduled1 = true;
-	        }
-		    } else {
-		  	  System.out.println(ERRORE_NON_CI_SONO_REGOLE_SEMPRE_VERE_AL_MOMENTO);
-		    }
-    	}
+    	
+    	regoleSempreVereController.schedule(alreadyScheduled1, timer1);
 	    
-    	if(!alreadyScheduled2) {
-		   if(!ListaRegoleSingoloSensore.getInstance().isEmptyList()) {
-			  for(String key : ListaRegoleSingoloSensore.getInstance().getKeys()) {
-			   	  TimerTask task = ListaRegoleSingoloSensore.getInstance().getRegolaSingoloSensore(key); 
-		          timer2.schedule(task, 0, 300000); 
-		          alreadyScheduled2 = true;
-			  }
-		   } else {
-		    System.out.println(ERRORE_NON_CI_SONO_REGOLE_CON_UN_SINGOLO_SENSORE_AL_MOMENTO);
-		   }
-    	}
+    	regoleSingoloSensoreController.schedule(alreadyScheduled2, timer2);
 	    
-	   if(!alreadyScheduled3) {
-		   if(!ListaRegoleDueSensori.getInstance().isEmptyList()) {
-			  for(String key : ListaRegoleDueSensori.getInstance().getKeys()) {
-				   TimerTask task = ListaRegoleDueSensori.getInstance().getRegolaDueSensori(key); 
-				   timer3.schedule(task, 0, 300000); 
-				   alreadyScheduled3 = true;
-			  }
-		   } else {
-			 System.out.println(ERRORE_NON_CI_SONO_REGOLE_CON_DUE_SENSORI_AL_MOMENTO);
-		   }
-	   }
+    	regoleDueSensoriController.schedule(alreadyScheduled3, timer3);
 	    
       switch (numFunzione) {
         case 0: // Esci
@@ -101,13 +76,8 @@ public class MainMenu {
 
           if(menuManutentore.isUnitCreated()){
             menuManutentore.printUnitDescription();
-            if(!ListaSensori.getInstance().isEmptyList()){
-              ListaSensori.getInstance().printListAssociations();
-            }
-            if(!ListaAttuatori.getInstance().isEmptyList()){
-              ListaAttuatori.getInstance().printListAssociations();
-            }
-            
+            sensoriController.printListAssociations();
+            attuatoriController.printListAssociations();
             
           } else {
             System.out.println(ERRORE_PRIMA_DEVI_CREARE_UN_UNITA_IMMOBILIARE);
