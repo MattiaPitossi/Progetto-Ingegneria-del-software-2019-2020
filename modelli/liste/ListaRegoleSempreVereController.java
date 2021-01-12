@@ -147,6 +147,14 @@ public class ListaRegoleSempreVereController {
 		
 	}
 	
+	public boolean alreadyExist(String regola) {
+		return ListaRegoleSempreVereModel.getInstance().alreadyExist(regola);
+	}
+	
+	public void addToList(String regola, RegolaSempreVera regolaSempreVera) {
+		ListaRegoleSempreVereModel.getInstance().addToList(regola, regolaSempreVera);
+	}
+	
 	public boolean attivaDisattivaRegolaSempreVera() {
 		boolean fineSceltaRegola = false;
     	boolean fineSceltaContinua = false;

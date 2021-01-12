@@ -57,6 +57,14 @@ public class ListaAttuatoriController {
 		return ListaAttuatoriModel.getInstance().getActuatorFromList(scegliAttuatore).getNomeAttuatore();
 	}
 	
+	public boolean alreadyExist(String attuatore) {
+		return ListaAttuatoriModel.getInstance().alreadyExist(attuatore);
+	}
+	
+	public void addAttuatoreToList(Attuatore attuatore) {
+		ListaAttuatoriModel.getInstance().addAttuatoreToList(attuatore);
+	}
+	
 	public boolean findAttuatoreAzione(int k, Azioni azione) {
 		return ListaAttuatoriModel.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore());
 	}
@@ -94,8 +102,16 @@ public class ListaAttuatoriController {
 		}
 	}
 	
+	public void setModalita(int k, Azioni azione) {
+		ListaAttuatoriModel.getInstance().getActuatorFromList(k).setModalita(azione.getValore());
+	}
+	
 	public boolean verificaNomeAttuatore(int d, ArrayList<Attuatore> listaAttuatori, int i, ArrayList<Attuatore> dispositiviDellUnita) {
 		return listaAttuatori.get(d).getNomeAttuatore().equalsIgnoreCase(dispositiviDellUnita.get(i).getNomeAttuatore());
+	}
+	
+	public boolean verificaNomeAttuatoreAzione(int k, Azioni azione) {
+		return ListaAttuatoriModel.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore());
 	}
 	
 	public void compiAzioneConAttuatore(UnitaImmobiliare unitaImmobiliare, ArrayList<Attuatore> listaAttuatori, ListaCategoriaAttuatoriModel listaCategorieAttuatori){

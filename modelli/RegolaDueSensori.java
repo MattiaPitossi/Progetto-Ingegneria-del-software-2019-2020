@@ -4,7 +4,9 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.TimerTask;
 
+import modelli.liste.ListaAttuatoriController;
 import modelli.liste.ListaAttuatoriModel;
+import modelli.liste.ListaSensoriController;
 import modelli.liste.ListaSensoriModel;
 
 public class RegolaDueSensori extends TimerTask{
@@ -14,6 +16,8 @@ public class RegolaDueSensori extends TimerTask{
 	private Conseguente conseguente;
 	private SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
 	private boolean attivaDisattiva;
+	private ListaSensoriController controllerSensori = new ListaSensoriController();
+	private ListaAttuatoriController controllerAttuatori = new ListaAttuatoriController();
 		
 	public RegolaDueSensori (String nomeRegola, AntecedenteTraDueSensori antecedente, Conseguente conseguente) {
 		this.nomeRegola = nomeRegola;
@@ -96,19 +100,19 @@ public class RegolaDueSensori extends TimerTask{
 			
 			if(operazioneTimeSoddisfata) {
 				//Ciclo per trovare la posizione del sensore scelto nella regola 
-				for(int i = 0; i < ListaSensoriModel.getInstance().getListSize(); i++) {
+				for(int i = 0; i < controllerSensori.getListSize(); i++) {
 					//Se viene trovato inizia il ciclo per trovare la posizone del secondo 
-					if(ListaSensoriModel.getInstance().getSensorFromList(i).getNomeSensore().equalsIgnoreCase(antecedente.getNomeSensore())) {
+					if(controllerSensori.verificaNomePrimoSensore(i, antecedente)) {
 						//Ciclo per troavere la poszione del secondo sensore 
-						for(int j = 0; j < ListaSensoriModel.getInstance().getListSize(); j++) {
+						for(int j = 0; j < controllerSensori.getListSize(); j++) {
 							
 							//Se viene trovato il sensore si iniza a verificare la regola 
-							if(ListaSensoriModel.getInstance().getSensorFromList(j).getNomeSensore().equalsIgnoreCase(antecedente.getNomeSecondoSensore())) {
+							if(controllerSensori.verificaNomeSecondoSensore(j, antecedente)) {
 								//Ciclo if else per verificare quale e' l'operazione booleana da soddisfare
 								if(antecedente.getOperatoreBooleano().equalsIgnoreCase(">")) {
 									
 									//Ciclo che verifica se l'operazione booleana > e' verificata
-									if(ListaSensoriModel.getInstance().getSensorFromList(i).getValoreRilevato() > ListaSensoriModel.getInstance().getSensorFromList(j).getValoreRilevato()) {
+									if(controllerSensori.getValoreRilevato(i) > controllerSensori.getValoreRilevato(j)) {
 										operazioneSoddisfata = true;
 									} else {
 										System.out.println("L'operazione della regola " + nomeRegola + " non è soddisfata");
@@ -116,7 +120,7 @@ public class RegolaDueSensori extends TimerTask{
 								} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase(">=")) {
 									
 									//Ciclo che verifica se l'operazione booleana >= e' verificata
-									if(ListaSensoriModel.getInstance().getSensorFromList(i).getValoreRilevato() >= ListaSensoriModel.getInstance().getSensorFromList(j).getValoreRilevato()) {
+									if(controllerSensori.getValoreRilevato(i) >= controllerSensori.getValoreRilevato(j)) {
 										operazioneSoddisfata = true;
 									} else {
 										System.out.println("L'operazione della regola " + nomeRegola + " non è soddisfata");
@@ -124,7 +128,7 @@ public class RegolaDueSensori extends TimerTask{
 								} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase("<")) {
 									
 									//Ciclo che verifica se l'operazione booleana < e' verificata
-									if(ListaSensoriModel.getInstance().getSensorFromList(i).getValoreRilevato() < ListaSensoriModel.getInstance().getSensorFromList(j).getValoreRilevato()) {
+									if(controllerSensori.getValoreRilevato(i) < controllerSensori.getValoreRilevato(j)) {
 										operazioneSoddisfata = true;
 									} else {
 										System.out.println("L'operazione della regola " + nomeRegola + " non è soddisfata");
@@ -132,7 +136,7 @@ public class RegolaDueSensori extends TimerTask{
 								} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase("<=")) {
 									
 									//Ciclo che verifica se l'operazione booleana <= e' verificata
-									if(ListaSensoriModel.getInstance().getSensorFromList(i).getValoreRilevato() <= ListaSensoriModel.getInstance().getSensorFromList(j).getValoreRilevato()) {
+									if(controllerSensori.getValoreRilevato(i) <= controllerSensori.getValoreRilevato(j)) {
 										operazioneSoddisfata = true;
 									} else {
 										System.out.println("L'operazione della regola " + nomeRegola + " non è soddisfata");
@@ -140,7 +144,7 @@ public class RegolaDueSensori extends TimerTask{
 								} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase("=")) {
 									
 									//Ciclo che verifica se l'operazione booleana = e' verificata
-									if(ListaSensoriModel.getInstance().getSensorFromList(i).getValoreRilevato() == ListaSensoriModel.getInstance().getSensorFromList(j).getValoreRilevato()) {
+									if(controllerSensori.getValoreRilevato(i) == controllerSensori.getValoreRilevato(j)) {
 										operazioneSoddisfata = true;
 									}  else {
 										System.out.println("L'operazione della regola " + nomeRegola + " non è soddisfata");
@@ -159,15 +163,15 @@ public class RegolaDueSensori extends TimerTask{
 								for(Azioni azione : conseguente.getArrayAzioni()) {
 									
 									//Ciclo for per trovare la posizione dell'attuatore 
-									for(int k = 0; k < ListaAttuatoriModel.getInstance().getListSize(); k++) {
+									for(int k = 0; k < controllerAttuatori.getSize(); k++) {
 										
 										//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 
-										if(ListaAttuatoriModel.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore())) {
+										if(controllerAttuatori.verificaNomeAttuatoreAzione(k, azione)) {
 											
 											System.out.println("L'operazione delle regola " + nomeRegola + " e' soddisfatta, l'attuatore " + azione.getNomeAttuatore() + " e' stato impostato a " + azione.getValore());
 											//Se if si avvera' allora viene impostato il valore contenuto nell'azione
 											//Non serve prenderlo dalla categoria visto che e' gia' stato preso nel metodo della creazione dell'azione
-											ListaAttuatoriModel.getInstance().getActuatorFromList(k).setModalita(azione.getValore());
+											controllerAttuatori.setModalita(k, azione);
 										}
 									}
 								}

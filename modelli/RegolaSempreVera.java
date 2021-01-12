@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.TimerTask;
 
+import modelli.liste.ListaAttuatoriController;
 import modelli.liste.ListaAttuatoriModel;
 
 public class RegolaSempreVera extends TimerTask{
@@ -13,6 +14,7 @@ public class RegolaSempreVera extends TimerTask{
 	private Conseguente conseguente;
 	private SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
 	private boolean attivaDisattiva;
+	private ListaAttuatoriController controllerAttuatori = new ListaAttuatoriController();
 	
 	public RegolaSempreVera (String nomeRegola, AntecedenteSempreVero antecedente, Conseguente conseguente) {
 		this.nomeRegola = nomeRegola;
@@ -63,15 +65,15 @@ public class RegolaSempreVera extends TimerTask{
 			for(Azioni azione : conseguente.getArrayAzioni()) {
 				
 				//Ciclo for per trovare la posizione dell'attuatore 
-				for(int k = 0; k < ListaAttuatoriModel.getInstance().getListSize(); k++) {
+				for(int k = 0; k < controllerAttuatori.getSize(); k++) {
 					
-					//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 
-					if(ListaAttuatoriModel.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore())) {
+					//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 	
+					if(controllerAttuatori.verificaNomeAttuatoreAzione(k, azione)) {
 						
 						System.out.println("L'operazione delle regola " + nomeRegola + " e' soddisfatta, l'attuatore " + azione.getNomeAttuatore() + " e' stato impostato a " + azione.getValore());
 						//Se if si avvera' allora viene impostato il valore contenuto nell'azione
 						//Non serve prenderlo dalla categoria visto che e' gia' stato preso nel metodo della creazione dell'azione
-						ListaAttuatoriModel.getInstance().getActuatorFromList(k).setModalita(azione.getValore());
+						controllerAttuatori.setModalita(k, azione);
 					}
 				}
 			}

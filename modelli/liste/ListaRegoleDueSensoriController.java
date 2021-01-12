@@ -61,6 +61,13 @@ public class ListaRegoleDueSensoriController {
 		return ListaRegoleDueSensoriModel.getInstance().isEmptyList();
 	}
 	
+	public void addToList(String regola, RegolaDueSensori regolaDueSensori) {
+		ListaRegoleDueSensoriModel.getInstance().addToList(regola, regolaDueSensori);
+	}
+	public boolean alreadyExist(String regola) {
+		return ListaRegoleDueSensoriModel.getInstance().alreadyExist(regola);
+	}
+	
 	public boolean schedule(boolean alreadyScheduled3, Timer timer3) {
 		 if(!alreadyScheduled3) {
 			   if(!ListaRegoleDueSensoriModel.getInstance().isEmptyList()) {

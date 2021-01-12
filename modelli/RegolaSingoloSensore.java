@@ -4,7 +4,9 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.TimerTask;
 
+import modelli.liste.ListaAttuatoriController;
 import modelli.liste.ListaAttuatoriModel;
+import modelli.liste.ListaSensoriController;
 import modelli.liste.ListaSensoriModel;
 
 public class RegolaSingoloSensore extends TimerTask{
@@ -15,6 +17,8 @@ public class RegolaSingoloSensore extends TimerTask{
     private SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
 	private boolean attivaDisattiva;
 	private String tipoRegola;
+	private ListaSensoriController controllerSensori = new ListaSensoriController();
+	private ListaAttuatoriController controllerAttuatori = new ListaAttuatoriController();
 	
 	public RegolaSingoloSensore (String nomeRegola, AntecedenteSingoloSensore antecedente, Conseguente conseguente, String tipoRegola) {
 		this.nomeRegola = nomeRegola;
@@ -102,8 +106,8 @@ public class RegolaSingoloSensore extends TimerTask{
 			
 			if(operazioneTimeSoddisfata) {
 				//Ciclo per trovare la posizione del sensore NUMERICO se non viene trovato allora il sensore e' NON NUMERICO 
-				for(int i = 0; i < ListaSensoriModel.getInstance().getListSize(); i++) {
-					if(ListaSensoriModel.getInstance().getSensorFromList(i).getNomeSensore().equalsIgnoreCase(antecedente.getNomeSensore())) {
+				for(int i = 0; i < controllerSensori.getListSize(); i++) {
+					if(controllerSensori.verificaNomeSensore(i, antecedente)) {
 						
 						if(tipoRegola.equalsIgnoreCase("Numerico")) {
 							//Viene trasformato il valore confrontato in un int 
@@ -112,7 +116,7 @@ public class RegolaSingoloSensore extends TimerTask{
 							//Ciclo if else per verificare quale e' l'operazione booleana da soddisfare
 							if(antecedente.getOperatoreBooleano().equalsIgnoreCase(">")) {
 								//Ciclo che verifica se l'operazione booleana > e' verificata
-								if(ListaSensoriModel.getInstance().getSensorFromList(i).getValoreRilevato() > valoreRilevato) {
+								if(controllerSensori.getValoreRilevato(i) > valoreRilevato) {
 									operazioneSoddisfata = true;
 								} else {
 									System.out.println("L'operazione della regola " + nomeRegola + " non è soddisfata");
@@ -120,7 +124,7 @@ public class RegolaSingoloSensore extends TimerTask{
 							} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase(">=")) {
 								
 								//Ciclo che verifica se l'operazione booleana >= e' verificata
-								if(ListaSensoriModel.getInstance().getSensorFromList(i).getValoreRilevato() >= valoreRilevato) {
+								if(controllerSensori.getValoreRilevato(i) >= valoreRilevato) {
 									operazioneSoddisfata = true;
 								} else {
 									System.out.println("L'operazione della regola " + nomeRegola + " non è soddisfata");
@@ -128,7 +132,7 @@ public class RegolaSingoloSensore extends TimerTask{
 							} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase("<")) {
 								
 								//Ciclo che verifica se l'operazione booleana < e' verificata
-								if(ListaSensoriModel.getInstance().getSensorFromList(i).getValoreRilevato() < valoreRilevato) {
+								if(controllerSensori.getValoreRilevato(i) < valoreRilevato) {
 									operazioneSoddisfata = true;
 								} else {
 									System.out.println("L'operazione della regola " + nomeRegola + " non è soddisfata");
@@ -136,7 +140,7 @@ public class RegolaSingoloSensore extends TimerTask{
 							} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase("<=")) {
 								
 								//Ciclo che verifica se l'operazione booleana <= e' verificata
-								if(ListaSensoriModel.getInstance().getSensorFromList(i).getValoreRilevato() <= valoreRilevato) {
+								if(controllerSensori.getValoreRilevato(i) <= valoreRilevato) {
 									operazioneSoddisfata = true;
 								} else {
 									System.out.println("L'operazione della regola " + nomeRegola + " non è soddisfata");
@@ -144,7 +148,7 @@ public class RegolaSingoloSensore extends TimerTask{
 							} else if(antecedente.getOperatoreBooleano().equalsIgnoreCase("=")) {
 								
 								//Ciclo che verifica se l'operazione booleana = e' verificata
-								if(ListaSensoriModel.getInstance().getSensorFromList(i).getValoreRilevato() == valoreRilevato) {
+								if(controllerSensori.getValoreRilevato(i) == valoreRilevato) {
 									operazioneSoddisfata = true;
 								}  else {
 									System.out.println("L'operazione della regola " + nomeRegola + " non è soddisfata");
@@ -152,11 +156,11 @@ public class RegolaSingoloSensore extends TimerTask{
 							}
 						} else {
 							//Ciclo per trovare la posizione del sensore NON NUMERICO
-							for(int j = 0; j < ListaSensoriModel.getInstance().getListSize(); j++) {
-								if(ListaSensoriModel.getInstance().getSensorFromList(j).getNomeSensore().equalsIgnoreCase(antecedente.getNomeSensore())) {
+							for(int j = 0; j < controllerSensori.getListSize(); j++) {
+								if(controllerSensori.verificaNomeSensore(j, antecedente)) {
 									
 									//Ciclo che verifica se l'operazione booleana = e' verificata
-									if(ListaSensoriModel.getInstance().getSensorFromList(j).getValoreRilevatoNonNumerico() == antecedente.getValoreConfrontato()) {
+									if(controllerSensori.getValoreRilevatoNonNumerico(j) == antecedente.getValoreConfrontato()) {
 										operazioneSoddisfata = true;
 									}  else {
 										System.out.println("L'operazione della regola " + nomeRegola + " non è soddisfata");
@@ -180,15 +184,15 @@ public class RegolaSingoloSensore extends TimerTask{
 					for(Azioni azione : conseguente.getArrayAzioni()) {
 						
 						//Ciclo for per trovare la posizione dell'attuatore 
-						for(int k = 0; k < ListaAttuatoriModel.getInstance().getListSize(); k++) {
+						for(int k = 0; k < controllerAttuatori.getSize(); k++) {
 							
 							//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 
-							if(ListaAttuatoriModel.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore())) {
+							if(controllerAttuatori.verificaNomeAttuatoreAzione(k, azione)) {
 								
 								System.out.println("L'operazione delle regola " + nomeRegola + " e' soddisfatta, l'attuatore " + azione.getNomeAttuatore() + " e' stato impostato a " + azione.getValore());
 								//Se if si avvera' allora viene impostato il valore contenuto nell'azione
 								//Non serve prenderlo dalla categoria visto che e' gia' stato preso nel metodo della creazione dell'azione
-								ListaAttuatoriModel.getInstance().getActuatorFromList(k).setModalita(azione.getValore());
+								controllerAttuatori.setModalita(k, azione);
 							}
 						}
 					}

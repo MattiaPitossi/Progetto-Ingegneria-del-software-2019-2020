@@ -43,6 +43,13 @@ public class ListaUnitaImmobiliareController {
 		 return ListaUnitaImmobiliareModel.getInstance().isEmptyList();
 	 }
 	 
+	 public boolean alreadyExist(String unita) {
+		 return ListaUnitaImmobiliareModel.getInstance().alreadyExist(unita);
+	 }
+	 
+	 public void addUnita(UnitaImmobiliare unita) {
+		 ListaUnitaImmobiliareModel.getInstance().addUnitaToList(unita);
+	 }
 	 
 	 public void printList() {
 		 int i = 1;

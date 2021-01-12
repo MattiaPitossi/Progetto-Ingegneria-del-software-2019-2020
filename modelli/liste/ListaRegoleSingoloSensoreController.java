@@ -64,6 +64,10 @@ public class ListaRegoleSingoloSensoreController {
 		return ListaRegoleSingoloSensoreModel.getInstance().isEmptyList();
 	}
 	
+	public void addToList(String regola, RegolaSingoloSensore regolaSingoloSensore) {
+		ListaRegoleSingoloSensoreModel.getInstance().addToList(regola, regolaSingoloSensore);
+	}
+	
 	public boolean schedule(boolean alreadyScheduled2, Timer timer2) {
 		if(!alreadyScheduled2) {
 			   if(!ListaRegoleSingoloSensoreModel.getInstance().isEmptyList()) {
@@ -79,7 +83,11 @@ public class ListaRegoleSingoloSensoreController {
 		
 		return alreadyScheduled2 = false;
 	}
-
+	
+	public boolean alreadyExist(String regola) {
+		return ListaRegoleSingoloSensoreModel.getInstance().alreadyExist(regola);
+	}
+ 
 	public void creaRegolaSingoloSensore(ArrayList<Azioni> azioni) {
     	int scegliAttuatore;
     	int scegliTipoSensore;

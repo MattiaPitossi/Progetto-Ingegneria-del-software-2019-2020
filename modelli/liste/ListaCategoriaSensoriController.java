@@ -36,6 +36,10 @@ public class ListaCategoriaSensoriController {
 		return ListaCategoriaSensoriModel.getInstance().getCategoriaSensori(choiceSensorCategory);
 	}
 	
+	public void addToList(String choiceSensorCategory, CategoriaSensori categoriaCreata) {
+		ListaCategoriaSensoriModel.getInstance().addToList(choiceSensorCategory, categoriaCreata);
+	}
+	
 	public int sizeDominioValoriRilevati(int scegliSensore) {
 		return ListaCategoriaSensoriModel.getInstance().getCategoriaSensori(ListaSensoriModel.getInstance().getSensorFromList(scegliSensore).getCategoriaAssociata()).getDominioValoriRilevati().size();
 	}

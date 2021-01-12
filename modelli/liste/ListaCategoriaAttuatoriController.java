@@ -48,6 +48,10 @@ public class ListaCategoriaAttuatoriController {
     	return ListaCategoriaAttuatoriModel.getInstance().alreadyExist(choiceActuatorCategory);
     }
     
+    public void addToList(String choiceActuatorCategory, CategoriaAttuatori categoria) {
+    	ListaCategoriaAttuatoriModel.getInstance().addToList(choiceActuatorCategory, categoria);
+    }
+    
     public ListaCategoriaAttuatoriModel getInstance() {
     	return ListaCategoriaAttuatoriModel.getInstance();
     }

@@ -20,6 +20,8 @@ import static utility.MessaggiErroriMenu.MESS_VUOI_ATTIVARE_IL_SENSORE_Y_N;
 import static utility.MessaggiErroriMenu.MESS_VUOI_ATTIVARE_O_DISATTIVARE_ALTRI_SENSORI_O_ATTUATORI_Y_N;
 import static utility.MessaggiErroriMenu.MESS_VUOI_DISATTIVARE_IL_SENSORE_Y_N;
 
+import modelli.AntecedenteSingoloSensore;
+import modelli.AntecedenteTraDueSensori;
 import modelli.UnitaImmobiliare;
 import modelli.dispositivi.Sensore;
 import modelli.dispositivi.SensoreNonNumerico;
@@ -51,6 +53,34 @@ public class ListaSensoriController {
 		 if(!ListaSensoriModel.getInstance().isEmptyList()){
              ListaSensoriModel.getInstance().printListAssociations();
            }
+	}
+	
+	public void addSensoreToList(Sensore sensore) {
+		ListaSensoriModel.getInstance().addSensoreToList(sensore);;
+	}
+	
+	public boolean verificaNomePrimoSensore(int i, AntecedenteTraDueSensori antecedente) {
+		return ListaSensoriModel.getInstance().getSensorFromList(i).getNomeSensore().equalsIgnoreCase(antecedente.getNomeSensore());
+	}
+	
+	public boolean alreadyExist(String sensore) {
+		return ListaSensoriModel.getInstance().alreadyExist(sensore);
+	}
+	
+	public boolean verificaNomeSensore(int i, AntecedenteSingoloSensore antecedente) {
+		return ListaSensoriModel.getInstance().getSensorFromList(i).getNomeSensore().equalsIgnoreCase(antecedente.getNomeSensore());
+	}
+	
+	public int getValoreRilevato(int i) {
+		return ListaSensoriModel.getInstance().getSensorFromList(i).getValoreRilevato();
+	}
+	
+	public String getValoreRilevatoNonNumerico(int j) {
+		return ListaSensoriModel.getInstance().getSensorFromList(j).getValoreRilevatoNonNumerico();
+	}
+	
+	public boolean verificaNomeSecondoSensore(int j, AntecedenteTraDueSensori antecedente) {
+		return ListaSensoriModel.getInstance().getSensorFromList(j).getNomeSensore().equalsIgnoreCase(antecedente.getNomeSecondoSensore());
 	}
 	
 	public boolean isStatoAttivo(int k) {

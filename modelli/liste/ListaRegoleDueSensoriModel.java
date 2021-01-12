@@ -1,9 +1,11 @@
 package modelli.liste;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import modelli.Azioni;
 import modelli.RegolaDueSensori;
 import modelli.RegolaSempreVera;
 import modelli.RegolaSingoloSensore;
@@ -67,4 +69,8 @@ public class ListaRegoleDueSensoriModel implements ListeModel{
 	public void addToList(String name, RegolaDueSensori regola){
 		listaRegoleDueSensori.put(name, regola);
     }
+	
+	public ArrayList<Azioni> getArrayAzioni(String keyRegola) {
+		return this.getInstance().getRegolaDueSensori(keyRegola).getConseguente().getArrayAzioni();
+	}
 }
