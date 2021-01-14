@@ -8,7 +8,7 @@ package modelli.liste;
  * @since   versione 1
  */
 
-public interface ListeModel {
+public interface ListeModelExist {
 
      /**
      * Verifica che l'elemento non sia gia' in lista 
@@ -18,18 +18,5 @@ public interface ListeModel {
      * @since      versione 1
      */
     boolean alreadyExist(String nameToVerify);
-
-    /**
-     * Ritorna dimensione della stanza
-     * @since      versione 1
-     */
-    int getListSize();
-
-    /**
-     * Verifica se le liste sono vuote
-     * @since      versione 1
-     */
-    boolean isEmptyList();
-
     
 }

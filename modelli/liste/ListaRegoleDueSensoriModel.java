@@ -10,7 +10,7 @@ import modelli.RegolaDueSensori;
 import modelli.RegolaSempreVera;
 import modelli.RegolaSingoloSensore;
 
-public class ListaRegoleDueSensoriModel implements ListeModel{
+public class ListaRegoleDueSensoriModel implements ListeModelExist, ListeModelEmpty, ListeModelSize{
 	private Map<String, RegolaDueSensori> listaRegoleDueSensori;
     private static ListaRegoleDueSensoriModel listaRegoleDueSensoriInstance;
 

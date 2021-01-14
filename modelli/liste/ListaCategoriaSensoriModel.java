@@ -7,7 +7,7 @@ import java.util.Set;
 import modelli.categorie.*;
 import modelli.dispositivi.Attuatore;
 
-public class ListaCategoriaSensoriModel implements ListeModel{
+public class ListaCategoriaSensoriModel implements ListeModelExist, ListeModelEmpty, ListeModelSize{
     private Map<String, CategoriaSensori> listaCategoriaSensori;
     private static ListaCategoriaSensoriModel listaCategoriaSensoriInstance;
 

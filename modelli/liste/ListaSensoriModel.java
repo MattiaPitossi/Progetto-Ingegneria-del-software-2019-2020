@@ -17,7 +17,7 @@ import modelli.dispositivi.SensoreNumerico;
  * @since   versione 1
  */
 
-public class ListaSensoriModel implements ListeModel {
+public class ListaSensoriModel implements ListeModelExist, ListeModelEmpty, ListeModelSize {
 
     private ArrayList<Sensore> listaSensori = new ArrayList<>();
     private static ListaSensoriModel listaSensoriInstance;

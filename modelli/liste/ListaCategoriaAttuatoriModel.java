@@ -1,5 +1,6 @@
 package modelli.liste;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -7,7 +8,7 @@ import java.util.Set;
 import modelli.categorie.*;
 import modelli.dispositivi.Attuatore;
 
-public class ListaCategoriaAttuatoriModel implements ListeModel{
+public class ListaCategoriaAttuatoriModel implements ListeModelExist, ListeModelEmpty, ListeModelSize{
     private Map<String, CategoriaAttuatori> listaCategoriaAttuatori;
     private static ListaCategoriaAttuatoriModel listaCategoriaAttuatoriInstance;
 
@@ -59,4 +60,8 @@ public class ListaCategoriaAttuatoriModel implements ListeModel{
 		Set<String> keys = listaCategoriaAttuatori.keySet();
 		return keys;
 	}
+    
+    public String getNome(boolean verifica, ArrayList<Attuatore> listaAttuatori, int x) {
+    	return this.getCategoriaAttuatori(listaAttuatori.get(x).getCategoriaAssociata()).getListaModalitaOperativeParametriche(verifica).getNome();
+    }
 }

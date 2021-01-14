@@ -9,7 +9,7 @@ import modelli.RegolaSempreVera;
 import modelli.categorie.CategoriaAttuatori;
 import modelli.dispositivi.Sensore;
 
-public class ListaRegoleSempreVereModel implements ListeModel{
+public class ListaRegoleSempreVereModel implements ListeModelExist, ListeModelEmpty, ListeModelSize{
 	 private Map<String, RegolaSempreVera> listaRegolaSempreVera;
 	    private static ListaRegoleSempreVereModel listaRegolaSempreVeraInstance;
 

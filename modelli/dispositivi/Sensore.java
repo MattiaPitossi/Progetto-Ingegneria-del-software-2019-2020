@@ -10,7 +10,7 @@ import modelli.categorie.*;
  */
 
 
-public class Sensore {
+public abstract class Sensore {
     
     private String nomeSensore;
     //per la prima versione e' sempre attivo

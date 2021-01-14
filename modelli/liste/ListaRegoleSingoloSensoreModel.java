@@ -8,7 +8,7 @@ import modelli.RegolaSempreVera;
 import modelli.RegolaSingoloSensore;
 import modelli.categorie.CategoriaAttuatori;
 
-public class ListaRegoleSingoloSensoreModel implements ListeModel{
+public class ListaRegoleSingoloSensoreModel implements ListeModelExist, ListeModelEmpty, ListeModelSize {
 	private Map<String, RegolaSingoloSensore> listaRegoleSingoloSensore;
     private static ListaRegoleSingoloSensoreModel listaRegoleSingoloSensoreInstance;
 

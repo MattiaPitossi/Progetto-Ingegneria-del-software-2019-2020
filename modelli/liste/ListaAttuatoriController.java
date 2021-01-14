@@ -54,7 +54,7 @@ public class ListaAttuatoriController {
 	}
 	
 	public String getNomeAttuatore(int scegliAttuatore) {
-		return ListaAttuatoriModel.getInstance().getActuatorFromList(scegliAttuatore).getNomeAttuatore();
+		return ListaAttuatoriModel.getInstance().getNomeAttuatore(scegliAttuatore);
 	}
 	
 	public boolean alreadyExist(String attuatore) {
@@ -66,7 +66,7 @@ public class ListaAttuatoriController {
 	}
 	
 	public boolean findAttuatoreAzione(int k, Azioni azione) {
-		return ListaAttuatoriModel.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore());
+		return ListaAttuatoriModel.getInstance().getNomeAttuatore(k).equalsIgnoreCase(azione.getNomeAttuatore());
 	}
 	
 	public boolean isStatoAttivo(int k) {
@@ -111,7 +111,7 @@ public class ListaAttuatoriController {
 	}
 	
 	public boolean verificaNomeAttuatoreAzione(int k, Azioni azione) {
-		return ListaAttuatoriModel.getInstance().getActuatorFromList(k).getNomeAttuatore().equalsIgnoreCase(azione.getNomeAttuatore());
+		return ListaAttuatoriModel.getInstance().getNomeAttuatore(k).equalsIgnoreCase(azione.getNomeAttuatore());
 	}
 	
 	public void compiAzioneConAttuatore(UnitaImmobiliare unitaImmobiliare, ArrayList<Attuatore> listaAttuatori, ListaCategoriaAttuatoriModel listaCategorieAttuatori){
@@ -171,7 +171,7 @@ public class ListaAttuatoriController {
 					
 				//Nel caso scelga due viene verificato che la categoria abbia delle modalita parametriche, se ci sono allora viene scelta 	
 				} else if (j == 2) {
-					if(listaCategorieAttuatori.getCategoriaAttuatori(listaAttuatori.get(x).getCategoriaAssociata()).getListaModalitaOperativeParametriche(verifica).getNome().equalsIgnoreCase("")) {
+					if(listaCategorieAttuatori.getNome(verifica, listaAttuatori, x).equalsIgnoreCase("")) {
 						System.out.println("Non sono presenti Modalità Operative Parametriche. ");
 					} else {
 						ModalitaOperativaParametrica modalita = listaCategorieAttuatori.getCategoriaAttuatori(listaAttuatori.get(x).getCategoriaAssociata()).getListaModalitaOperativeParametriche(!verifica);

@@ -21,7 +21,7 @@ import utility.InputDati;
  * @since   versione 1
  */
 
-public class ListaAttuatoriModel implements ListeModel {
+public class ListaAttuatoriModel implements ListeModelExist, ListeModelEmpty, ListeModelSize {
 
     ArrayList<Attuatore> listaAttuatori = new ArrayList<>();
     private static ListaAttuatoriModel listaAttuatoriInstance;
@@ -119,5 +119,9 @@ public class ListaAttuatoriModel implements ListeModel {
         if(listaAttuatori.isEmpty()) return true;
         return false;
     }
+    
+    public String getNomeAttuatore(int scegliAttuatore) {
+		return this.getActuatorFromList(scegliAttuatore).getNomeAttuatore();
+	}
     
 }

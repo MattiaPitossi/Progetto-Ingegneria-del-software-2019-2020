@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import modelli.UnitaImmobiliare;
 import modelli.dispositivi.Sensore;
 
-public class ListaUnitaImmobiliareModel implements ListeModel {
+public class ListaUnitaImmobiliareModel implements ListeModelExist, ListeModelEmpty, ListeModelSize {
 
 
     private static ListaUnitaImmobiliareModel listaUnitaImmobiliareInstance;
