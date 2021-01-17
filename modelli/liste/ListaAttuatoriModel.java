@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import modelli.categorie.*;
+import modelli.Azioni;
 import modelli.ModalitaOperativaParametrica;
 import modelli.Parametro;
 import modelli.UnitaImmobiliare;
@@ -24,19 +25,8 @@ import utility.InputDati;
 public class ListaAttuatoriModel implements ListeModelExist, ListeModelEmpty, ListeModelSize {
 
     ArrayList<Attuatore> listaAttuatori = new ArrayList<>();
-    private static ListaAttuatoriModel listaAttuatoriInstance;
     Random random = new Random();
     private InputDati inputDati = new InputDati();
-    /** 
-     * Per evitare race conditions..inoltre evita che vengano create più istanze di liste categorie
-     * 
-     * @since versione 1 
-     */
-    public static synchronized ListaAttuatoriModel getInstance() {
-        if (listaAttuatoriInstance == null)
-            listaAttuatoriInstance = new ListaAttuatoriModel();
-        return listaAttuatoriInstance;
-    }
 
      /** 
      * Questo metodo controlla che non sia gia' presente una artefatto
@@ -107,6 +97,26 @@ public class ListaAttuatoriModel implements ListeModelExist, ListeModelEmpty, Li
     
     public  ArrayList<Attuatore> getArray() {
     	 return listaAttuatori;
+    }
+    
+    public String getCategoriaAssociata(int scegliAttuatore) {
+    	return this.getActuatorFromList(scegliAttuatore).getCategoriaAssociata();
+    }
+    
+    public boolean verificaNome(int k, Azioni azione) {
+    	return this.getNomeAttuatore(k).equalsIgnoreCase(azione.getNomeAttuatore());
+    }
+    
+    public void setStato(int sceltaAttuatore, boolean veroFalso) {
+    	this.getActuatorFromList(sceltaAttuatore).setStatoAttivo(veroFalso);
+    }
+    
+    public boolean isStatoAttivo(int k) {
+    	return this.getActuatorFromList(k).isStatoAttivo();
+    }
+    
+    public void setModalita(int k, Azioni azione) {
+    	this.getActuatorFromList(k).setModalita(azione.getValore());
     }
 
     @Override

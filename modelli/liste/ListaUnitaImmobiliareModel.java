@@ -8,17 +8,8 @@ import modelli.dispositivi.Sensore;
 public class ListaUnitaImmobiliareModel implements ListeModelExist, ListeModelEmpty, ListeModelSize {
 
 
-    private static ListaUnitaImmobiliareModel listaUnitaImmobiliareInstance;
     ArrayList<UnitaImmobiliare> listaUnitaImmobiliare = new ArrayList<>();
-    /** 
-     * 
-     * @since versione 2 
-     */
-	public static synchronized ListaUnitaImmobiliareModel getInstance() {
-        if (listaUnitaImmobiliareInstance == null)
-        	listaUnitaImmobiliareInstance = new ListaUnitaImmobiliareModel();
-        return listaUnitaImmobiliareInstance;
-    }
+  
 
     /** 
      * Questo metodo controlla che non sia gia' presente una artefatto

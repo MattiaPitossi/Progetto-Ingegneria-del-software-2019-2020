@@ -18,13 +18,6 @@ public class ListaRegoleSempreVereModel implements ListeModelExist, ListeModelEm
 		listaRegolaSempreVera = new HashMap<>();
     }
 	    
-	//evita che vengano create più istanze di liste regole
-	public static synchronized ListaRegoleSempreVereModel getInstance() {
-	   if (listaRegolaSempreVeraInstance == null)
-		   listaRegolaSempreVeraInstance = new ListaRegoleSempreVereModel();
-       return listaRegolaSempreVeraInstance;
-    }
-	    
 	@Override
 	public boolean alreadyExist(String nameToVerify) {
 		if(!listaRegolaSempreVera.containsKey(nameToVerify)) return false;

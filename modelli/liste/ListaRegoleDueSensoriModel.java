@@ -12,19 +12,11 @@ import modelli.RegolaSingoloSensore;
 
 public class ListaRegoleDueSensoriModel implements ListeModelExist, ListeModelEmpty, ListeModelSize{
 	private Map<String, RegolaDueSensori> listaRegoleDueSensori;
-    private static ListaRegoleDueSensoriModel listaRegoleDueSensoriInstance;
 
     //costruttore che inizializza hashmap 
     public ListaRegoleDueSensoriModel(){
     	listaRegoleDueSensori = new HashMap<>();
     }
-    
-	//Evita che vengano create più istanze di liste regole
-	public static synchronized ListaRegoleDueSensoriModel getInstance() {
-	   if (listaRegoleDueSensoriInstance == null)
-		   listaRegoleDueSensoriInstance = new ListaRegoleDueSensoriModel();
-	   return listaRegoleDueSensoriInstance;
-	}
 	
 	public String returnKey(int i) {
 		int j = 0;
@@ -71,6 +63,6 @@ public class ListaRegoleDueSensoriModel implements ListeModelExist, ListeModelEm
     }
 	
 	public ArrayList<Azioni> getArrayAzioni(String keyRegola) {
-		return this.getInstance().getRegolaDueSensori(keyRegola).getConseguente().getArrayAzioni();
+		return this.getRegolaDueSensori(keyRegola).getConseguente().getArrayAzioni();
 	}
 }

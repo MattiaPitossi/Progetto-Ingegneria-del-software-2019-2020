@@ -24,11 +24,13 @@ public class ListaCategoriaAttuatoriController {
 	
 	private InputDati inputDati = new InputDati();
 	private ListaCategoriaAttuatoriView viewCategoriaAttuatori = new ListaCategoriaAttuatoriView();
+	private ListaCategoriaAttuatoriModel modelCategoriaAttuatori = new ListaCategoriaAttuatoriModel();
+	private ListaAttuatoriController controllerAttuatori = new ListaAttuatoriController();
 	
 
     public void printList() {
         int i=1;
-        Set<String> keys = ListaCategoriaAttuatoriModel.getInstance().getKeys();
+        Set<String> keys = modelCategoriaAttuatori.getKeys();
         for (String k : keys) {
         	viewCategoriaAttuatori.printNomeCategoria(i, k);
             i+=1;
@@ -37,27 +39,27 @@ public class ListaCategoriaAttuatoriController {
     }
     
     public String getModalitaOperativaNonParametrica(int scegliAttuatore) {
-    	return ListaCategoriaAttuatoriModel.getInstance().getCategoriaAttuatori(ListaAttuatoriModel.getInstance().getActuatorFromList(scegliAttuatore).getCategoriaAssociata()).getModalitaOperativaNonParametrica();
+    	return modelCategoriaAttuatori.getCategoriaAttuatori(controllerAttuatori.getCategoriaAssociata(scegliAttuatore)).getModalitaOperativaNonParametrica();
     }
     
     public boolean isCategoriaNonParametrica(boolean verifica, int scegliAttuatore) {
-    	return ListaCategoriaAttuatoriModel.getInstance().getCategoriaAttuatori(ListaAttuatoriModel.getInstance().getActuatorFromList(scegliAttuatore).getCategoriaAssociata()).getListaModalitaOperativeParametriche(verifica).getNome().equalsIgnoreCase("");
+    	return modelCategoriaAttuatori.getCategoriaAttuatori(controllerAttuatori.getCategoriaAssociata(scegliAttuatore)).getListaModalitaOperativeParametriche(verifica).getNome().equalsIgnoreCase("");
     }
     
     public boolean alreadyExist(String choiceActuatorCategory) {
-    	return ListaCategoriaAttuatoriModel.getInstance().alreadyExist(choiceActuatorCategory);
+    	return modelCategoriaAttuatori.alreadyExist(choiceActuatorCategory);
     }
     
     public void addToList(String choiceActuatorCategory, CategoriaAttuatori categoria) {
-    	ListaCategoriaAttuatoriModel.getInstance().addToList(choiceActuatorCategory, categoria);
+    	modelCategoriaAttuatori.addToList(choiceActuatorCategory, categoria);
     }
     
     public ListaCategoriaAttuatoriModel getInstance() {
-    	return ListaCategoriaAttuatoriModel.getInstance();
+    	return modelCategoriaAttuatori;
     }
     
     public CategoriaAttuatori getCategoriaAttuatori(String choiceActuatorCategory) {
-    	return ListaCategoriaAttuatoriModel.getInstance().getCategoriaAttuatori(choiceActuatorCategory);
+    	return modelCategoriaAttuatori.getCategoriaAttuatori(choiceActuatorCategory);
     }
 	
 	public boolean creaNuovaCategoria(boolean atLeastOneActuatorCategoryCreated) {
@@ -70,10 +72,10 @@ public class ListaCategoriaAttuatoriController {
         CategoriaAttuatori categoriaAttuatoriCreata = null;
         do {
           nomeCategoriaAttuatori = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA_DEGLI_ATTUATORI);
-          if (ListaCategoriaAttuatoriModel.getInstance().alreadyExist(nomeCategoriaAttuatori)) {
+          if (modelCategoriaAttuatori.alreadyExist(nomeCategoriaAttuatori)) {
             System.out.println(ERRORE_ATTENZIONE_IL_NOME_DI_QUESTA_CATEGORIA_È_GIÀ_PRESENTE);
           }
-        }while (ListaCategoriaAttuatoriModel.getInstance().alreadyExist(nomeCategoriaAttuatori));
+        }while (modelCategoriaAttuatori.alreadyExist(nomeCategoriaAttuatori));
         String descrizioneCategoriaAttuatori = inputDati.leggiStringa(MESS_INSERISCI_UNA_DESCRIZIONE_FACOLTATIVA);
         if(inputDati.yesOrNo(MESS_VUOI_INSERIRE_UNA_MODALITA_PARAMETRICA)){
           String nomeModalita = inputDati.leggiStringaNonVuota(MESS_INSERISCI_UN_NOME_PER_LA_MODALITA_OPERATIVA_PARAMETRICA);
@@ -102,7 +104,7 @@ public class ListaCategoriaAttuatoriController {
         }
        
         
-        ListaCategoriaAttuatoriModel.getInstance().addToList(nomeCategoriaAttuatori, categoriaAttuatoriCreata);
+       modelCategoriaAttuatori.addToList(nomeCategoriaAttuatori, categoriaAttuatoriCreata);
        atLeastOneActuatorCategoryCreated = true;
 
        return atLeastOneActuatorCategoryCreated;

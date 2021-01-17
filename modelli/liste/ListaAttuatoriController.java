@@ -33,6 +33,7 @@ public class ListaAttuatoriController {
 	private ListaAttuatoriView viewAttuatori = new ListaAttuatoriView();
 	private ListaUnitaImmobiliareController unitaController = new ListaUnitaImmobiliareController();
 	private ListaCategoriaAttuatoriController categoriaAttuatoriController = new ListaCategoriaAttuatoriController();
+	private ListaAttuatoriModel modelAttuatori = new ListaAttuatoriModel();
 	
 	public void effettuaAzioniConAttuatori(boolean isUnitaScelta, UnitaImmobiliare unitaScelta) {
 	   if(isUnitaScelta){
@@ -48,29 +49,33 @@ public class ListaAttuatoriController {
 	}
 	
 	public void printListAssociations() {
-		 if(!ListaAttuatoriModel.getInstance().isEmptyList()){
-             ListaAttuatoriModel.getInstance().printListAssociations();
+		 if(!modelAttuatori.isEmptyList()){
+			 modelAttuatori.printListAssociations();
            }
 	}
 	
 	public String getNomeAttuatore(int scegliAttuatore) {
-		return ListaAttuatoriModel.getInstance().getNomeAttuatore(scegliAttuatore);
+		return modelAttuatori.getNomeAttuatore(scegliAttuatore);
+	}
+	
+	public String getCategoriaAssociata(int scegliAttuatore) {
+		return modelAttuatori.getCategoriaAssociata(scegliAttuatore);
 	}
 	
 	public boolean alreadyExist(String attuatore) {
-		return ListaAttuatoriModel.getInstance().alreadyExist(attuatore);
+		return modelAttuatori.alreadyExist(attuatore);
 	}
 	
 	public void addAttuatoreToList(Attuatore attuatore) {
-		ListaAttuatoriModel.getInstance().addAttuatoreToList(attuatore);
+		modelAttuatori.addAttuatoreToList(attuatore);
 	}
 	
 	public boolean findAttuatoreAzione(int k, Azioni azione) {
-		return ListaAttuatoriModel.getInstance().getNomeAttuatore(k).equalsIgnoreCase(azione.getNomeAttuatore());
+		return modelAttuatori.verificaNome(k, azione);
 	}
 	
 	public boolean isStatoAttivo(int k) {
-		return ListaAttuatoriModel.getInstance().getActuatorFromList(k).isStatoAttivo();
+		return modelAttuatori.isStatoAttivo(k);
 	}
 
 	public void printList() {
@@ -82,15 +87,15 @@ public class ListaAttuatoriController {
 	}
 	
 	public boolean isEmptyList() {
-		return ListaAttuatoriModel.getInstance().isEmptyList();
+		return modelAttuatori.isEmptyList();
 	}
 	
 	public ArrayList<Attuatore> getArray() {
-		return ListaAttuatoriModel.getInstance().getArray();
+		return modelAttuatori.getArray();
 	}
 	
 	public int getSize() {
-		return ListaAttuatoriModel.getInstance().getListSize();
+		return modelAttuatori.getListSize();
 	}
 
 	//Ciclo for in cui vengono trovati solo gli attuatori che appartengono all'unità immobiliare 
@@ -103,15 +108,11 @@ public class ListaAttuatoriController {
 	}
 	
 	public void setModalita(int k, Azioni azione) {
-		ListaAttuatoriModel.getInstance().getActuatorFromList(k).setModalita(azione.getValore());
+		modelAttuatori.setModalita(k, azione);
 	}
 	
 	public boolean verificaNomeAttuatore(int d, ArrayList<Attuatore> listaAttuatori, int i, ArrayList<Attuatore> dispositiviDellUnita) {
 		return listaAttuatori.get(d).getNomeAttuatore().equalsIgnoreCase(dispositiviDellUnita.get(i).getNomeAttuatore());
-	}
-	
-	public boolean verificaNomeAttuatoreAzione(int k, Azioni azione) {
-		return ListaAttuatoriModel.getInstance().getNomeAttuatore(k).equalsIgnoreCase(azione.getNomeAttuatore());
 	}
 	
 	public void compiAzioneConAttuatore(UnitaImmobiliare unitaImmobiliare, ArrayList<Attuatore> listaAttuatori, ListaCategoriaAttuatoriModel listaCategorieAttuatori){
@@ -205,15 +206,15 @@ public class ListaAttuatoriController {
 	    	
 			//Scelta dell'attuatore
 	    	printList();
-			sceltaAttuatore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_DELL_ATTUATORE_CHE_VUOI_ATTIVARE_O_DISATTIVARE, 1, ListaAttuatoriModel.getInstance().getListSize());
+			sceltaAttuatore = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_DELL_ATTUATORE_CHE_VUOI_ATTIVARE_O_DISATTIVARE, 1, modelAttuatori.getListSize());
 			sceltaAttuatore -= 1;
 			
 			//Ciclo if in cui verifica che se l'attuatore e' attivo se vero allora il fruitore puo' disattivarlo 
-			if(ListaAttuatoriModel.getInstance().getActuatorFromList(sceltaAttuatore).isStatoAttivo()) {
+			if(modelAttuatori.isStatoAttivo(sceltaAttuatore)) {
 				do {
     				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_DISATTIVARE_IL_SENSORE_Y_N);
     					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
-    						ListaAttuatoriModel.getInstance().getActuatorFromList(sceltaAttuatore).setStatoAttivo(false);
+    						modelAttuatori.setStato(sceltaAttuatore, false);
     						System.out.println(MESS_L_ATTUATORE_È_STATO_DISATTIVATO);
     						fineSceltaSensore = true;
     					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
@@ -230,7 +231,7 @@ public class ListaAttuatoriController {
 				do {
     				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_L_ATTUATORE_Y_N);
 					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
-						ListaAttuatoriModel.getInstance().getActuatorFromList(sceltaAttuatore).setStatoAttivo(true);
+						modelAttuatori.setStato(sceltaAttuatore, true);
 						System.out.println(MESS_L_ATTUATORE_È_STATO_ATTIVATO);
 						fineSceltaSensore = true;
 					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
@@ -280,7 +281,7 @@ public class ListaAttuatoriController {
 	          int choice = inputDati.leggiIntero(MESS_SELEZIONA_NUMERO_DELL_ARTEFATTO_DA_ASSOCIARE_AD_UN_ATTUATORE, 1, unitaImmobiliare.arrayArtefattiSize()+1);
 	          System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaArtefatti(choice-1));
 	          printList();
-	          if(!ListaAttuatoriModel.getInstance().esisteUnArtefattoConCategoriaUguale(choiceActuatorCategory, unitaImmobiliare.getElementInListaArtefatti(choice-1))){
+	          if(!modelAttuatori.esisteUnArtefattoConCategoriaUguale(choiceActuatorCategory, unitaImmobiliare.getElementInListaArtefatti(choice-1))){
 	            //ListaAttuatori.getInstance().addArtefactToActuator(ListaAttuatori.getInstance().getActuatorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaArtefatti(choice-1));
 	            artefattoSelezionatoDaAssociare = unitaImmobiliare.getElementInListaArtefatti(choice-1);
 	          } else {
@@ -290,7 +291,7 @@ public class ListaAttuatoriController {
 	         
 	         if(fine) {
 	        	Attuatore attuatore = new Attuatore(nomeAttuatore+"_"+choiceActuatorCategory, artefattoSelezionatoDaAssociare,categoriaAttuatoriController.getCategoriaAttuatori(choiceActuatorCategory),true, unitaImmobiliareSceltaManutentore);
-	         	ListaAttuatoriModel.getInstance().addAttuatoreToList(attuatore);
+	        	modelAttuatori.addAttuatoreToList(attuatore);
 	         	System.out.println(MESS_ATTUATORE_AGGIUNTO_CORRETTAMENTE);
 	         }
 	       } else {

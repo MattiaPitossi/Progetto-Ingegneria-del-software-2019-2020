@@ -20,19 +20,7 @@ import modelli.dispositivi.SensoreNumerico;
 public class ListaSensoriModel implements ListeModelExist, ListeModelEmpty, ListeModelSize {
 
     private ArrayList<Sensore> listaSensori = new ArrayList<>();
-    private static ListaSensoriModel listaSensoriInstance;
     private Random random = new Random();
-
-    /** 
-     * Evita che vengano create più istanze di liste categoriee
-     * 
-     * @since versione 1 
-     */
-    public static synchronized ListaSensoriModel getInstance() {
-        if (listaSensoriInstance == null)
-            listaSensoriInstance = new ListaSensoriModel();
-        return listaSensoriInstance;
-    }
 
     /** 
      * 

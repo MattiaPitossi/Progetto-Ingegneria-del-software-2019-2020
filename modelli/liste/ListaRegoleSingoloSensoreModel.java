@@ -10,20 +10,12 @@ import modelli.categorie.CategoriaAttuatori;
 
 public class ListaRegoleSingoloSensoreModel implements ListeModelExist, ListeModelEmpty, ListeModelSize {
 	private Map<String, RegolaSingoloSensore> listaRegoleSingoloSensore;
-    private static ListaRegoleSingoloSensoreModel listaRegoleSingoloSensoreInstance;
 
     //costruttore che inizializza hashmap 
     public ListaRegoleSingoloSensoreModel(){
     	listaRegoleSingoloSensore = new HashMap<>();
     }
     
-	//Evita che vengano create più istanze di liste regole
-	public static synchronized ListaRegoleSingoloSensoreModel getInstance() {
-	   if (listaRegoleSingoloSensoreInstance == null)
-		   listaRegoleSingoloSensoreInstance = new ListaRegoleSingoloSensoreModel();
-	   return listaRegoleSingoloSensoreInstance;
-	}
-	    
 	@Override
 	public boolean alreadyExist(String nameToVerify) {
 		if(!listaRegoleSingoloSensore.containsKey(nameToVerify)) return false;

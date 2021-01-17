@@ -10,7 +10,6 @@ import modelli.dispositivi.Attuatore;
 
 public class ListaCategoriaAttuatoriModel implements ListeModelExist, ListeModelEmpty, ListeModelSize{
     private Map<String, CategoriaAttuatori> listaCategoriaAttuatori;
-    private static ListaCategoriaAttuatoriModel listaCategoriaAttuatoriInstance;
 
     //costruttore che inizializza hashmap 
     public ListaCategoriaAttuatoriModel(){
@@ -25,13 +24,6 @@ public class ListaCategoriaAttuatoriModel implements ListeModelExist, ListeModel
      */
     public void addToList(String name, CategoriaAttuatori categoriaAttuatori){
         listaCategoriaAttuatori.put(name, categoriaAttuatori);
-    }
-
-    //Evita che vengano create più istanze di liste categorie
-    public static synchronized ListaCategoriaAttuatoriModel getInstance() {
-        if (listaCategoriaAttuatoriInstance == null)
-            listaCategoriaAttuatoriInstance = new ListaCategoriaAttuatoriModel();
-        return listaCategoriaAttuatoriInstance;
     }
 
     public CategoriaAttuatori getCategoriaAttuatori(String key){

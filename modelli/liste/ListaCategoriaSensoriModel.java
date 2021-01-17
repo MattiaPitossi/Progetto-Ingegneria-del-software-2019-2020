@@ -9,7 +9,6 @@ import modelli.dispositivi.Attuatore;
 
 public class ListaCategoriaSensoriModel implements ListeModelExist, ListeModelEmpty, ListeModelSize{
     private Map<String, CategoriaSensori> listaCategoriaSensori;
-    private static ListaCategoriaSensoriModel listaCategoriaSensoriInstance;
 
     public ListaCategoriaSensoriModel(){
         listaCategoriaSensori = new HashMap<>();
@@ -23,14 +22,6 @@ public class ListaCategoriaSensoriModel implements ListeModelExist, ListeModelEm
      */
     public void addToList(String name, CategoriaSensori categoriaSensori){
         listaCategoriaSensori.put(name, categoriaSensori);
-    }
-
-
-    //Evita che vengano create più istanze di liste categorie
-    public static synchronized ListaCategoriaSensoriModel getInstance() {
-        if (listaCategoriaSensoriInstance == null)
-            listaCategoriaSensoriInstance = new ListaCategoriaSensoriModel();
-        return listaCategoriaSensoriInstance;
     }
 
     public CategoriaSensori getCategoriaSensori(String key){

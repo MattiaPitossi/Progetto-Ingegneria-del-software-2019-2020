@@ -17,11 +17,13 @@ public class ListaCategoriaSensoriController {
 	 
 	private InputDati inputDati = new InputDati();
 	private ListaCategoriaSensoriView viewCategoriaSensori = new ListaCategoriaSensoriView();
+	private ListaSensoriController controllerSensori = new ListaSensoriController();
+	private ListaCategoriaSensoriModel modelCategoriaSensori = new ListaCategoriaSensoriModel();
 	
 	
 	public void printList() {
 		        int i=1;
-		        Set<String> keys = ListaCategoriaSensoriModel.getInstance().getKeys();
+		        Set<String> keys = modelCategoriaSensori.getKeys();
 		        for (String k : keys) {
 		        	viewCategoriaSensori.printNomeCategoria(i, k);
 		            i+=1;
@@ -29,27 +31,27 @@ public class ListaCategoriaSensoriController {
 	}
 	
 	public boolean alreadyExist(String choiceSensorCategory) {
-		return ListaCategoriaSensoriModel.getInstance().alreadyExist(choiceSensorCategory);
+		return modelCategoriaSensori.alreadyExist(choiceSensorCategory);
 	}
 	
 	public CategoriaSensori getCategoriaSensori(String choiceSensorCategory) {
-		return ListaCategoriaSensoriModel.getInstance().getCategoriaSensori(choiceSensorCategory);
+		return modelCategoriaSensori.getCategoriaSensori(choiceSensorCategory);
 	}
 	
 	public void addToList(String choiceSensorCategory, CategoriaSensori categoriaCreata) {
-		ListaCategoriaSensoriModel.getInstance().addToList(choiceSensorCategory, categoriaCreata);
+		modelCategoriaSensori.addToList(choiceSensorCategory, categoriaCreata);
 	}
 	
 	public int sizeDominioValoriRilevati(int scegliSensore) {
-		return ListaCategoriaSensoriModel.getInstance().getCategoriaSensori(ListaSensoriModel.getInstance().getSensorFromList(scegliSensore).getCategoriaAssociata()).getDominioValoriRilevati().size();
+		return modelCategoriaSensori.getCategoriaSensori(controllerSensori.getCategoriaAssociata(scegliSensore)).getDominioValoriRilevati().size();
 	}
 	
 	public void getDatiRilevati(int scegliSensore) {
-		ListaCategoriaSensoriModel.getInstance().getCategoriaSensori(ListaSensoriModel.getInstance().getSensorFromList(scegliSensore).getCategoriaAssociata()).getDatiRilevati();
+		modelCategoriaSensori.getCategoriaSensori(controllerSensori.getCategoriaAssociata(scegliSensore)).getDatiRilevati();
 	}
 	
 	public String getDominioScelto(int scegliSensore, int scegliDominioNonNumerico) {
-		return ListaCategoriaSensoriModel.getInstance().getCategoriaSensori(ListaSensoriModel.getInstance().getSensorFromList(scegliSensore).getCategoriaAssociata()).getDominioValoriRilevati().get(scegliDominioNonNumerico);
+		return modelCategoriaSensori.getCategoriaSensori(controllerSensori.getCategoriaAssociata(scegliSensore)).getDominioValoriRilevati().get(scegliDominioNonNumerico);
 	}
  	
 	public boolean creaNuovaCategoria(boolean atLeastOneSensorCategoryCreated) {
@@ -58,10 +60,10 @@ public class ListaCategoriaSensoriController {
         ArrayList<String> dominioValoriRilevati = new ArrayList<>();
         do{
             nomeCategoriaSensori = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA_DEI_SENSORI);
-            if(ListaCategoriaSensoriModel.getInstance().alreadyExist(nomeCategoriaSensori)) {
+            if(modelCategoriaSensori.alreadyExist(nomeCategoriaSensori)) {
               System.out.println(ERRORE_ATTENZIONE_IL_NOME_DI_QUESTA_CATEGORIA_È_GIÀ_PRESENTE);
             }
-        } while (ListaCategoriaSensoriModel.getInstance().alreadyExist(nomeCategoriaSensori));
+        } while (modelCategoriaSensori.alreadyExist(nomeCategoriaSensori));
         String descrizioneCategoriaSensori = inputDati.leggiStringa(MESS_INSERISCI_UNA_DESCRIZIONE_FACOLTATIVA);
         // per questa versione una singola variabile fisica
         if(inputDati.yesOrNo(MESS_E_UNA_CATEGORIA_DI_UN_SENSORE_NUMERICO)){
@@ -86,7 +88,7 @@ public class ListaCategoriaSensoriController {
           categoriaCreata = new CategoriaSensori(nomeCategoriaSensori, descrizioneCategoriaSensori, dominioValoriRilevati);
         }
        
-        ListaCategoriaSensoriModel.getInstance().addToList(nomeCategoriaSensori, categoriaCreata);
+        modelCategoriaSensori.addToList(nomeCategoriaSensori, categoriaCreata);
         atLeastOneSensorCategoryCreated = true;
 
         return atLeastOneSensorCategoryCreated;

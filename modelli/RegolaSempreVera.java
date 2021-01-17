@@ -68,7 +68,7 @@ public class RegolaSempreVera extends TimerTask{
 				for(int k = 0; k < controllerAttuatori.getSize(); k++) {
 					
 					//If per verificare se il nome dell'attuatore e' lo stesso dell'azione 	
-					if(controllerAttuatori.verificaNomeAttuatoreAzione(k, azione)) {
+					if(controllerAttuatori.findAttuatoreAzione(k, azione)) {
 						
 						System.out.println("L'operazione delle regola " + nomeRegola + " e' soddisfatta, l'attuatore " + azione.getNomeAttuatore() + " e' stato impostato a " + azione.getValore());
 						//Se if si avvera' allora viene impostato il valore contenuto nell'azione

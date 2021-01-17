@@ -26,6 +26,7 @@ public class ListaUnitaImmobiliareController {
 	
 	private ListaUnitaImmobiliareView viewListaUnita = new ListaUnitaImmobiliareView();
 	private InputDati inputDati = new InputDati();
+	private ListaUnitaImmobiliareModel listaUnita = new ListaUnitaImmobiliareModel();
 	 
 	 public void scegliUnita(boolean isUnitaScelta, UnitaImmobiliare unitaScelta) {
 		 if(isEmptyList()){
@@ -40,15 +41,15 @@ public class ListaUnitaImmobiliareController {
 	 }
 	 
 	 public boolean isEmptyList() {
-		 return ListaUnitaImmobiliareModel.getInstance().isEmptyList();
+		 return listaUnita.isEmptyList();
 	 }
 	 
 	 public boolean alreadyExist(String unita) {
-		 return ListaUnitaImmobiliareModel.getInstance().alreadyExist(unita);
+		 return listaUnita.alreadyExist(unita);
 	 }
 	 
 	 public void addUnita(UnitaImmobiliare unita) {
-		 ListaUnitaImmobiliareModel.getInstance().addUnitaToList(unita);
+		 listaUnita.addUnitaToList(unita);
 	 }
 	 
 	 public void printList() {
@@ -61,15 +62,15 @@ public class ListaUnitaImmobiliareController {
 	 }
 	 
 	 public ArrayList<UnitaImmobiliare> getArray() {
-		 return ListaUnitaImmobiliareModel.getInstance().getArray();
+		 return listaUnita.getArray();
 	 }
 	 
 	 public int getListSize(){
-		 return ListaUnitaImmobiliareModel.getInstance().getListSize();
+		 return listaUnita.getListSize();
 	 }
 	 
 	 public UnitaImmobiliare getUnitaFromList(int i) {
-		 return ListaUnitaImmobiliareModel.getInstance().getUnitaFromList(i);
+		 return listaUnita.getUnitaFromList(i);
 	 }
 	 
 	 public void creaUnita(boolean alreadyCreatedUnit, UnitaImmobiliare unitaImmobiliare, String unitaImmobiliareSceltaManutentore) {
@@ -83,7 +84,7 @@ public class ListaUnitaImmobiliareController {
            String nomeUnita = inputDati.leggiStringaNonVuota(MESS_INSERISCI_NOME_UNITA_IMMOBILIARE);
            unitaImmobiliare.setNomeUnita(nomeUnita);
            unitaImmobiliareSceltaManutentore = unitaImmobiliare.getNomeUnita();
-           if(ListaUnitaImmobiliareModel.getInstance().esisteUnUnitaImmobiliareConNomeUguale(unitaImmobiliare)) {
+           if(listaUnita.esisteUnUnitaImmobiliareConNomeUguale(unitaImmobiliare)) {
              System.out.println(ERRORE_UN_UNITA_CON_LO_STESSO_NOME_ESISTE_GIA);
            } else {
              System.out.println(MESS_NOME_UNITÀ_INSERITO);
@@ -115,7 +116,7 @@ public class ListaUnitaImmobiliareController {
            }
            
          } while(!finitoArtefatti);
-         ListaUnitaImmobiliareModel.getInstance().addUnitaToList(unitaImmobiliare);
+         listaUnita.addUnitaToList(unitaImmobiliare);
          System.out.println(MESS_LA_CREAZIONE_DELL_UNITA_IMMOBILIARE_E_COMPLETATA);
        
 	 }

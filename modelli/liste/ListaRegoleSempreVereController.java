@@ -36,10 +36,11 @@ public class ListaRegoleSempreVereController {
 	private ListaAttuatoriController attuatoriController = new ListaAttuatoriController();
 	private ListaRegoleSempreVereView regoleSempreVereView = new ListaRegoleSempreVereView();
 	private ListaCategoriaAttuatoriController categoriaAttuatoreController = new ListaCategoriaAttuatoriController();
+	private ListaRegoleSempreVereModel modelRegoleSempreVere = new ListaRegoleSempreVereModel();
 	
 	public void printList() {
 		int i = 1;
-		Set<String> keys = ListaRegoleSempreVereModel.getInstance().getKeys();
+		Set<String> keys = modelRegoleSempreVere.getKeys();
 		for(String k : keys) {
 			regoleSempreVereView.printNomeRegole(k, i);
 			i+=1;
@@ -48,13 +49,13 @@ public class ListaRegoleSempreVereController {
 	}
 	
 	public boolean isEmptyList() {
-		return ListaRegoleSempreVereModel.getInstance().isEmptyList();
+		return modelRegoleSempreVere.isEmptyList();
 	}
 	
 	public boolean schedule(boolean alreadyScheduled1, Timer timer1) {
-		if(!ListaRegoleSempreVereModel.getInstance().isEmptyList()) {
-	        for(String key : ListaRegoleSempreVereModel.getInstance().getKeys()) {
-	          TimerTask task = ListaRegoleSempreVereModel.getInstance().getRegolaSempreVera(key); 
+		if(!modelRegoleSempreVere.isEmptyList()) {
+	        for(String key : modelRegoleSempreVere.getKeys()) {
+	          TimerTask task = modelRegoleSempreVere.getRegolaSempreVera(key); 
 	          timer1.schedule(task, 0, 300000); 
 	          return alreadyScheduled1 = true;
 	        }
@@ -83,7 +84,7 @@ public class ListaRegoleSempreVereController {
 			nomeRegola = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_REGOLA);
 			
 			//Verifica che non esista una regola con lo stesso nome
-				if(ListaRegoleSempreVereModel.getInstance().alreadyExist(nomeRegola)) {
+				if(modelRegoleSempreVere.alreadyExist(nomeRegola)) {
 					System.out.println(ERRORE_ESISTE_GIA_UNA_REGOLA_CON_LO_STESSO_NOME);
 					nomeRegolaNonEsiste = false;
 				}
@@ -143,16 +144,16 @@ public class ListaRegoleSempreVereController {
 		
 		//Creazione regola che poi viene aggiunta all'array 
 		RegolaSempreVera regolaSempreVera = new RegolaSempreVera(nomeRegola, antecedente, conseguente);
-		ListaRegoleSempreVereModel.getInstance().addToList(nomeRegola, regolaSempreVera);
+		modelRegoleSempreVere.addToList(nomeRegola, regolaSempreVera);
 		
 	}
 	
 	public boolean alreadyExist(String regola) {
-		return ListaRegoleSempreVereModel.getInstance().alreadyExist(regola);
+		return modelRegoleSempreVere.alreadyExist(regola);
 	}
 	
 	public void addToList(String regola, RegolaSempreVera regolaSempreVera) {
-		ListaRegoleSempreVereModel.getInstance().addToList(regola, regolaSempreVera);
+		modelRegoleSempreVere.addToList(regola, regolaSempreVera);
 	}
 	
 	public boolean attivaDisattivaRegolaSempreVera() {
@@ -161,17 +162,17 @@ public class ListaRegoleSempreVereController {
     	boolean finito = false;
     	boolean regolaImpossibileDaAttivare = false;
 		
-		if(ListaRegoleSempreVereModel.getInstance().isEmptyList()) {
+		if(modelRegoleSempreVere.isEmptyList()) {
 			System.out.println(ERRORE_NON_CI_SONO_REGOLE_DI_QUESTO_TIPO_AL_MOMENTO);
 		} else {
 			//Scelta della regola
 			printList();
-			int sceltaRegolaSempreVera = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_LA_REGOLA, 1, ListaRegoleSempreVereModel.getInstance().getListSize());
+			int sceltaRegolaSempreVera = inputDati.leggiIntero(MESS_INSERISCI_IL_NUMERO_PER_SCEGLIERE_LA_REGOLA, 1, modelRegoleSempreVere.getListSize());
 			sceltaRegolaSempreVera -= 1;
-			String keyRegola = ListaRegoleSempreVereModel.getInstance().returnKey(sceltaRegolaSempreVera);
+			String keyRegola = modelRegoleSempreVere.returnKey(sceltaRegolaSempreVera);
             	
             		//Ciclo for in cui verifica per ogni azione del conseguente 
-            		for(Azioni azione : ListaRegoleSempreVereModel.getInstance().getRegolaSempreVera(keyRegola).getConseguente().getArrayAzioni()) {
+            		for(Azioni azione : modelRegoleSempreVere.getRegolaSempreVera(keyRegola).getConseguente().getArrayAzioni()) {
                 		
             			//Ciclo for per trovare la posizione dell'attuatore 
 						for(int k = 0; k < attuatoriController.getSize(); k++) {
@@ -196,12 +197,12 @@ public class ListaRegoleSempreVereController {
 			
 			
 			//Ciclo if in cui il fruitore puo' disattivare la regola se la regola e' gia' attiva
-			if(ListaRegoleSempreVereModel.getInstance().getRegolaSempreVera(keyRegola).getAttivaDisattiva()) {
+			if(modelRegoleSempreVere.getRegolaSempreVera(keyRegola).getAttivaDisattiva()) {
 				do {
     				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_DISATTIVARE_LA_REGOLA_Y_N);
     				fineSceltaRegola = false;
     					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
-    						ListaRegoleSempreVereModel.getInstance().getRegolaSempreVera(keyRegola).setAttivaDisattiva(false);
+    						modelRegoleSempreVere.getRegolaSempreVera(keyRegola).setAttivaDisattiva(false);
     						System.out.println(MESS_LA_REGOLA_È_STATA_DISATTIVATA);
     						fineSceltaRegola = true;
     					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
@@ -219,7 +220,7 @@ public class ListaRegoleSempreVereController {
     				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_LA_REGOLA_Y_N);
     				fineSceltaRegola = false;
     					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
-    						ListaRegoleSempreVereModel.getInstance().getRegolaSempreVera(keyRegola).setAttivaDisattiva(true);
+    						modelRegoleSempreVere.getRegolaSempreVera(keyRegola).setAttivaDisattiva(true);
     						System.out.println(MESS_LA_REGOLA_È_STATA_ATTIVATA);
     						fineSceltaRegola = true;
     					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
@@ -254,16 +255,16 @@ public class ListaRegoleSempreVereController {
 	}
 	
 	public void attivaDisattivaRegoleAutomatico(boolean regolaDaDisattivare) {
-		if(!ListaRegoleSempreVereModel.getInstance().isEmptyList()) {
+		if(!modelRegoleSempreVere.isEmptyList()) {
     		
     		//Ciclo for per verificare una regola SEMPRE VERA alla volta 
-            for(String key : ListaRegoleSempreVereModel.getInstance().getKeys()) {
+            for(String key : modelRegoleSempreVere.getKeys()) {
             	
             	//valore da resettare all'inizio del ciclo per una nuova regola
             	regolaDaDisattivare = false;
             	
             		//Ciclo for in cui verifica per ogni azione del conseguente 
-            		for(Azioni azione : ListaRegoleSempreVereModel.getInstance().getRegolaSempreVera(key).getConseguente().getArrayAzioni()) {
+            		for(Azioni azione : modelRegoleSempreVere.getRegolaSempreVera(key).getConseguente().getArrayAzioni()) {
                 		
             			//Ciclo for per trovare la posizione dell'attuatore 
 						for(int k = 0; k < attuatoriController.getSize(); k++) {
@@ -281,12 +282,12 @@ public class ListaRegoleSempreVereController {
             	
             	//Se il valore boolean e' true allora la regola e' da disattivare 
             	if(regolaDaDisattivare) {
-        			ListaRegoleSempreVereModel.getInstance().getRegolaSempreVera(key).setAttivaDisattiva(false);
-        			System.out.println("La regola " + ListaRegoleSempreVereModel.getInstance().getRegolaSempreVera(key).getNomeRegola() + " e' stata disattivata. ");
+            		modelRegoleSempreVere.getRegolaSempreVera(key).setAttivaDisattiva(false);
+        			System.out.println("La regola " + modelRegoleSempreVere.getRegolaSempreVera(key).getNomeRegola() + " e' stata disattivata. ");
         		}  else {
         			//Se la regola era disattiva allora adesso si riattiva 
-        			if(!ListaRegoleSempreVereModel.getInstance().getRegolaSempreVera(key).getAttivaDisattiva()) {
-        				System.out.println("La regola " + ListaRegoleSempreVereModel.getInstance().getRegolaSempreVera(key).getNomeRegola() + " puo' essere riattivata.");
+        			if(!modelRegoleSempreVere.getRegolaSempreVera(key).getAttivaDisattiva()) {
+        				System.out.println("La regola " + modelRegoleSempreVere.getRegolaSempreVera(key).getNomeRegola() + " puo' essere riattivata.");
         			}
         		}
             	
