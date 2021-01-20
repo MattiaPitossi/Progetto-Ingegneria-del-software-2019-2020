@@ -78,6 +78,7 @@ public class ListaAttuatoriController {
 		return modelAttuatori.isStatoAttivo(k);
 	}
 
+	//**Stampa la lista di tutti gli attuatori*/
 	public void printList() {
 		 int i = 1;
 		 for(Attuatore lista : getArray()) {
@@ -264,39 +265,58 @@ public class ListaAttuatoriController {
 		 
 		 boolean fine = false;
 		 
+		 /**Verifica che ci sia almeno una categoria di attuatore*/
 		 if(atLeastOneActuatorCategoryCreated){
 	         String nomeAttuatore = "";
 	         String artefattoSelezionatoDaAssociare = "";
 	         nomeAttuatore = inputDati.leggiStringaNonVuota(MESS_INSERISCI_NOME_ATTUATORE_FORMATO_NOME_CATEGORIA_ATTUATORE);
-	         //stampa categorie attuatori disponibili
-	         categoriaAttuatoriController.printList();
-	         //salva selezione
-	         String choiceActuatorCategory;
-	         do{
-	           choiceActuatorCategory = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA);
-	         } while(!categoriaAttuatoriController.alreadyExist(choiceActuatorCategory));
+   
+	         //Scelta della categoria per l'attuatore da creare
+	         String choiceActuatorCategory = scegliCategoriaPerAttuatore();
 	
-	         //Associa attuatore ad artefatto
-	          unitaImmobiliare.toStringListaArtefatti();
-	          int choice = inputDati.leggiIntero(MESS_SELEZIONA_NUMERO_DELL_ARTEFATTO_DA_ASSOCIARE_AD_UN_ATTUATORE, 1, unitaImmobiliare.arrayArtefattiSize()+1);
-	          System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaArtefatti(choice-1));
+	         //Seleziona artefatto da associare
+	          int choice = selezionaArtefatto(unitaImmobiliare);
+	          
+	          //stampa lista attuatori 
 	          printList();
 	          if(!modelAttuatori.esisteUnArtefattoConCategoriaUguale(choiceActuatorCategory, unitaImmobiliare.getElementInListaArtefatti(choice-1))){
-	            //ListaAttuatori.getInstance().addArtefactToActuator(ListaAttuatori.getInstance().getActuatorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaArtefatti(choice-1));
 	            artefattoSelezionatoDaAssociare = unitaImmobiliare.getElementInListaArtefatti(choice-1);
 	          } else {
 	            System.out.println(ERRORE_PUOI_ASSOCIARE_SOLO_UN_ATTUATORE_PER_CATEGORIA_IN_OGNI_ARTEFATTO);
 	            fine = true;
-	          } 
+	          }
 	         
 	         if(fine) {
-	        	Attuatore attuatore = new Attuatore(nomeAttuatore+"_"+choiceActuatorCategory, artefattoSelezionatoDaAssociare,categoriaAttuatoriController.getCategoriaAttuatori(choiceActuatorCategory),true, unitaImmobiliareSceltaManutentore);
-	        	modelAttuatori.addAttuatoreToList(attuatore);
-	         	System.out.println(MESS_ATTUATORE_AGGIUNTO_CORRETTAMENTE);
+	        	aggiungiAttuatore(unitaImmobiliareSceltaManutentore, nomeAttuatore, artefattoSelezionatoDaAssociare,
+						choiceActuatorCategory);
 	         }
 	       } else {
 	         System.out.println(ERRORE_DEVI_CREARE_ALMENO_UNA_CATEGORIA_DI_ATTUATORI);
 	       }
 	     
+	}
+
+	public int selezionaArtefatto(UnitaImmobiliare unitaImmobiliare) {
+		unitaImmobiliare.toStringListaArtefatti();
+		  int choice = inputDati.leggiIntero(MESS_SELEZIONA_NUMERO_DELL_ARTEFATTO_DA_ASSOCIARE_AD_UN_ATTUATORE, 1, unitaImmobiliare.arrayArtefattiSize()+1);
+		  System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaArtefatti(choice-1));
+		return choice;
+	}
+
+	public void aggiungiAttuatore(String unitaImmobiliareSceltaManutentore, String nomeAttuatore,
+			String artefattoSelezionatoDaAssociare, String choiceActuatorCategory) {
+		Attuatore attuatore = new Attuatore(nomeAttuatore+"_"+choiceActuatorCategory, artefattoSelezionatoDaAssociare,categoriaAttuatoriController.getCategoriaAttuatori(choiceActuatorCategory),true, unitaImmobiliareSceltaManutentore);
+		modelAttuatori.addAttuatoreToList(attuatore);
+		System.out.println(MESS_ATTUATORE_AGGIUNTO_CORRETTAMENTE);
+	}
+
+	public String scegliCategoriaPerAttuatore() {
+        //stampa categorie attuatori disponibili
+        categoriaAttuatoriController.printList();
+		String choiceActuatorCategory;
+		 do{
+		   choiceActuatorCategory = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA);
+		 } while(!categoriaAttuatoriController.alreadyExist(choiceActuatorCategory));
+		return choiceActuatorCategory;
 	}
 }
