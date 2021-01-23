@@ -29,14 +29,24 @@ public class MenuManutentore {
     private UnitaImmobiliare unitaImmobiliare;
     private InputDati inputDati = new InputDati();
     private String unitaImmobiliareSceltaManutentore;
-	private LettoreLibrerieController librerieController = new LettoreLibrerieController();
-	private ListaCategoriaSensoriController categoriaSensoriController = new ListaCategoriaSensoriController();
-	private ListaCategoriaAttuatoriController categoriaAttuatoriController = new ListaCategoriaAttuatoriController();
-	private ListaSensoriController sensoriController = new ListaSensoriController();
-	private ListaAttuatoriController attuatoriController = new ListaAttuatoriController();
-	private ListaUnitaImmobiliareController unitaController = new ListaUnitaImmobiliareController();
+	private LettoreLibrerieController librerieController;
+	private ListaCategoriaSensoriController categoriaSensoriController;
+	private ListaCategoriaAttuatoriController categoriaAttuatoriController;
+	private ListaSensoriController sensoriController;
+	private ListaAttuatoriController attuatoriController;
+	private ListaUnitaImmobiliareController unitaController;
 
-    public void esegui() throws IOException{
+	
+    public MenuManutentore(ListaCategoriaSensoriController categoriaSensoriController, ListaCategoriaAttuatoriController categoriaAttuatoriController, ListaSensoriController sensoriController, ListaAttuatoriController attuatoriController, ListaUnitaImmobiliareController unitaController, LettoreLibrerieController librerieController) {
+    	this.categoriaSensoriController = categoriaSensoriController;
+    	this.categoriaAttuatoriController = categoriaAttuatoriController;
+    	this.sensoriController = sensoriController;
+    	this.attuatoriController = attuatoriController;
+    	this.unitaController = unitaController;
+    	this.librerieController = librerieController;
+	}
+
+	public void esegui() throws IOException{
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
       boolean fineProgramma = false;
       do{
@@ -114,6 +124,8 @@ public class MenuManutentore {
         case 7: //Importa categorie di sensori e attuatori 
         	librerieController.letturaLibreriaCategorie();
         	categorieImportate = true;
+        	atLeastOneActuatorCategoryCreated = true;
+        	atLeastOneSensorCategoryCreated = true;
         	break;
         	
         case 8: //Importa unita Immobiliare
@@ -121,6 +133,8 @@ public class MenuManutentore {
         		librerieController.letturaLibreriaUnita();
         		alreadyCreatedUnit = true;
             	unitaImportata = true;
+            	unitaImmobiliare = unitaController.getUnitaFromList(0);
+            	System.out.println("Casa è stata impostata come unita immobiliare.");
         	} else {
         		System.out.println(ERRORE_DEVI_PRIMA_IMPORTARE_LE_CATEGORIE);
         	}

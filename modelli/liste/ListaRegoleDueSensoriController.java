@@ -42,12 +42,20 @@ import utility.InputDati;
 public class ListaRegoleDueSensoriController {
 	
 	private InputDati inputDati = new InputDati();
-	private ListaSensoriController sensoriController = new ListaSensoriController();
-	private ListaAttuatoriController attuatoriController = new ListaAttuatoriController();
-	private ListaRegoleDueSensoriView viewRegoleDueSensori = new ListaRegoleDueSensoriView();
-	private ListaCategoriaAttuatoriController categoriaAttuatoriController = new ListaCategoriaAttuatoriController();
-	private ListaRegoleDueSensoriModel modelRegoleDueSensori = new ListaRegoleDueSensoriModel();
+	private ListaSensoriController sensoriController;
+	private ListaAttuatoriController attuatoriController;
+	private ListaRegoleDueSensoriView viewRegoleDueSensori;
+	private ListaCategoriaAttuatoriController categoriaAttuatoriController;
+	private ListaRegoleDueSensoriModel modelRegoleDueSensori;
 	
+	
+
+	public ListaRegoleDueSensoriController(ListaRegoleDueSensoriView viewRegoleDueSensori,
+			ListaRegoleDueSensoriModel modelRegoleDueSensori) {
+		this.viewRegoleDueSensori = viewRegoleDueSensori;
+		this.modelRegoleDueSensori = modelRegoleDueSensori;
+	}
+
 	public void printList() {
 		int i = 1;
 		Set<String> keys = modelRegoleDueSensori.getKeys();

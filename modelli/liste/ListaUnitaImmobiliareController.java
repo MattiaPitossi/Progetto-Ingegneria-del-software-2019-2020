@@ -24,10 +24,17 @@ import utility.InputDati;
 
 public class ListaUnitaImmobiliareController {
 	
-	private ListaUnitaImmobiliareView viewListaUnita = new ListaUnitaImmobiliareView();
+	private ListaUnitaImmobiliareView viewListaUnita;
 	private InputDati inputDati = new InputDati();
-	private ListaUnitaImmobiliareModel listaUnita = new ListaUnitaImmobiliareModel();
+	private ListaUnitaImmobiliareModel listaUnita;
 	 
+	
+	public ListaUnitaImmobiliareController(ListaUnitaImmobiliareView viewListaUnita,
+			ListaUnitaImmobiliareModel listaUnita) {
+		this.viewListaUnita = viewListaUnita;
+		this.listaUnita = listaUnita;
+	}
+	
 	 public void scegliUnita(boolean isUnitaScelta, UnitaImmobiliare unitaScelta) {
 		 if(isEmptyList()){
 	    		System.out.println(ERRORE_NON_SONO_PRESENTI_UNITA_IMMOBILIARI_AL_MOMENTO);

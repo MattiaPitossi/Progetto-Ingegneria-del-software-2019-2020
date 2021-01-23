@@ -17,8 +17,8 @@ public class RegolaSingoloSensore extends TimerTask{
     private SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
 	private boolean attivaDisattiva;
 	private String tipoRegola;
-	private ListaSensoriController controllerSensori = new ListaSensoriController();
-	private ListaAttuatoriController controllerAttuatori = new ListaAttuatoriController();
+	private ListaSensoriController controllerSensori;
+	private ListaAttuatoriController controllerAttuatori;
 	
 	public RegolaSingoloSensore (String nomeRegola, AntecedenteSingoloSensore antecedente, Conseguente conseguente, String tipoRegola) {
 		this.nomeRegola = nomeRegola;

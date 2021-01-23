@@ -44,13 +44,21 @@ import utility.InputDati;
 public class ListaRegoleSingoloSensoreController {
 	
 	private InputDati inputDati = new InputDati();
-	private ListaSensoriController sensoriController = new ListaSensoriController();
-	private ListaAttuatoriController attuatoriController = new ListaAttuatoriController();
-	private ListaRegoleSingoloSensoreView viewRegoleSingoloSensore = new ListaRegoleSingoloSensoreView();
-	private ListaCategoriaAttuatoriController categoriaAttuatoreController = new ListaCategoriaAttuatoriController();
-	private ListaCategoriaSensoriController categoriaSensoreController = new ListaCategoriaSensoriController();
-	private ListaRegoleSingoloSensoreModel modelRegoleSingoloSensore = new ListaRegoleSingoloSensoreModel();
+	private ListaSensoriController sensoriController;
+	private ListaAttuatoriController attuatoriController;
+	private ListaRegoleSingoloSensoreView viewRegoleSingoloSensore;
+	private ListaCategoriaAttuatoriController categoriaAttuatoreController;
+	private ListaCategoriaSensoriController categoriaSensoreController;
+	private ListaRegoleSingoloSensoreModel modelRegoleSingoloSensore;
 	
+	
+	
+	public ListaRegoleSingoloSensoreController(ListaRegoleSingoloSensoreView viewRegoleSingoloSensore,
+			ListaRegoleSingoloSensoreModel modelRegoleSingoloSensore) {
+		this.viewRegoleSingoloSensore = viewRegoleSingoloSensore;
+		this.modelRegoleSingoloSensore = modelRegoleSingoloSensore;
+	}
+
 	public void printList() {
 		int i = 1;
 		Set<String> keys = modelRegoleSingoloSensore.getKeys();

@@ -14,7 +14,7 @@ public class RegolaSempreVera extends TimerTask{
 	private Conseguente conseguente;
 	private SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
 	private boolean attivaDisattiva;
-	private ListaAttuatoriController controllerAttuatori = new ListaAttuatoriController();
+	private ListaAttuatoriController controllerAttuatori;
 	
 	public RegolaSempreVera (String nomeRegola, AntecedenteSempreVero antecedente, Conseguente conseguente) {
 		this.nomeRegola = nomeRegola;

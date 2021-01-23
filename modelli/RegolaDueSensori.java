@@ -16,8 +16,8 @@ public class RegolaDueSensori extends TimerTask{
 	private Conseguente conseguente;
 	private SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
 	private boolean attivaDisattiva;
-	private ListaSensoriController controllerSensori = new ListaSensoriController();
-	private ListaAttuatoriController controllerAttuatori = new ListaAttuatoriController();
+	private ListaSensoriController controllerSensori;
+	private ListaAttuatoriController controllerAttuatori;
 		
 	public RegolaDueSensori (String nomeRegola, AntecedenteTraDueSensori antecedente, Conseguente conseguente) {
 		this.nomeRegola = nomeRegola;

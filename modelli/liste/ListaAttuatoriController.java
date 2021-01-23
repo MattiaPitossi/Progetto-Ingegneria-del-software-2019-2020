@@ -25,16 +25,27 @@ import modelli.ModalitaOperativaParametrica;
 import modelli.Parametro;
 import modelli.UnitaImmobiliare;
 import modelli.dispositivi.Attuatore;
+import modelli.dispositivi.AttuatoreCaretaker;
+import modelli.dispositivi.AttuatoreMemento;
 import utility.InputDati;
 
 public class ListaAttuatoriController {
 	
 	private InputDati inputDati = new InputDati();
-	private ListaAttuatoriView viewAttuatori = new ListaAttuatoriView();
-	private ListaUnitaImmobiliareController unitaController = new ListaUnitaImmobiliareController();
-	private ListaCategoriaAttuatoriController categoriaAttuatoriController = new ListaCategoriaAttuatoriController();
-	private ListaAttuatoriModel modelAttuatori = new ListaAttuatoriModel();
+	private ListaAttuatoriView viewAttuatori;
+	private ListaUnitaImmobiliareController unitaController;
+	private ListaCategoriaAttuatoriController categoriaAttuatoriController;
+	private ListaAttuatoriModel modelAttuatori;
+	private AttuatoreCaretaker attuatoreCaretaker = new AttuatoreCaretaker();
+	private AttuatoreMemento attuatoreMemento;
 	
+	public ListaAttuatoriController(ListaAttuatoriView viewAttuatori, ListaAttuatoriModel modelAttuatori, ListaCategoriaAttuatoriController categoriaAttuatoriController, ListaUnitaImmobiliareController unitaController) {
+		this.viewAttuatori = viewAttuatori;
+		this.modelAttuatori = modelAttuatori;
+		this.categoriaAttuatoriController = categoriaAttuatoriController;
+		this.unitaController = unitaController;
+	}
+
 	public void effettuaAzioniConAttuatori(boolean isUnitaScelta, UnitaImmobiliare unitaScelta) {
 	   if(isUnitaScelta){
 		   if(isEmptyList()){
@@ -263,6 +274,10 @@ public class ListaAttuatoriController {
 	 public void creaAttuatore(UnitaImmobiliare unitaImmobiliare, boolean atLeastOneActuatorCategoryCreated, String unitaImmobiliareSceltaManutentore) {
 		 
 		 boolean fine = false;
+		 boolean finitoModifiche = false;
+		 boolean sceltoAttuatore = false;
+		 int choiceArtefatto = 0;
+		 boolean ripristinaModifiche = false;
 		 
 		 if(atLeastOneActuatorCategoryCreated){
 	         String nomeAttuatore = "";
@@ -280,17 +295,96 @@ public class ListaAttuatoriController {
 	          unitaImmobiliare.toStringListaArtefatti();
 	          int choice = inputDati.leggiIntero(MESS_SELEZIONA_NUMERO_DELL_ARTEFATTO_DA_ASSOCIARE_AD_UN_ATTUATORE, 1, unitaImmobiliare.arrayArtefattiSize()+1);
 	          System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaArtefatti(choice-1));
-	          printList();
 	          if(!modelAttuatori.esisteUnArtefattoConCategoriaUguale(choiceActuatorCategory, unitaImmobiliare.getElementInListaArtefatti(choice-1))){
 	            //ListaAttuatori.getInstance().addArtefactToActuator(ListaAttuatori.getInstance().getActuatorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaArtefatti(choice-1));
 	            artefattoSelezionatoDaAssociare = unitaImmobiliare.getElementInListaArtefatti(choice-1);
+	            fine = true;
 	          } else {
 	            System.out.println(ERRORE_PUOI_ASSOCIARE_SOLO_UN_ATTUATORE_PER_CATEGORIA_IN_OGNI_ARTEFATTO);
-	            fine = true;
+	            fine = false;
 	          } 
 	         
 	         if(fine) {
-	        	Attuatore attuatore = new Attuatore(nomeAttuatore+"_"+choiceActuatorCategory, artefattoSelezionatoDaAssociare,categoriaAttuatoriController.getCategoriaAttuatori(choiceActuatorCategory),true, unitaImmobiliareSceltaManutentore);
+	        	Attuatore attuatore = new Attuatore(nomeAttuatore + "_" + choiceActuatorCategory, artefattoSelezionatoDaAssociare, categoriaAttuatoriController.getCategoriaAttuatori(choiceActuatorCategory),true, unitaImmobiliareSceltaManutentore);
+	        	attuatore.printInfo();
+	        	
+	        	do {
+	        		String continuare = inputDati.leggiStringaNonVuota("Vuoi modificare qualcosa?(Y/N) ");
+	        		if(continuare.equalsIgnoreCase("Y")) {
+	    	        	attuatoreMemento = attuatore.saveToMemento();
+	    	        	attuatoreCaretaker.addMemento(attuatoreMemento);
+	        			finitoModifiche = false;
+	        			System.out.println("Cosa vuoi modificare? ");
+	        			System.out.println("1. Nome Attuatore;");
+	        			System.out.println("2. Artefatto Associato;");
+	        			System.out.println("3. Categoria Associata;");
+	        			System.out.println("4. Stato Associato;");
+	        			int scelta = inputDati.leggiIntero("Inserisci il numero per scegliere cosa modificare: ", 1, 4);
+	        			
+	        			if(scelta == 1) {
+	        				attuatore.setNomeAttuatore(inputDati.leggiStringaNonVuota("Inserisci il nuovo nome dell'attuatore: ") + "_" + choiceActuatorCategory);
+	        				attuatore.printInfo();
+	        				
+	        			} else if(scelta == 2) {
+	        				 unitaImmobiliare.toStringListaArtefatti();
+	        				 do {
+	        		          choiceArtefatto = inputDati.leggiIntero(MESS_SELEZIONA_NUMERO_DELL_ARTEFATTO_DA_ASSOCIARE_AD_UN_ATTUATORE, 1, unitaImmobiliare.arrayArtefattiSize()+1);
+	        		          System.out.println("Hai scelto " + unitaImmobiliare.getElementInListaArtefatti(choiceArtefatto-1));
+	        		          if(!modelAttuatori.esisteUnArtefattoConCategoriaUguale(choiceActuatorCategory, unitaImmobiliare.getElementInListaArtefatti(choice-1))){
+	        		            //ListaAttuatori.getInstance().addArtefactToActuator(ListaAttuatori.getInstance().getActuatorFromList(choiceAttuatore-1), unitaImmobiliare.getElementInListaArtefatti(choice-1));
+	        		            artefattoSelezionatoDaAssociare = unitaImmobiliare.getElementInListaArtefatti(choiceArtefatto-1);
+	        		            sceltoAttuatore = true;
+	        		          } else {
+	        		            System.out.println(ERRORE_PUOI_ASSOCIARE_SOLO_UN_ATTUATORE_PER_CATEGORIA_IN_OGNI_ARTEFATTO);
+	        		          } 
+	        				 } while(!sceltoAttuatore);
+	        				attuatore.setArtefattoAssociato(unitaImmobiliare.getElementInListaArtefatti(choiceArtefatto-1));
+	        				attuatore.printInfo();
+	        				
+	        			} else if(scelta == 3) {
+	        		         categoriaAttuatoriController.printList();
+	        		         do{
+	        		           choiceActuatorCategory = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_CATEGORIA);
+	        		         } while(!categoriaAttuatoriController.alreadyExist(choiceActuatorCategory));
+	        		         attuatore.setCategoriaAssociata(categoriaAttuatoriController.getCategoriaAttuatori(choiceActuatorCategory));
+	        				attuatore.printInfo();
+	        				
+	        			} else if(scelta == 4) {
+	        				if(attuatore.isStatoAttivo()) {
+	        					System.out.println("L'attuatore è stato disattivato.");
+	        					attuatore.setStatoAttivo(false);
+	        				} else {
+	        					System.out.println("L'attuatore è stato attivato.");
+	        					attuatore.setStatoAttivo(true);
+	        				}
+	        				attuatore.printInfo();
+	        				
+	        			} 
+	        			
+	        			do {
+	        				String annullare = inputDati.leggiStringaNonVuota("Vuoi annullare le modifiche?(Y/N) ");
+	        				if(annullare.equalsIgnoreCase("Y")) {
+	        					attuatoreMemento = attuatoreCaretaker.getMemento();
+	        					attuatore.undoFromMemento(attuatoreMemento);
+	        					attuatore.printInfo();
+	        					if(attuatoreCaretaker.isEmpty()) {
+	        						ripristinaModifiche = true;
+	        						System.out.println("L'Attuatore è tornato allo stato originale.");
+	        					} else {
+	        						ripristinaModifiche = false;
+	        					}
+	        				} else {
+	        					attuatoreMemento = attuatore.saveToMemento();
+	        					attuatoreCaretaker.addMemento(attuatoreMemento);
+	        					ripristinaModifiche = true;
+	        				}
+	        			}while(!ripristinaModifiche);
+	        			
+	        		} else {
+	        			finitoModifiche = true;
+	        		}
+	        	} while(!finitoModifiche);
+	        	
 	        	modelAttuatori.addAttuatoreToList(attuatore);
 	         	System.out.println(MESS_ATTUATORE_AGGIUNTO_CORRETTAMENTE);
 	         }

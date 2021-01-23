@@ -26,15 +26,23 @@ import modelli.UnitaImmobiliare;
 import modelli.dispositivi.Sensore;
 import modelli.dispositivi.SensoreNonNumerico;
 import modelli.dispositivi.SensoreNumerico;
+import modelli.dispositivi.AttuatoreCaretaker;
+import modelli.dispositivi.AttuatoreMemento;
 import utility.InputDati;
 
 public class ListaSensoriController {
 	
-	private ListaSensoriView viewListaSensori = new ListaSensoriView();
-	private ListaSensoriModel modelListaSensore = new ListaSensoriModel();
-	private ListaUnitaImmobiliareController unitaController = new ListaUnitaImmobiliareController();
-	private ListaCategoriaSensoriController categoriaSensoriController = new ListaCategoriaSensoriController();
+	private ListaSensoriView viewListaSensori;
+	private ListaSensoriModel modelListaSensore;
+	private ListaUnitaImmobiliareController unitaController;
+	private ListaCategoriaSensoriController categoriaSensoriController;
 	private InputDati inputDati = new InputDati();
+	
+
+	public ListaSensoriController(ListaSensoriView viewListaSensori, ListaSensoriModel modelListaSensore) {
+		this.viewListaSensori = viewListaSensori;
+		this.modelListaSensore = modelListaSensore;
+	}
 
 	public boolean isEmptyList() {
 		return modelListaSensore.isEmptyList();

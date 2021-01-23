@@ -33,11 +33,20 @@ import utility.InputDati;
 public class ListaRegoleSempreVereController {
 	
 	private InputDati inputDati = new InputDati();
-	private ListaAttuatoriController attuatoriController = new ListaAttuatoriController();
-	private ListaRegoleSempreVereView regoleSempreVereView = new ListaRegoleSempreVereView();
-	private ListaCategoriaAttuatoriController categoriaAttuatoreController = new ListaCategoriaAttuatoriController();
-	private ListaRegoleSempreVereModel modelRegoleSempreVere = new ListaRegoleSempreVereModel();
+	private ListaAttuatoriController attuatoriController;
+	private ListaRegoleSempreVereView regoleSempreVereView;
+	private ListaCategoriaAttuatoriController categoriaAttuatoreController;
+	private ListaRegoleSempreVereModel modelRegoleSempreVere;
 	
+
+	
+	
+	public ListaRegoleSempreVereController(ListaRegoleSempreVereView regoleSempreVereView,
+			ListaRegoleSempreVereModel modelRegoleSempreVere) {
+		this.regoleSempreVereView = regoleSempreVereView;
+		this.modelRegoleSempreVere = modelRegoleSempreVere;
+	}
+
 	public void printList() {
 		int i = 1;
 		Set<String> keys = modelRegoleSempreVere.getKeys();

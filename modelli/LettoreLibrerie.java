@@ -38,13 +38,18 @@ import modelli.liste.ListaUnitaImmobiliareController;
 import modelli.liste.ListaUnitaImmobiliareModel;
 
 public class LettoreLibrerie {
+
 	
+	
+
+	public LettoreLibrerie() {}
 
 	/**
 	 * legge da librearia esterna (file csvs)
 	 * @throws IOException
 	 */
-	public void letturaLibreriaCategorie() throws IOException {
+	public void letturaLibreriaCategorie(ListaCategoriaSensoriController controllerCategoriaSensori,
+			ListaCategoriaAttuatoriController controllerCategoriaAttuatori) throws IOException {
 			
 			boolean parametrico = false;
 			boolean nonParametrico = false;
@@ -56,8 +61,6 @@ public class LettoreLibrerie {
 			ModalitaOperativaParametrica modalita;
 			Parametro parametro;
 			ArrayList<ModalitaOperativaParametrica> listaModalitaOperativeParametriche = new ArrayList<>();
-			ListaCategoriaSensoriController controllerCategoriaSensori = new ListaCategoriaSensoriController();
-			ListaCategoriaAttuatoriController controllerCategoriaAttuatori = new ListaCategoriaAttuatoriController();
 			
 			InputStreamReader isr = new InputStreamReader(this.getClass().getResource("/LibreriaCategorie.csv").openStream());
 
@@ -138,7 +141,9 @@ public class LettoreLibrerie {
 	 * legge da librearia esterna (file csvs)
 	 * @throws IOException
 	 */
-	public void letturaLibreriaUnita() throws IOException {
+	public void letturaLibreriaUnita(ListaCategoriaSensoriController controllerCategoriaSensori,
+			ListaCategoriaAttuatoriController controllerCategoriaAttuatori, ListaUnitaImmobiliareController controllerUnitaImmobiliare, ListaSensoriController controllerSensori,
+			ListaAttuatoriController controllerAttuatori) throws IOException {
 		
 		UnitaImmobiliare unita;
 		ArrayList<String> stanze = new ArrayList<>();
@@ -148,11 +153,6 @@ public class LettoreLibrerie {
 		Sensore sensoreNumerico;
 		Sensore sensoreNonNumerico;
 		Attuatore attuatore;
-		ListaUnitaImmobiliareController controllerUnitaImmobiliare = new ListaUnitaImmobiliareController();
-		ListaCategoriaSensoriController controllerCategoriaSensori = new ListaCategoriaSensoriController();
-		ListaCategoriaAttuatoriController controllerCategoriaAttuatori = new ListaCategoriaAttuatoriController();
-		ListaSensoriController controllerSensori = new ListaSensoriController();
-		ListaAttuatoriController controllerAttuatori = new ListaAttuatoriController();
 		
 		InputStreamReader isr = new InputStreamReader(this.getClass().getResource("/LibreriaUnita.csv").openStream());
 
@@ -232,7 +232,9 @@ public class LettoreLibrerie {
 	 * legge da librearia esterna (file csvs)
 	 * @throws IOException
 	 */
-	public void letturaLibreriaRegole() throws IOException {
+	public void letturaLibreriaRegole(ListaRegoleSempreVereController controllerRegoleSempreVere,
+			ListaRegoleSingoloSensoreController controllerRegoleSingoloSensore,
+			ListaRegoleDueSensoriController controllerRegoleDueSensori) throws IOException {
 		
 		AntecedenteSempreVero sempreVero;
 		AntecedenteSingoloSensore singoloSensore;
@@ -245,9 +247,6 @@ public class LettoreLibrerie {
 		RegolaDueSensori regolaDueSensori;
 		boolean fineAzioni = false;
 		int j = 0;
-		ListaRegoleSempreVereController controllerRegoleSempreVere = new ListaRegoleSempreVereController();
-		ListaRegoleSingoloSensoreController controllerRegoleSingoloSensore = new ListaRegoleSingoloSensoreController();
-		ListaRegoleDueSensoriController controllerRegoleDueSensori = new ListaRegoleDueSensoriController();
 		
 		InputStreamReader isr = new InputStreamReader(this.getClass().getResource("/LibreriaRegole.csv").openStream());
 

@@ -94,6 +94,39 @@ public class Attuatore {
 	public String getUnitaAssociata() {
 		return unitaAssociata;
 	}
+	
+	 
+	public void setNomeAttuatore(String nomeAttuatore) {
+		this.nomeAttuatore = nomeAttuatore;
+	}
+
+	public void setCategoriaAssociata(CategoriaAttuatori categoriaAssociata) {
+		this.categoriaAssociata = categoriaAssociata;
+	}
+
+	public void setUnitaAssociata(String unitaAssociata) {
+		this.unitaAssociata = unitaAssociata;
+	}
+
+	public AttuatoreMemento saveToMemento() {
+		AttuatoreMemento sensoreMemento = new AttuatoreMemento(this.nomeAttuatore, this.artefattoAssociato, this.categoriaAssociata, this.statoAttivo, this.unitaAssociata);
+		return sensoreMemento;
+	}
+		
+	public void undoFromMemento(AttuatoreMemento attuatoreMemento) {
+		this.nomeAttuatore = attuatoreMemento.getNomeAttuatore();
+	    this.artefattoAssociato = attuatoreMemento.getArtefattoAssociato();
+	    this.categoriaAssociata = attuatoreMemento.getCategoriaAssociata();
+	    this.statoAttivo = attuatoreMemento.isStatoAttivo(); 
+		this.unitaAssociata = attuatoreMemento.getUnitaAssociata();
+	}
+		
+	public void printInfo() {
+		System.out.println("Nome Attuatore: " + this.nomeAttuatore);
+		System.out.println("Artefatto Associato: " + this.artefattoAssociato);
+		System.out.println("Categoria Associata: " + this.categoriaAssociata.getNome());
+		System.out.println("Stato Attuatore: " + this.statoAttivo);
+	}
     
     
 }

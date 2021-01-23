@@ -23,12 +23,19 @@ import utility.InputDati;
 public class ListaCategoriaAttuatoriController {
 	
 	private InputDati inputDati = new InputDati();
-	private ListaCategoriaAttuatoriView viewCategoriaAttuatori = new ListaCategoriaAttuatoriView();
-	private ListaCategoriaAttuatoriModel modelCategoriaAttuatori = new ListaCategoriaAttuatoriModel();
-	private ListaAttuatoriController controllerAttuatori = new ListaAttuatoriController();
+	private ListaCategoriaAttuatoriView viewCategoriaAttuatori;
+	private ListaCategoriaAttuatoriModel modelCategoriaAttuatori;
+	private ListaAttuatoriController controllerAttuatori;
 	
 
-    public void printList() {
+    
+    public ListaCategoriaAttuatoriController(ListaCategoriaAttuatoriView viewCategoriaAttuatori,
+			ListaCategoriaAttuatoriModel modelCategoriaAttuatori) {
+		this.viewCategoriaAttuatori = viewCategoriaAttuatori;
+		this.modelCategoriaAttuatori = modelCategoriaAttuatori;
+	}
+
+	public void printList() {
         int i=1;
         Set<String> keys = modelCategoriaAttuatori.getKeys();
         for (String k : keys) {

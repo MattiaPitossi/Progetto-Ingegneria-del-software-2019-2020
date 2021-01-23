@@ -29,14 +29,29 @@ public class MenuFruitore {
     private UnitaImmobiliare unitaScelta;
     private boolean isUnitaScelta = false;
 	private ArrayList<Azioni> azioni = new ArrayList<Azioni>();
-	private ListaSensoriController sensoriController = new ListaSensoriController();
-	private ListaUnitaImmobiliareController unitaController = new ListaUnitaImmobiliareController();
-	private ListaAttuatoriController attuatoriController = new ListaAttuatoriController();
-	private ListaRegoleSempreVereController regoleSempreVereController = new ListaRegoleSempreVereController();
-	private ListaRegoleSingoloSensoreController regoleSingoloSensoreController = new ListaRegoleSingoloSensoreController();
-	private ListaRegoleDueSensoriController regoleDueSensoriController = new ListaRegoleDueSensoriController();
+	private ListaSensoriController sensoriController;
+	private ListaUnitaImmobiliareController unitaController;
+	private ListaAttuatoriController attuatoriController;
+	private ListaRegoleSempreVereController regoleSempreVereController;
+	private ListaRegoleSingoloSensoreController regoleSingoloSensoreController;
+	private ListaRegoleDueSensoriController regoleDueSensoriController;
 	
-    public void esegui(){
+	
+	
+    public MenuFruitore(ListaSensoriController sensoriController, ListaUnitaImmobiliareController unitaController,
+			ListaAttuatoriController attuatoriController, ListaRegoleSempreVereController regoleSempreVereController,
+			ListaRegoleSingoloSensoreController regoleSingoloSensoreController,
+			ListaRegoleDueSensoriController regoleDueSensoriController) {
+		this.sensoriController = sensoriController;
+		this.unitaController = unitaController;
+		this.attuatoriController = attuatoriController;
+		this.regoleSempreVereController = regoleSempreVereController;
+		this.regoleSingoloSensoreController = regoleSingoloSensoreController;
+		this.regoleDueSensoriController = regoleDueSensoriController;
+	}
+
+
+	public void esegui(){
       MyMenu menuMain = new MyMenu(TITOLO, VOCIMENU);
       boolean fineProgramma = false;
       do{

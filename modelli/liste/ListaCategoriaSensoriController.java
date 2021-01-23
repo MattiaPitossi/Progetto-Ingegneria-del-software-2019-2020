@@ -16,11 +16,18 @@ import utility.InputDati;
 public class ListaCategoriaSensoriController {
 	 
 	private InputDati inputDati = new InputDati();
-	private ListaCategoriaSensoriView viewCategoriaSensori = new ListaCategoriaSensoriView();
-	private ListaSensoriController controllerSensori = new ListaSensoriController();
-	private ListaCategoriaSensoriModel modelCategoriaSensori = new ListaCategoriaSensoriModel();
+	private ListaCategoriaSensoriView viewCategoriaSensori;
+	private ListaSensoriController controllerSensori;
+	private ListaCategoriaSensoriModel modelCategoriaSensori;
 	
+
 	
+	public ListaCategoriaSensoriController(ListaCategoriaSensoriView viewCategoriaSensori,
+			ListaCategoriaSensoriModel modelCategoriaSensori) {
+		this.viewCategoriaSensori = viewCategoriaSensori;
+		this.modelCategoriaSensori = modelCategoriaSensori;
+	}
+
 	public void printList() {
 		        int i=1;
 		        Set<String> keys = modelCategoriaSensori.getKeys();
