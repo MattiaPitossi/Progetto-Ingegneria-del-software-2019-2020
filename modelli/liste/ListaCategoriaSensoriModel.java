@@ -49,4 +49,16 @@ public class ListaCategoriaSensoriModel implements ListeModelExist, ListeModelEm
 		Set<String> keys = listaCategoriaSensori.keySet();
 		return keys;
 	}
+    
+    public String getValoreDominioNonNumerico(String scegliSensore, int scegliDominioNonNumerico) {
+    	return this.getCategoriaSensori(scegliSensore).getDominioValoriRilevati().get(scegliDominioNonNumerico);
+    }
+    
+    public void getDatiRilevati(String scegliSensore) {
+    	this.getCategoriaSensori(scegliSensore).getDatiRilevati();
+    }
+    
+    public int sizeDominioValoriRilevati(String scegliSensore) {
+    	return this.getCategoriaSensori(scegliSensore).getDominioValoriRilevati().size();
+    }
 }

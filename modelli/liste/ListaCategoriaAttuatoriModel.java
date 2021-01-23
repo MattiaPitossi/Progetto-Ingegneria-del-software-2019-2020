@@ -56,4 +56,12 @@ public class ListaCategoriaAttuatoriModel implements ListeModelExist, ListeModel
     public String getNome(boolean verifica, ArrayList<Attuatore> listaAttuatori, int x) {
     	return this.getCategoriaAttuatori(listaAttuatori.get(x).getCategoriaAssociata()).getListaModalitaOperativeParametriche(verifica).getNome();
     }
+    
+    public boolean isNameEmpty(String scegliAttuatore, boolean verifica) {
+    	return this.getCategoriaAttuatori(scegliAttuatore).getListaModalitaOperativeParametriche(verifica).getNome().equalsIgnoreCase("");
+    }
+    
+    public String getModalitaOperativaNonParametrica(String scegliAttuatore) {
+    	return this.getCategoriaAttuatori(scegliAttuatore).getModalitaOperativaNonParametrica();
+    }
 }

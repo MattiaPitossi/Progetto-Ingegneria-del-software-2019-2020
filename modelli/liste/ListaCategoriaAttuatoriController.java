@@ -46,11 +46,11 @@ public class ListaCategoriaAttuatoriController {
     }
     
     public String getModalitaOperativaNonParametrica(int scegliAttuatore) {
-    	return modelCategoriaAttuatori.getCategoriaAttuatori(controllerAttuatori.getCategoriaAssociata(scegliAttuatore)).getModalitaOperativaNonParametrica();
+    	return modelCategoriaAttuatori.getModalitaOperativaNonParametrica(controllerAttuatori.getCategoriaAssociata(scegliAttuatore));
     }
     
     public boolean isCategoriaNonParametrica(boolean verifica, int scegliAttuatore) {
-    	return modelCategoriaAttuatori.getCategoriaAttuatori(controllerAttuatori.getCategoriaAssociata(scegliAttuatore)).getListaModalitaOperativeParametriche(verifica).getNome().equalsIgnoreCase("");
+    	return modelCategoriaAttuatori.isNameEmpty(controllerAttuatori.getCategoriaAssociata(scegliAttuatore), verifica);
     }
     
     public boolean alreadyExist(String choiceActuatorCategory) {

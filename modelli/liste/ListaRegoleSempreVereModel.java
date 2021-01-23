@@ -1,5 +1,6 @@
 package modelli.liste;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -8,6 +9,7 @@ import modelli.RegolaDueSensori;
 import modelli.RegolaSempreVera;
 import modelli.categorie.CategoriaAttuatori;
 import modelli.dispositivi.Sensore;
+import modelli.Azioni;
 
 public class ListaRegoleSempreVereModel implements ListeModelExist, ListeModelEmpty, ListeModelSize{
 	 private Map<String, RegolaSempreVera> listaRegolaSempreVera;
@@ -62,4 +64,19 @@ public class ListaRegoleSempreVereModel implements ListeModelExist, ListeModelEm
         return listaRegolaSempreVera.get(key);
     }
 	
+	public ArrayList<Azioni> getArrayAzioni(String keyRegola) {
+		return this.getRegolaSempreVera(keyRegola).getConseguente().getArrayAzioni();
+	}
+	
+	public boolean getAttivaDisattiva(String keyRegola) {
+		return this.getRegolaSempreVera(keyRegola).getAttivaDisattiva();
+	}
+	
+	public void setAttivaDisattiva(String keyRegola, boolean trueOrFalse) {
+		this.getRegolaSempreVera(keyRegola).setAttivaDisattiva(trueOrFalse);
+	}
+	
+	public String getNomeRegola(String key) {
+		return this.getRegolaSempreVera(key).getNomeRegola();
+	}
 }

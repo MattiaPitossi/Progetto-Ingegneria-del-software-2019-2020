@@ -406,7 +406,7 @@ public class ListaRegoleSingoloSensoreController {
 			for(int k = 0; k < sensoriController.getListSize(); k++) {
 				
 				//if per verificare se il nome del sensore e' lo stesso nell'antecedente 
-				if(modelRegoleSingoloSensore.getRegolaSingoloSensore(keyRegola).getAntecedente().getNomeSensore().equalsIgnoreCase(sensoriController.getNomeSensore(k))) {
+				if(modelRegoleSingoloSensore.verificaNomeSensore(keyRegola, sensoriController.getNomeSensore(k))) {
 					
 					//Se almeno un sessroe non e' attivo allora la regola verra' disattivata 
 					if(!sensoriController.isStatoAttivo(k)) {
@@ -419,7 +419,7 @@ public class ListaRegoleSingoloSensoreController {
 			if(!regolaImpossibileDaAttivare) {
 				
         		//Ciclo for in cui verifica per ogni azione del conseguente 
-        		for(Azioni azione : modelRegoleSingoloSensore.getRegolaSingoloSensore(keyRegola).getConseguente().getArrayAzioni()) {
+        		for(Azioni azione : modelRegoleSingoloSensore.getArrayAzioni(keyRegola)) {
             		
         			//Ciclo for per trovare la posizione dell'attuatore 
     				for(int k = 0; k < attuatoriController.getSize(); k++) {
@@ -445,12 +445,12 @@ public class ListaRegoleSingoloSensoreController {
   			
   			
   			//Ciclo if in cui il fruitore puo' disattivare la regola se la regola e' gia' attiva
-  			if(modelRegoleSingoloSensore.getRegolaSingoloSensore(keyRegola).getAttivaDisattiva()) {
+  			if(modelRegoleSingoloSensore.getAttivaDisattiva(keyRegola)) {
   				do {
       				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_DISATTIVARE_LA_REGOLA_Y_N);
       				fineSceltaRegola = false;
       					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
-      						modelRegoleSingoloSensore.getRegolaSingoloSensore(keyRegola).setAttivaDisattiva(false);
+      						modelRegoleSingoloSensore.setAttivaDisattiva(keyRegola, false);
       						System.out.println(MESS_LA_REGOLA_È_STATA_DISATTIVATA);
       						fineSceltaRegola = true;
       					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
@@ -468,7 +468,7 @@ public class ListaRegoleSingoloSensoreController {
       				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_LA_REGOLA_Y_N);
       				fineSceltaRegola = false;
       					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
-      						modelRegoleSingoloSensore.getRegolaSingoloSensore(keyRegola).setAttivaDisattiva(true);
+      						modelRegoleSingoloSensore.setAttivaDisattiva(keyRegola, true);
       						System.out.println(MESS_LA_REGOLA_È_STATA_ATTIVATA);
       						fineSceltaRegola = true;
       					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
@@ -516,7 +516,7 @@ public class ListaRegoleSingoloSensoreController {
 					for(int k = 0; k < sensoriController.getListSize(); k++) {
 						
 						//if per verificare se il nome del sensore e' lo stesso nell'antecedente 
-						if(modelRegoleSingoloSensore.getRegolaSingoloSensore(key).getAntecedente().getNomeSensore().equalsIgnoreCase(sensoriController.getNomeSensore(k))) {
+						if(modelRegoleSingoloSensore.verificaNomeSensore(key, sensoriController.getNomeSensore(k))) {
 							
 							//Se almeno un sessroe non e' attivo allora la regola verra' disattivata 
 							if(!sensoriController.isStatoAttivo(k)) {
@@ -529,7 +529,7 @@ public class ListaRegoleSingoloSensoreController {
 					if(!regolaDaDisattivare) {
 						
                 		//Ciclo for in cui verifica per ogni azione del conseguente 
-                		for(Azioni azione : modelRegoleSingoloSensore.getRegolaSingoloSensore(key).getConseguente().getArrayAzioni()) {
+                		for(Azioni azione : modelRegoleSingoloSensore.getArrayAzioni(key)) {
                     		
                 			//Ciclo for per trovare la posizione dell'attuatore 
     						for(int k = 0; k < attuatoriController.getSize(); k++) {
@@ -548,12 +548,12 @@ public class ListaRegoleSingoloSensoreController {
             	
             	//Se il valore boolean e' true allora la regola e' da disattivare 
             	if(regolaDaDisattivare) {
-            		modelRegoleSingoloSensore.getRegolaSingoloSensore(key).setAttivaDisattiva(false);
-        			System.out.println("La regola " + modelRegoleSingoloSensore.getRegolaSingoloSensore(key).getNomeRegola() + " e' stata disattivata. ");
+            		modelRegoleSingoloSensore.setAttivaDisattiva(key, false);
+        			System.out.println("La regola " + modelRegoleSingoloSensore.getNomeRegola(key) + " e' stata disattivata. ");
         		} else {
         			//Se la regola era disattiva allora adesso si riattiva 
         			if(!modelRegoleSingoloSensore.getRegolaSingoloSensore(key).getAttivaDisattiva()) {
-        				System.out.println("La regola " + modelRegoleSingoloSensore.getRegolaSingoloSensore(key).getNomeRegola() + " puo' essere riattivata.");
+        				System.out.println("La regola " + modelRegoleSingoloSensore.getNomeRegola(key) + " puo' essere riattivata.");
         			}
         		}
             	

@@ -1,9 +1,11 @@
 package modelli.liste;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import modelli.Azioni;
 import modelli.RegolaSempreVera;
 import modelli.RegolaSingoloSensore;
 import modelli.categorie.CategoriaAttuatori;
@@ -59,4 +61,24 @@ public class ListaRegoleSingoloSensoreModel implements ListeModelExist, ListeMod
 	public RegolaSingoloSensore getRegolaSingoloSensore(String key){
         return listaRegoleSingoloSensore.get(key);
     }
-}
+	
+	public boolean verificaNomeSensore(String keyRegola, String nomeSensore) {
+		return this.getRegolaSingoloSensore(keyRegola).getAntecedente().getNomeSensore().equalsIgnoreCase(nomeSensore);
+	}
+	
+	public ArrayList<Azioni> getArrayAzioni(String keyRegola) {
+		return this.getRegolaSingoloSensore(keyRegola).getConseguente().getArrayAzioni();
+	}
+	
+	public boolean getAttivaDisattiva(String keyRegola) {
+		return this.getRegolaSingoloSensore(keyRegola).getAttivaDisattiva();
+	}
+	
+	public void setAttivaDisattiva(String keyRegola, boolean trueOrFalse) {
+		this.getRegolaSingoloSensore(keyRegola).setAttivaDisattiva(trueOrFalse);
+	}
+	
+	public String getNomeRegola(String key) {
+		return this.getRegolaSingoloSensore(key).getNomeRegola();
+	}
+ }

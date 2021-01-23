@@ -50,15 +50,19 @@ public class ListaCategoriaSensoriController {
 	}
 	
 	public int sizeDominioValoriRilevati(int scegliSensore) {
-		return modelCategoriaSensori.getCategoriaSensori(controllerSensori.getCategoriaAssociata(scegliSensore)).getDominioValoriRilevati().size();
+		return modelCategoriaSensori.sizeDominioValoriRilevati(controllerSensori.getCategoriaAssociata(scegliSensore));
 	}
 	
 	public void getDatiRilevati(int scegliSensore) {
-		modelCategoriaSensori.getCategoriaSensori(controllerSensori.getCategoriaAssociata(scegliSensore)).getDatiRilevati();
+		modelCategoriaSensori.getDatiRilevati(controllerSensori.getCategoriaAssociata(scegliSensore));
 	}
 	
 	public String getDominioScelto(int scegliSensore, int scegliDominioNonNumerico) {
-		return modelCategoriaSensori.getCategoriaSensori(controllerSensori.getCategoriaAssociata(scegliSensore)).getDominioValoriRilevati().get(scegliDominioNonNumerico);
+		return modelCategoriaSensori.getValoreDominioNonNumerico(controllerSensori.getCategoriaAssociata(scegliSensore), scegliDominioNonNumerico);
+	}
+	
+	public String getDominioZero(String categoriaAssociata) {
+		return this.getCategoriaSensori(categoriaAssociata).getDominioValoriRilevati().get(0);
 	}
  	
 	public boolean creaNuovaCategoria(boolean atLeastOneSensorCategoryCreated) {

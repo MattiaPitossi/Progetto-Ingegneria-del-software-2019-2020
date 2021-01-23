@@ -65,4 +65,24 @@ public class ListaRegoleDueSensoriModel implements ListeModelExist, ListeModelEm
 	public ArrayList<Azioni> getArrayAzioni(String keyRegola) {
 		return this.getRegolaDueSensori(keyRegola).getConseguente().getArrayAzioni();
 	}
+	
+	public boolean verificaNomeSensore(String keyRegola, String nomeSensore) {
+		return this.getRegolaDueSensori(keyRegola).getAntecedente().getNomeSensore().equalsIgnoreCase(nomeSensore);
+	}
+	
+	public boolean verificaNomeSecondoSensore(String keyRegola, String nomeSensore) {
+		return this.getRegolaDueSensori(keyRegola).getAntecedente().getNomeSecondoSensore().equalsIgnoreCase(nomeSensore);
+	}
+	
+	public boolean getAttivaDisattiva(String keyRegola) {
+		return this.getRegolaDueSensori(keyRegola).getAttivaDisattiva();
+	}
+	
+	public void setAttivaDisattiva(String keyRegola, boolean trueOrFalse) {
+		this.getRegolaDueSensori(keyRegola).setAttivaDisattiva(trueOrFalse);
+	}
+	
+	public String getNomeRegola(String key) {
+		return this.getRegolaDueSensori(key).getNomeRegola();
+	}
 }

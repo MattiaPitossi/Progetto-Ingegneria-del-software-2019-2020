@@ -290,7 +290,7 @@ public class ListaRegoleDueSensoriController {
 		for(int k = 0; k < sensoriController.getListSize(); k++) {
 			
 			//if per verificare se il nome di uno dei due sensori e' lo stesso nell'antecedente 
-			if(modelRegoleDueSensori.getRegolaDueSensori(keyRegola).getAntecedente().getNomeSensore().equalsIgnoreCase(sensoriController.getNomeSensore(k)) || modelRegoleDueSensori.getRegolaDueSensori(keyRegola).getAntecedente().getNomeSecondoSensore().equalsIgnoreCase(sensoriController.getNomeSensore(k))) {
+			if(modelRegoleDueSensori.verificaNomeSensore(keyRegola, sensoriController.getNomeSensore(k)) || modelRegoleDueSensori.verificaNomeSecondoSensore(keyRegola, sensoriController.getNomeSensore(k))) {
 				
 				//Se almeno un sensore non e' attivo allora la regola verra' disattivata 
 				if(!sensoriController.isStatoAttivo(k)) {
@@ -303,7 +303,7 @@ public class ListaRegoleDueSensoriController {
 		if(!regolaImpossibileDaAttivare) {
 			
     		//Ciclo for in cui verifica per ogni azione del conseguente 
-    		for(Azioni azione : modelRegoleDueSensori.getRegolaDueSensori(keyRegola).getConseguente().getArrayAzioni()) {
+    		for(Azioni azione : modelRegoleDueSensori.getArrayAzioni(keyRegola)) {
         		
     			//Ciclo for per trovare la posizione dell'attuatore 
 				for(int k = 0; k < attuatoriController.getSize(); k++) {
@@ -329,12 +329,12 @@ public class ListaRegoleDueSensoriController {
 		
 		
 		//Ciclo if in cui il fruitore puo' disattivare la regola se la regola e' gia' attiva
-		if(modelRegoleDueSensori.getRegolaDueSensori(keyRegola).getAttivaDisattiva()) {
+		if(modelRegoleDueSensori.getAttivaDisattiva(keyRegola)) {
 			do {
 				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_DISATTIVARE_LA_REGOLA_Y_N);
 				fineSceltaRegola = false;
 					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
-						modelRegoleDueSensori.getRegolaDueSensori(keyRegola).setAttivaDisattiva(false);
+						modelRegoleDueSensori.setAttivaDisattiva(keyRegola, false);
 						System.out.println(MESS_LA_REGOLA_È_STATA_DISATTIVATA);
 						fineSceltaRegola = true;
 					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
@@ -352,7 +352,7 @@ public class ListaRegoleDueSensoriController {
 				String confermaDisattivaRegola = inputDati.leggiStringaNonVuota(MESS_VUOI_ATTIVARE_LA_REGOLA_Y_N);
 				fineSceltaRegola = false;
 					if(confermaDisattivaRegola.equalsIgnoreCase("Y")) {
-						modelRegoleDueSensori.getRegolaDueSensori(keyRegola).setAttivaDisattiva(true);
+						modelRegoleDueSensori.setAttivaDisattiva(keyRegola, true);
 						System.out.println(MESS_LA_REGOLA_È_STATA_ATTIVATA);
 						fineSceltaRegola = true;
 					} else if(confermaDisattivaRegola.equalsIgnoreCase("N")) {
@@ -400,7 +400,7 @@ public class ListaRegoleDueSensoriController {
 					for(int k = 0; k < sensoriController.getListSize(); k++) {
 						
 						//if per verificare se il nome di uno dei due sensori e' lo stesso nell'antecedente 
-						if(modelRegoleDueSensori.getRegolaDueSensori(key).getAntecedente().getNomeSensore().equalsIgnoreCase(sensoriController.getNomeSensore(k)) || modelRegoleDueSensori.getRegolaDueSensori(key).getAntecedente().getNomeSecondoSensore().equalsIgnoreCase(sensoriController.getNomeSensore(k))) {
+						if(modelRegoleDueSensori.verificaNomeSensore(key, sensoriController.getNomeSensore(k)) || modelRegoleDueSensori.verificaNomeSecondoSensore(key, sensoriController.getNomeSensore(k))) {
 							
 							//Se almeno un sessroe non e' attivo allora la regola verra' disattivata 
 							if(!sensoriController.isStatoAttivo(k)) {
@@ -413,7 +413,7 @@ public class ListaRegoleDueSensoriController {
 					if(!regolaDaDisattivare) {
 						
                 		//Ciclo for in cui verifica per ogni azione del conseguente 
-                		for(Azioni azione : modelRegoleDueSensori.getRegolaDueSensori(key).getConseguente().getArrayAzioni()) {
+                		for(Azioni azione : modelRegoleDueSensori.getArrayAzioni(key)) {
                     		
                 			//Ciclo for per trovare la posizione dell'attuatore 
     						for(int k = 0; k < attuatoriController.getSize(); k++) {
@@ -432,12 +432,12 @@ public class ListaRegoleDueSensoriController {
             	
             	//Se il valore boolean e' true allora la regola e' da disattivare 
             	if(regolaDaDisattivare) {
-            		modelRegoleDueSensori.getRegolaDueSensori(key).setAttivaDisattiva(false);
-        			System.out.println("La regola " + modelRegoleDueSensori.getRegolaDueSensori(key).getNomeRegola() + " e' stata disattivata. ");
+            		modelRegoleDueSensori.setAttivaDisattiva(key, false);
+        			System.out.println("La regola " + modelRegoleDueSensori.getNomeRegola(key) + " e' stata disattivata. ");
         		} else {
         			//Se la regola era disattiva allora adesso si riattiva 
         			if(!modelRegoleDueSensori.getRegolaDueSensori(key).getAttivaDisattiva()) {
-        				System.out.println("La regola " + modelRegoleDueSensori.getRegolaDueSensori(key).getNomeRegola() + " puo' essere riattivata.");
+        				System.out.println("La regola " + modelRegoleDueSensori.getNomeRegola(key) + " puo' essere riattivata.");
         			}
         		}
             	

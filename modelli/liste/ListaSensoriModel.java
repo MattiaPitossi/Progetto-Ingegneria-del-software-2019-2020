@@ -105,4 +105,48 @@ public class ListaSensoriModel implements ListeModelExist, ListeModelEmpty, List
         if(listaSensori.isEmpty()) return true;
         return false;
     }
+    
+    public String getCategoriaAssociata(int scegliSensore) {
+    	return this.getSensorFromList(scegliSensore).getCategoriaAssociata();
+    }
+    
+    public boolean verificaNomePrimoSensore(int i, String nomeSensore) {
+    	return this.getSensorFromList(i).getNomeSensore().equalsIgnoreCase(nomeSensore);
+    }
+    
+    public boolean verificaNomeSensore(int i, String nomeSensore) {
+    	return this.getSensorFromList(i).getNomeSensore().equalsIgnoreCase(nomeSensore);
+    }
+    
+    public int getValoreRilevato(int i) {
+    	return this.getSensorFromList(i).getValoreRilevato();
+    }
+    
+    public String getValoreRilevatoNonNumerico(int j) {
+    	return this.getSensorFromList(j).getValoreRilevatoNonNumerico();
+    }
+    
+    public boolean verificaNomeSecondoSensore(int j, String nomeSecondoSensore) {
+    	return this.getSensorFromList(j).getNomeSensore().equalsIgnoreCase(nomeSecondoSensore);
+    }
+    
+    public boolean isStatoAttivo(int k) {
+    	return this.getSensorFromList(k).isStatoAttivo();
+    }
+    
+    public String getNomeSensore(int scegliSensore) {
+    	return this.getSensorFromList(scegliSensore).getNomeSensore();
+    }
+    
+    public boolean isSensorNumerico(int scegliSensore) {
+    	return this.getSensorFromList(scegliSensore).getTipologiaSensore().equalsIgnoreCase("Numerico");
+    }
+    
+    public boolean isSensorNonNumerico(int scegliSensore) {
+    	return this.getSensorFromList(scegliSensore).getTipologiaSensore().equalsIgnoreCase("Non numerico");
+    }
+    
+    public void setStato(int sceltaSensore, boolean trueOrFalse) {
+    	this.getSensorFromList(sceltaSensore).setStato(trueOrFalse);
+    }
 }
