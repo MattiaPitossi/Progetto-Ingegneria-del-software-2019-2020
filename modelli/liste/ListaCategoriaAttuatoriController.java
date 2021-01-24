@@ -82,7 +82,7 @@ public class ListaCategoriaAttuatoriController {
           if (modelCategoriaAttuatori.alreadyExist(nomeCategoriaAttuatori)) {
             System.out.println(ERRORE_ATTENZIONE_IL_NOME_DI_QUESTA_CATEGORIA_È_GIÀ_PRESENTE);
           }
-        }while (modelCategoriaAttuatori.alreadyExist(nomeCategoriaAttuatori));
+        } while (modelCategoriaAttuatori.alreadyExist(nomeCategoriaAttuatori));
         String descrizioneCategoriaAttuatori = inputDati.leggiStringa(MESS_INSERISCI_UNA_DESCRIZIONE_FACOLTATIVA);
         if(inputDati.yesOrNo(MESS_VUOI_INSERIRE_UNA_MODALITA_PARAMETRICA)){
           String nomeModalita = inputDati.leggiStringaNonVuota(MESS_INSERISCI_UN_NOME_PER_LA_MODALITA_OPERATIVA_PARAMETRICA);

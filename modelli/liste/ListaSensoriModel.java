@@ -27,6 +27,7 @@ public class ListaSensoriModel implements ListeModelExist, ListeModelEmpty, List
      * @param sensore sensore che verra' aggiunto in lista
      * @since versione 1 
      */
+    
     public void addSensoreToList(Sensore sensore){
         listaSensori.add(sensore);
     }

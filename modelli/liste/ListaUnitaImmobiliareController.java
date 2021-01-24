@@ -26,13 +26,13 @@ public class ListaUnitaImmobiliareController {
 	
 	private ListaUnitaImmobiliareView viewListaUnita;
 	private InputDati inputDati = new InputDati();
-	private ListaUnitaImmobiliareModel listaUnita;
+	private ListaUnitaImmobiliareModel listaUnitaModel;
 	 
 	
 	public ListaUnitaImmobiliareController(ListaUnitaImmobiliareView viewListaUnita,
-			ListaUnitaImmobiliareModel listaUnita) {
+			ListaUnitaImmobiliareModel listaUnitaModel) {
 		this.viewListaUnita = viewListaUnita;
-		this.listaUnita = listaUnita;
+		this.listaUnitaModel = listaUnitaModel;
 	}
 	
 	 public void scegliUnita(boolean isUnitaScelta, UnitaImmobiliare unitaScelta) {
@@ -48,15 +48,15 @@ public class ListaUnitaImmobiliareController {
 	 }
 	 
 	 public boolean isEmptyList() {
-		 return listaUnita.isEmptyList();
+		 return listaUnitaModel.isEmptyList();
 	 }
 	 
 	 public boolean alreadyExist(String unita) {
-		 return listaUnita.alreadyExist(unita);
+		 return listaUnitaModel.alreadyExist(unita);
 	 }
 	 
 	 public void addUnita(UnitaImmobiliare unita) {
-		 listaUnita.addUnitaToList(unita);
+		 listaUnitaModel.addUnitaToList(unita);
 	 }
 	 
 	 public void printList() {
@@ -69,62 +69,80 @@ public class ListaUnitaImmobiliareController {
 	 }
 	 
 	 public ArrayList<UnitaImmobiliare> getArray() {
-		 return listaUnita.getArray();
+		 return listaUnitaModel.getArray();
 	 }
 	 
 	 public int getListSize(){
-		 return listaUnita.getListSize();
+		 return listaUnitaModel.getListSize();
 	 }
 	 
 	 public UnitaImmobiliare getUnitaFromList(int i) {
-		 return listaUnita.getUnitaFromList(i);
+		 return listaUnitaModel.getUnitaFromList(i);
 	 }
 	 
-	 public void creaUnita(boolean alreadyCreatedUnit, UnitaImmobiliare unitaImmobiliare, String unitaImmobiliareSceltaManutentore) {
-		 boolean finitoStanze = false;
-         boolean finitoArtefatti = false;
-         boolean finitoNome = false;
+	 public void creaUnita(boolean alreadyCreatedUnit, UnitaImmobiliare unitaImmobiliare
+			 , String unitaImmobiliareSceltaManutentore) {
+		       
          alreadyCreatedUnit = true;
          System.out.println(MESS_LA_NUOVA_UNITA_IMMOBILIARE_VERRÀ_IMPOSTATA_COME_DEFAULT);
          unitaImmobiliare = new UnitaImmobiliare();
-         do {
-           String nomeUnita = inputDati.leggiStringaNonVuota(MESS_INSERISCI_NOME_UNITA_IMMOBILIARE);
-           unitaImmobiliare.setNomeUnita(nomeUnita);
-           unitaImmobiliareSceltaManutentore = unitaImmobiliare.getNomeUnita();
-           if(listaUnita.esisteUnUnitaImmobiliareConNomeUguale(unitaImmobiliare)) {
-             System.out.println(ERRORE_UN_UNITA_CON_LO_STESSO_NOME_ESISTE_GIA);
-           } else {
-             System.out.println(MESS_NOME_UNITÀ_INSERITO);
-             finitoNome = true;
-           }
-         } while (!finitoNome);
-         if(unitaImmobiliare.aggiungiStanza(inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_PRIMA_STANZA))) 
-           System.out.println(MESS_STANZA_AGGIUNTA_CORRETTAMENTE);
-         do{
-           String nomeStanzeSuccessive = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_STANZA_FINE_PER_USCIRE);
-           if(!unitaImmobiliare.alreadyExistRoom(nomeStanzeSuccessive)){
-             if(nomeStanzeSuccessive.equals("fine")) finitoStanze = true;
-             else if(unitaImmobiliare.aggiungiStanza(nomeStanzeSuccessive)) 
-               System.out.println(MESS_STANZA_AGGIUNTA_CORRETTAMENTE);
-           } else {
-             System.out.println(ERRORE_HAI_GIA_INSERITO_UNA_STANZA_CON_LO_STESSO_NOME);
-           }
-         } while(!finitoStanze);
-         if(unitaImmobiliare.aggiungiArtefatto(inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DEL_PRIMO_ARTEFATTO))) 
-           System.out.println(MESS_ARTEFATTO_AGGIUNTO_CORRETTAMENTE);
-         do{
-           String nomeArtefattiSuccessivi = inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELL_ARTEFATTO_FINE_PER_USCIRE);
-           if(!unitaImmobiliare.alreadyExistArtefact(nomeArtefattiSuccessivi)){
-             if(nomeArtefattiSuccessivi.equals("fine")) finitoArtefatti = true;
-             else if(unitaImmobiliare.aggiungiArtefatto(nomeArtefattiSuccessivi)) 
-             System.out.println(MESS_ARTEFATTO_AGGIUNTO_CORRETTAMENTE);
-           } else {
-             System.out.println(ERRORE_HAI_GIA_INSERITO_UN_ARTEFATTO_CON_LO_STESSO_NOME);
-           }
-           
-         } while(!finitoArtefatti);
-         listaUnita.addUnitaToList(unitaImmobiliare);
+         
+         assegnaNomeUnitaImmobiliare(unitaImmobiliare);
+         
+         aggiungiStanzeUnitaImmobiliare(unitaImmobiliare);
+
+         aggiungiArtefattiUnitaImmobiliare(unitaImmobiliare);
+         
+         listaUnitaModel.addUnitaToList(unitaImmobiliare);
          System.out.println(MESS_LA_CREAZIONE_DELL_UNITA_IMMOBILIARE_E_COMPLETATA);
        
 	 }
+
+	public void aggiungiArtefattiUnitaImmobiliare(UnitaImmobiliare unitaImmobiliare) {
+		boolean finitoArtefatti = false;
+        if(unitaImmobiliare.aggiungiArtefatto(inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DEL_PRIMO_ARTEFATTO))) 
+        	System.out.println(MESS_ARTEFATTO_AGGIUNTO_CORRETTAMENTE);   
+        do {
+        	String nomeArtefattiSuccessivi = inputDati.
+        			leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELL_ARTEFATTO_FINE_PER_USCIRE);
+            if(!unitaImmobiliare.alreadyExistArtefact(nomeArtefattiSuccessivi)){
+            	if(nomeArtefattiSuccessivi.equals("fine")) finitoArtefatti = true;
+            	else if(unitaImmobiliare.aggiungiArtefatto(nomeArtefattiSuccessivi))
+            		System.out.println(MESS_ARTEFATTO_AGGIUNTO_CORRETTAMENTE);
+            } else {
+        	   System.out.println(ERRORE_HAI_GIA_INSERITO_UN_ARTEFATTO_CON_LO_STESSO_NOME);
+            }
+        } while(!finitoArtefatti);
+	}
+
+	public void aggiungiStanzeUnitaImmobiliare(UnitaImmobiliare unitaImmobiliare) {
+		boolean finitoStanze = false;
+         if(unitaImmobiliare.aggiungiStanza(inputDati.leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_PRIMA_STANZA))) 
+        	 System.out.println(MESS_STANZA_AGGIUNTA_CORRETTAMENTE);
+         do {
+        	 String nomeStanzeSuccessive = inputDati
+        			 .leggiStringaNonVuota(MESS_INSERISCI_IL_NOME_DELLA_STANZA_FINE_PER_USCIRE);
+             if(!unitaImmobiliare.alreadyExistRoom(nomeStanzeSuccessive)){
+            	 if(nomeStanzeSuccessive.equals("fine")) finitoStanze = true;
+            	 else if(unitaImmobiliare.aggiungiStanza(nomeStanzeSuccessive)) 
+            		 System.out.println(MESS_STANZA_AGGIUNTA_CORRETTAMENTE);
+             } else {
+            	 System.out.println(ERRORE_HAI_GIA_INSERITO_UNA_STANZA_CON_LO_STESSO_NOME);
+             }
+         } while(!finitoStanze);
+	}
+
+	public void assegnaNomeUnitaImmobiliare(UnitaImmobiliare unitaImmobiliare) {
+		boolean finitoNome = false;
+        do {
+        	String nomeUnita = inputDati.leggiStringaNonVuota(MESS_INSERISCI_NOME_UNITA_IMMOBILIARE);
+            unitaImmobiliare.setNomeUnita(nomeUnita);
+            if(listaUnitaModel.esisteUnUnitaImmobiliareConNomeUguale(unitaImmobiliare)) {
+            	System.out.println(ERRORE_UN_UNITA_CON_LO_STESSO_NOME_ESISTE_GIA);
+            } else {
+            	System.out.println(MESS_NOME_UNITÀ_INSERITO);
+                finitoNome = true;
+           }
+        } while (!finitoNome);
+	}
 }

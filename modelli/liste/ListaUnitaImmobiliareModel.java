@@ -54,6 +54,7 @@ public class ListaUnitaImmobiliareModel implements ListeModelExist, ListeModelEm
      * @param attuatore da aggiungere alla lista
      * @since versione 1
      */
+    
     public void addUnitaToList(UnitaImmobiliare unita){
     	listaUnitaImmobiliare.add(unita);
     }
